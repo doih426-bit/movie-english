@@ -1108,3 +1108,139 @@ h2 {
         display: none;
     }
 }
+/* =========================
+   MOBILE FIXED BOOK MODE
+   ========================= */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    position: relative;
+    overscroll-behavior-x: none;
+}
+
+main {
+    overflow: hidden;
+}
+
+/* ページ本体を画面内に完全固定 */
+.book-shell {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* ページ送りボタンが画面外にはみ出さない */
+.page-turn-left {
+    left: 4px;
+}
+
+.page-turn-right {
+    right: 4px;
+}
+
+/* スマホでは本のページだけスワイプ可能 */
+.vocabulary-page {
+    touch-action: pan-y;
+    overflow: hidden;
+}
+
+/* ページ送りアニメーション */
+.word-list.page-turn-next {
+    animation: mobile-page-next .32s ease-out;
+}
+
+.word-list.page-turn-previous {
+    animation: mobile-page-previous .32s ease-out;
+}
+
+@keyframes mobile-page-next {
+    0% {
+        opacity: 0;
+        transform: translateX(35px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes mobile-page-previous {
+    0% {
+        opacity: 0;
+        transform: translateX(-35px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 540px) {
+
+    html,
+    body {
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
+        overscroll-behavior-x: none;
+    }
+
+    main {
+        width: calc(100vw - 20px);
+        max-width: calc(100vw - 20px);
+        margin-left: auto;
+        margin-right: auto;
+        overflow: hidden;
+    }
+
+    .book-shell {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .vocabulary-page {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    /* ページ送りボタンを本の中に配置 */
+    .page-turn {
+        width: 36px;
+        height: 70px;
+        z-index: 10;
+    }
+
+    .page-turn-left {
+        left: 4px;
+    }
+
+    .page-turn-right {
+        right: 4px;
+    }
+
+    /* スマホではスワイプでページ送り */
+    .word-list {
+        width: 100%;
+        max-width: 100%;
+        touch-action: pan-y;
+    }
+
+    .word-entry {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .word-flip {
+        width: 100%;
+        max-width: 100%;
+    }
+}
