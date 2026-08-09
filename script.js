@@ -131,3 +131,59 @@ document.querySelector("#word-list").addEventListener("click", (event) => {
     card.setAttribute("aria-label", isFlipped ? "英語面に戻す" : `${card.querySelector(".word").textContent} の意味を表示`);
 });
 document.addEventListener("keydown", (event) => { if (document.querySelector("#vocabulary").classList.contains("hidden")) return; if (event.key === "ArrowLeft") movePage(-1); if (event.key === "ArrowRight") movePage(1); });
+// ================================
+// スマホのスワイプでページをめくる
+// ================================
+
+let touchStartX = 0;
+let touchStartY = 0;
+let touchStartTime = 0;
+
+const vocabulary = document.querySelector("#vocabulary");
+
+vocabulary.addEventListener(
+    "touchstart",
+    (event) => {
+        if (event.touches.length !== 1) return;
+
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+        touchStartTime = Date.now();
+    },
+    { passive: true }
+);
+
+vocabulary.addEventListener(
+    "touchend",
+    (event) => {
+        if (!touchStartX) return;
+
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchEndY = event.changedTouches[0].clientY;
+
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const duration = Date.now() - touchStartTime;
+
+        touchStartX = 0;
+        touchStartY = 0;
+
+        // 長すぎる操作は無視
+        if (duration > 700) return;
+
+        // 縦方向の動きが大きい場合は無視
+        if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+        // 50px以上横にスワイプしたらページ移動
+        if (Math.abs(deltaX) < 50) return;
+
+        if (deltaX < 0) {
+            // 左へスワイプ → 次のページ
+            movePage(1);
+        } else {
+            // 右へスワイプ → 前のページ
+            movePage(-1);
+        }
+    },
+    { passive: true }
+);
