@@ -7,13 +7,15 @@ body {
     margin: 0;
     width: 100%;
     min-height: 100%;
+    overflow-x: hidden;
 }
 
 body {
+    position: relative;
     color: #252018;
     background: #e8e0d2;
     font-family: Georgia, "Hiragino Mincho ProN", "Yu Mincho", serif;
-    overflow-x: hidden;
+    overscroll-behavior-x: none;
 }
 
 button {
@@ -26,18 +28,24 @@ header {
     color: #fff9ef;
     text-align: center;
     background: #1e2a33;
-    background-image: radial-gradient(circle at top, #425868 0, #1e2a33 60%);
+    background-image:
+        radial-gradient(
+            circle at top,
+            #425868 0,
+            #1e2a33 60%
+        );
 }
 
 header h1 {
     margin: 7px 0 9px;
-    font-size: clamp(28px, 5vw, 40px);
+    font-size: clamp(30px, 5vw, 44px);
     letter-spacing: .02em;
 }
 
 header > p:last-child {
     margin: 0;
     color: #cbd7d5;
+    font-size: 16px;
 }
 
 .eyebrow,
@@ -57,6 +65,7 @@ header > p:last-child {
 main {
     width: min(100% - 32px, 820px);
     margin: 42px auto 60px;
+    overflow: hidden;
 }
 
 h2 {
@@ -88,7 +97,9 @@ h2 {
     background: #fffaf0;
     box-shadow: 0 10px 25px rgba(69, 51, 28, .15);
     text-align: left;
-    transition: transform .2s, box-shadow .2s;
+    transition:
+        transform .2s,
+        box-shadow .2s;
 }
 
 .movie-card:hover {
@@ -139,6 +150,7 @@ h2 {
     overflow: hidden;
     border: 12px solid #382619;
     border-radius: 4px;
+
     background:
         linear-gradient(
             90deg,
@@ -153,6 +165,7 @@ h2 {
             #613d26 3px 7px,
             #784e30 8px 10px
         );
+
     box-shadow:
         inset 0 0 0 4px rgba(24,13,8,.45),
         inset 0 18px 22px rgba(32,17,9,.4),
@@ -163,6 +176,7 @@ h2 {
     position: absolute;
     inset: 25px 22px 29px;
     border: 1px solid rgba(15,8,4,.55);
+
     background:
         linear-gradient(
             90deg,
@@ -176,7 +190,10 @@ h2 {
             rgba(255,255,255,.025) 0 2px,
             transparent 3px 13px
         );
-    box-shadow: inset 0 18px 28px rgba(18,10,5,.4);
+
+    box-shadow:
+        inset 0 18px 28px rgba(18,10,5,.4);
+
     content: "";
 }
 
@@ -188,9 +205,11 @@ h2 {
     height: 25px;
     border-top: 2px solid #a9794a;
     background: linear-gradient(#4b2d1a, #2d1a0f);
+
     box-shadow:
         0 -5px 9px rgba(16,8,4,.48),
         0 8px 7px rgba(45,27,14,.4);
+
     content: "";
 }
 
@@ -203,11 +222,18 @@ h2 {
     padding: 4px 12px;
     border: 1px solid #b89550;
     color: #f2d997;
-    background: linear-gradient(135deg,#795822,#b48a3b,#6c4c19);
+    background: linear-gradient(
+        135deg,
+        #795822,
+        #b48a3b,
+        #6c4c19
+    );
+
     box-shadow:
         0 2px 3px rgba(0,0,0,.4),
         inset 0 1px rgba(255,255,255,.35);
-    font-family: Arial,sans-serif;
+
+    font-family: Arial, sans-serif;
     font-size: 9px;
     font-weight: bold;
     letter-spacing: .16em;
@@ -221,23 +247,34 @@ h2 {
     max-width: 570px;
     margin: 19px auto 0;
     padding: 19px 25px 19px 20px;
+
     border: 1px solid #c6ac76;
     border-left: 15px solid #7a2529;
     border-radius: 2px 5px 5px 2px;
+
     color: #2c251c;
-    background: linear-gradient(
-        105deg,
-        #e8dcc2,
-        #fff9e9 42%,
-        #daceb5
-    );
+
+    background:
+        linear-gradient(
+            105deg,
+            #e8dcc2,
+            #fff9e9 42%,
+            #daceb5
+        );
+
     box-shadow:
         -7px 5px 0 #51191c,
         -11px 8px 0 #311013,
         8px 10px 16px rgba(16,8,4,.62),
         inset 0 0 28px rgba(95,67,29,.18);
-    transform: perspective(800px) rotateY(-3deg);
-    transition: transform .25s ease, box-shadow .25s ease;
+
+    transform:
+        perspective(800px)
+        rotateY(-3deg);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 .shelf-book::before {
@@ -262,7 +299,10 @@ h2 {
 }
 
 .shelf-book:hover {
-    transform: perspective(800px) translateY(-9px) rotateY(-4deg);
+    transform:
+        perspective(800px)
+        translateY(-9px)
+        rotateY(-4deg);
 }
 
 .shelf-book .movie-image {
@@ -272,12 +312,15 @@ h2 {
     height: 118px;
     border: 1px solid rgba(255,255,255,.3);
     border-radius: 1px;
-    background: radial-gradient(
-        circle at 50% 38%,
-        #b84143 0 14%,
-        #741f27 15% 42%,
-        #251d20 43%
-    );
+
+    background:
+        radial-gradient(
+            circle at 50% 38%,
+            #b84143 0 14%,
+            #741f27 15% 42%,
+            #251d20 43%
+        );
+
     box-shadow:
         3px 4px 0 #55301f,
         0 5px 10px rgba(27,12,10,.27);
@@ -295,7 +338,7 @@ h2 {
 
 .shelf-book .book-info strong {
     color: #332719;
-    font-size: clamp(20px,3.7vw,28px);
+    font-size: clamp(20px, 3.7vw, 28px);
     line-height: 1.25;
 }
 
@@ -310,34 +353,47 @@ h2 {
 }
 
 .trailer-image {
-    background: radial-gradient(
-        circle at 50% 38%,
-        #f2e8d2 0 2%,
-        transparent 3% 12%,
-        #be9b58 13% 14%,
-        transparent 15% 23%,
-        #9d2c2e 24% 25%,
-        #29272b 26% 48%,
-        #10171b 49%
-    ) !important;
+    background:
+        radial-gradient(
+            circle at 50% 38%,
+            #f2e8d2 0 2%,
+            transparent 3% 12%,
+            #be9b58 13% 14%,
+            transparent 15% 23%,
+            #9d2c2e 24% 25%,
+            #29272b 26% 48%,
+            #10171b 49%
+        ) !important;
 }
+
+
+/* =========================
+   YOUTUBE
+========================= */
 
 .youtube-preview {
     position: relative;
     z-index: 1;
+
     display: grid;
     grid-template-columns: 150px 1fr;
     gap: 14px;
     align-items: center;
+
     max-width: 570px;
     margin: 17px auto 0;
+
     overflow: hidden;
+
     border: 1px solid rgba(219,195,146,.48);
     border-radius: 3px;
+
     color: #f7ead0;
     background: rgba(25,16,10,.78);
+
     box-shadow: 0 5px 12px rgba(16,8,4,.38);
-    font-family: Arial,sans-serif;
+
+    font-family: Arial, sans-serif;
     text-decoration: none;
 }
 
@@ -352,10 +408,12 @@ h2 {
     position: absolute;
     top: 27px;
     left: 58px;
+
     display: grid;
     width: 38px;
     height: 30px;
     place-items: center;
+
     border-radius: 8px;
     color: white;
     background: #d42128;
@@ -385,6 +443,23 @@ h2 {
    READER
 ========================= */
 
+.book-list {
+    margin-top: 32px;
+    animation: openCollection .35s ease-out;
+}
+
+@keyframes openCollection {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .reader-topbar {
     display: flex;
     align-items: center;
@@ -397,14 +472,14 @@ h2 {
     border: 0;
     color: #574d41;
     background: transparent;
-    font-family: Arial,sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 14px;
 }
 
 .progress {
     margin: 0;
     color: #766b5d;
-    font-family: Arial,sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 14px;
 }
 
@@ -426,9 +501,13 @@ h2 {
 
 .vocabulary-page {
     background: #fffaf0;
+
     box-shadow:
         inset 0 0 35px rgba(103,73,35,.12),
         0 18px 30px rgba(70,46,23,.25);
+
+    touch-action: pan-y;
+    overflow: hidden;
 }
 
 .vocabulary-page::before {
@@ -436,6 +515,7 @@ h2 {
     height: 6px;
     margin: -8px -13px 8px;
     opacity: .8;
+
     background:
         repeating-linear-gradient(
             60deg,
@@ -449,6 +529,7 @@ h2 {
             rgba(120,34,37,.32) 13px 14px,
             transparent 15px 27px
         );
+
     content: "";
 }
 
@@ -461,7 +542,7 @@ h2 {
 
 .word-entry {
     position: relative;
-    min-height: 106px;
+    min-height: 125px;
     border-bottom: 1px solid #ded2bf;
     counter-increment: vocabulary;
 }
@@ -473,11 +554,13 @@ h2 {
 .word-entry::before {
     position: absolute;
     z-index: 2;
-    top: 17px;
+    top: 18px;
     left: 12px;
     color: #b09570;
+
     content: counter(vocabulary, decimal-leading-zero);
-    font-family: Arial,sans-serif;
+
+    font-family: Arial, sans-serif;
     font-size: 11px;
     letter-spacing: .08em;
 }
@@ -485,11 +568,13 @@ h2 {
 .word-flip {
     display: block;
     width: 100%;
-    min-height: 105px;
-    padding: 16px 52px 16px 55px;
+    min-height: 124px;
+    padding: 18px 125px 18px 55px;
+
     border: 0;
     color: inherit;
     background: transparent;
+
     font: inherit;
     text-align: left;
 }
@@ -497,9 +582,12 @@ h2 {
 .word-flip-inner {
     position: relative;
     display: block;
-    min-height: 73px;
+    min-height: 85px;
+
     transform-style: preserve-3d;
-    transition: transform .5s cubic-bezier(.2,.75,.25,1);
+
+    transition:
+        transform .5s cubic-bezier(.2,.75,.25,1);
 }
 
 .word-flip.is-flipped .word-flip-inner {
@@ -520,23 +608,24 @@ h2 {
 
 .word {
     color: #292218;
-    font-size: clamp(21px,3.7vw,28px);
+    font-size: clamp(24px, 3.9vw, 31px);
     font-weight: bold;
-    line-height: 1.25;
+    line-height: 1.3;
 }
 
 .meaning {
     color: #9a7041;
-    font-size: clamp(17px,2.9vw,21px);
+    font-size: clamp(19px, 3vw, 23px);
     font-weight: bold;
 }
 
 .word-level {
     display: inline-block;
     margin-left: 8px;
-    padding: 3px 6px;
+    padding: 4px 7px;
     border-radius: 2px;
-    font-family: Arial,sans-serif;
+
+    font-family: Arial, sans-serif;
     font-size: 9px;
     font-weight: bold;
     letter-spacing: .08em;
@@ -560,56 +649,75 @@ h2 {
 
 .example {
     display: block;
-    margin-top: 9px;
+    margin-top: 11px;
     color: #403729;
-    font-size: clamp(14px,2.5vw,16px);
+    font-size: clamp(16px, 2.6vw, 18px);
     font-style: italic;
     line-height: 1.55;
 }
 
 .translation {
     display: block;
-    margin-top: 8px;
+    margin-top: 9px;
     color: #796e5f;
-    font-size: clamp(14px,2.5vw,16px);
+    font-size: clamp(15px, 2.5vw, 17px);
     line-height: 1.55;
 }
 
 .word-flip-hint {
     position: absolute;
-    right: 12px;
-    bottom: 10px;
+    right: 10px;
+    bottom: 8px;
     color: #ad9b82;
-    font-family: Arial,sans-serif;
-    font-size: 10px;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
 }
 
 .speak-button {
     position: absolute;
-    top: 11px;
-    right: 9px;
+    top: 14px;
+    right: 15px;
     z-index: 3;
-    display: grid;
-    width: 30px;
-    height: 30px;
-    place-items: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    width: 84px;
+    height: 42px;
+
     border: 1px solid #c9b48a;
-    border-radius: 50%;
+    border-radius: 8px;
+
     color: #604424;
     background: #fffaf0;
+
+    font-family: Arial, sans-serif;
     font-size: 14px;
+    font-weight: bold;
+}
+
+.speak-button::after {
+    content: "Sound";
 }
 
 .master-button,
 .cancel-button {
     position: absolute;
-    right: 8px;
-    bottom: 8px;
+    right: 15px;
+    bottom: 12px;
     z-index: 3;
-    padding: 6px 9px;
-    border-radius: 14px;
-    font-family: Arial,sans-serif;
-    font-size: 11px;
+
+    min-width: 84px;
+    min-height: 38px;
+    padding: 7px 11px;
+
+    border-radius: 8px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
     font-weight: bold;
 }
 
@@ -629,9 +737,12 @@ h2 {
     position: absolute;
     inset: 0;
     z-index: 4;
+
     display: grid;
     place-items: center;
+
     color: rgba(92,111,106,.76);
+
     background:
         repeating-linear-gradient(
             45deg,
@@ -640,8 +751,10 @@ h2 {
             transparent 17px 29px
         ),
         rgba(255,250,240,.28);
+
     content: "🕸";
     font-size: 44px;
+
     pointer-events: none;
 }
 
@@ -658,23 +771,31 @@ h2 {
     position: absolute;
     z-index: 5;
     top: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 3px;
+
     width: 66px;
     height: 106px;
     padding: 0 7px;
+
     border: 0;
+
     color: #f8ead0;
     background: linear-gradient(90deg,#573920,#855936);
+
     box-shadow: 0 7px 12px rgba(46,27,12,.38);
-    font-family: Arial,sans-serif;
+
+    font-family: Arial, sans-serif;
+
     transform: translateY(-50%);
+    user-select: none;
 }
 
 .page-turn span {
-    font-family: Georgia,serif;
+    font-family: Georgia, serif;
     font-size: 44px;
 }
 
@@ -692,8 +813,8 @@ h2 {
 }
 
 .page-turn:disabled {
-    opacity: 0;
-    pointer-events: none;
+    opacity: .3;
+    cursor: default;
 }
 
 .flip-guide {
@@ -719,12 +840,17 @@ h2 {
 @keyframes pageNext {
     0% {
         opacity: .5;
-        transform: perspective(1200px) rotateY(-70deg);
+        transform:
+            perspective(1200px)
+            rotateY(-70deg);
         transform-origin: left center;
     }
+
     100% {
         opacity: 1;
-        transform: perspective(1200px) rotateY(0);
+        transform:
+            perspective(1200px)
+            rotateY(0);
         transform-origin: left center;
     }
 }
@@ -732,12 +858,17 @@ h2 {
 @keyframes pagePrevious {
     0% {
         opacity: .5;
-        transform: perspective(1200px) rotateY(70deg);
+        transform:
+            perspective(1200px)
+            rotateY(70deg);
         transform-origin: right center;
     }
+
     100% {
         opacity: 1;
-        transform: perspective(1200px) rotateY(0);
+        transform:
+            perspective(1200px)
+            rotateY(0);
         transform-origin: right center;
     }
 }
@@ -753,7 +884,7 @@ h2 {
     body {
         width: 100%;
         height: 100%;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     body {
@@ -765,7 +896,7 @@ h2 {
     }
 
     header h1 {
-        font-size: 26px;
+        font-size: 28px;
     }
 
     header > p:last-child {
@@ -781,8 +912,6 @@ h2 {
     h2 {
         font-size: 22px;
     }
-
-    /* 本棚 */
 
     .bookshelf {
         min-height: 0;
@@ -859,23 +988,28 @@ h2 {
 
 
     /* =====================
-       READER FULL SCREEN
+       READER
     ===================== */
 
     #vocabulary {
         position: fixed;
         inset: 0;
         z-index: 50;
+
         display: flex;
         flex-direction: column;
+
         width: 100%;
         height: 100dvh;
         min-height: 0;
+
         padding:
             env(safe-area-inset-top)
             10px
             env(safe-area-inset-bottom);
+
         margin: 0;
+
         overflow: hidden;
         background: #e8e0d2;
     }
@@ -884,7 +1018,7 @@ h2 {
         display: none;
     }
 
-    .reader-topbar {
+    #vocabulary .reader-topbar {
         flex: 0 0 auto;
         height: 42px;
         margin: 0;
@@ -914,10 +1048,6 @@ h2 {
         line-height: 1.2;
     }
 
-    /*
-       本そのものを残りの画面いっぱいにする
-    */
-
     .book-shell {
         flex: 1 1 auto;
         min-height: 0;
@@ -926,7 +1056,9 @@ h2 {
         padding: 5px;
         overflow: hidden;
         border-radius: 6px;
-        box-shadow: 0 10px 22px rgba(70,46,23,.25);
+
+        box-shadow:
+            0 10px 22px rgba(70,46,23,.25);
     }
 
     .vocabulary-page {
@@ -941,22 +1073,22 @@ h2 {
         margin: 0 -4px 2px;
     }
 
-    /*
-       5語を画面内に均等配置
-    */
-
     .word-list {
         display: flex;
         flex-direction: column;
+
+        width: 100%;
         height: calc(100% - 6px);
         min-height: 0;
+
         overflow: hidden;
+        touch-action: pan-y;
     }
 
     .word-entry {
-        flex: 1 1 20%;
+        flex: 1 1 25%;
         min-height: 0;
-        height: 20%;
+        height: 25%;
         overflow: hidden;
     }
 
@@ -970,7 +1102,9 @@ h2 {
         width: 100%;
         height: 100%;
         min-height: 0;
-        padding: 7px 37px 7px 27px;
+
+        padding: 9px 100px 9px 27px;
+
         overflow: hidden;
     }
 
@@ -986,8 +1120,8 @@ h2 {
 
     .word {
         display: inline;
-        font-size: clamp(15px, 4.4vw, 20px);
-        line-height: 1.15;
+        font-size: clamp(17px, 4.8vw, 22px);
+        line-height: 1.2;
     }
 
     .word-level {
@@ -998,14 +1132,14 @@ h2 {
 
     .example,
     .translation {
-        margin-top: 4px;
-        font-size: clamp(10px, 2.8vw, 13px);
-        line-height: 1.2;
+        margin-top: 5px;
+        font-size: clamp(11px, 3vw, 14px);
+        line-height: 1.25;
     }
 
     .meaning {
-        font-size: clamp(13px, 3.5vw, 17px);
-        line-height: 1.2;
+        font-size: clamp(14px, 3.8vw, 18px);
+        line-height: 1.25;
     }
 
     .word-flip-hint {
@@ -1015,35 +1149,34 @@ h2 {
     }
 
     .speak-button {
-        top: 5px;
+        top: 6px;
         right: 4px;
-        width: 25px;
-        height: 25px;
-        font-size: 11px;
+        width: 78px;
+        height: 36px;
+        font-size: 13px;
     }
 
     .master-button,
     .cancel-button {
         right: 4px;
-        bottom: 3px;
-        min-height: 22px;
-        padding: 3px 6px;
-        font-size: 7px;
+        bottom: 5px;
+
+        min-width: 78px;
+        min-height: 32px;
+
+        padding: 5px 7px;
+        font-size: 9px;
     }
 
     .word-entry.is-mastered::after {
         font-size: 28px;
     }
 
-    /*
-       ページ送りボタン
-       スマホでは本の端に小さく配置
-    */
-
     .page-turn {
-        width: 25px;
+        width: 30px;
         height: 58px;
         padding: 0;
+
         background: rgba(72,45,26,.86);
         box-shadow: 0 4px 8px rgba(46,27,12,.3);
     }
@@ -1057,11 +1190,11 @@ h2 {
     }
 
     .page-turn-left {
-        left: -5px;
+        left: 4px;
     }
 
     .page-turn-right {
-        right: -5px;
+        right: 4px;
     }
 
     .flip-guide {
@@ -1073,12 +1206,12 @@ h2 {
 
 
 /* =========================
-   VERY SHORT PHONES
+   SHORT PHONES
 ========================= */
 
 @media (max-width: 540px) and (max-height: 700px) {
 
-    .reader-topbar {
+    #vocabulary .reader-topbar {
         height: 36px;
     }
 
@@ -1091,156 +1224,20 @@ h2 {
     }
 
     .word {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .example,
     .translation {
-        font-size: 9px;
+        font-size: 10px;
         line-height: 1.15;
     }
 
     .meaning {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .flip-guide {
         display: none;
-    }
-}
-/* =========================
-   MOBILE FIXED BOOK MODE
-   ========================= */
-
-html,
-body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-body {
-    position: relative;
-    overscroll-behavior-x: none;
-}
-
-main {
-    overflow: hidden;
-}
-
-/* ページ本体を画面内に完全固定 */
-.book-shell {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-}
-
-/* ページ送りボタンが画面外にはみ出さない */
-.page-turn-left {
-    left: 4px;
-}
-
-.page-turn-right {
-    right: 4px;
-}
-
-/* スマホでは本のページだけスワイプ可能 */
-.vocabulary-page {
-    touch-action: pan-y;
-    overflow: hidden;
-}
-
-/* ページ送りアニメーション */
-.word-list.page-turn-next {
-    animation: mobile-page-next .32s ease-out;
-}
-
-.word-list.page-turn-previous {
-    animation: mobile-page-previous .32s ease-out;
-}
-
-@keyframes mobile-page-next {
-    0% {
-        opacity: 0;
-        transform: translateX(35px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes mobile-page-previous {
-    0% {
-        opacity: 0;
-        transform: translateX(-35px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@media (max-width: 540px) {
-
-    html,
-    body {
-        width: 100vw;
-        max-width: 100vw;
-        overflow-x: hidden;
-        overscroll-behavior-x: none;
-    }
-
-    main {
-        width: calc(100vw - 20px);
-        max-width: calc(100vw - 20px);
-        margin-left: auto;
-        margin-right: auto;
-        overflow: hidden;
-    }
-
-    .book-shell {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        overflow: hidden;
-    }
-
-    .vocabulary-page {
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
-    }
-
-    /* ページ送りボタンを本の中に配置 */
-    .page-turn {
-        width: 36px;
-        height: 70px;
-        z-index: 10;
-    }
-
-    .page-turn-left {
-        left: 4px;
-    }
-
-    .page-turn-right {
-        right: 4px;
-    }
-
-    /* スマホではスワイプでページ送り */
-    .word-list {
-        width: 100%;
-        max-width: 100%;
-        touch-action: pan-y;
-    }
-
-    .word-entry {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .word-flip {
-        width: 100%;
-        max-width: 100%;
     }
 }

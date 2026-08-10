@@ -3,77 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie English | Spider-Man Vocabulary</title>
+    <title>Movie English | Vocabulary</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header>
-        <p class="eyebrow">MOVIE ENGLISH</p>
-        <h1>Spider-Man Vocabulary</h1>
-        <p>映画のセリフで学ぶ、英単語帳</p>
-    </header>
 
-    <main>
-        <section class="movie-list" aria-labelledby="library-title">
-            <p class="section-label">YOUR LIBRARY</p>
-            <h2 id="library-title">学習コレクション</h2>
-            <div class="bookshelf">
-                <p class="shelf-plaque">CINEMA STUDIES</p>
-                <button class="movie-card shelf-book collection-book" type="button" onclick="openCollection()">
-                    <span class="movie-image" aria-hidden="true">🕷️</span>
-                    <span class="book-info">
-                        <strong>Spider-manから学ぶ<br>英単語・表現</strong>
-                        <span>Movie vocabulary collection</span>
+<header>
+    <p class="eyebrow">MOVIE ENGLISH</p>
+    <h1>Vocabulary</h1>
+    <p>映画から学ぶ、英単語帳</p>
+</header>
+
+<main>
+
+    <!-- =========================
+         本棚
+    ========================== -->
+    <section
+        class="movie-list"
+        aria-labelledby="library-title"
+    >
+        <p class="section-label">YOUR LIBRARY</p>
+
+        <h2 id="library-title">
+            学習コレクション
+        </h2>
+
+        <div class="bookshelf">
+
+            <p class="shelf-plaque">
+                CINEMA STUDIES
+            </p>
+
+            <button
+                class="movie-card shelf-book collection-book"
+                type="button"
+                id="collection-button"
+                aria-expanded="false"
+                aria-controls="book-list"
+            >
+                <span
+                    class="movie-image"
+                    aria-hidden="true"
+                >
+                    🕷️
+                </span>
+
+                <span class="book-info">
+                    <strong>
+                        Spider-manから学ぶ<br>
+                        英単語・表現
+                    </strong>
+
+                    <span>
+                        Movie vocabulary collection
                     </span>
-                    <span class="open-book">開く →</span>
-                </button>
-            </div>
-        </section>
+                </span>
 
-        <section id="book-list" class="book-list hidden" aria-labelledby="collection-title">
-            <div class="reader-topbar">
-                <button class="back-button" type="button" onclick="goBackToLibrary()">← 本棚へ</button>
-            </div>
-            <p class="section-label">SPIDER-MAN COLLECTION</p>
-            <h2 id="collection-title">Spider-manから学ぶ英単語・表現</h2>
-            <div class="bookshelf">
-                <p class="shelf-plaque">SPIDER-MAN ARCHIVES</p>
-                <button class="movie-card shelf-book lesson-card" type="button" onclick="openBook()">
-                    <span class="movie-image trailer-image" aria-hidden="true">🕸️</span>
-                    <span class="book-info">
-                        <strong>BRAND NEW DAY-<br>New Trailer 4k</strong>
-                        <span id="library-count">32 words &amp; phrases</span>
+                <span class="open-book">
+                    開く ↓
+                </span>
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- =========================
+         Spider-Man コレクション
+    ========================== -->
+    <section
+        id="book-list"
+        class="book-list hidden"
+        aria-labelledby="collection-title"
+    >
+
+        <div class="reader-topbar">
+
+            <button
+                class="back-button"
+                type="button"
+                id="back-library-button"
+            >
+                ← 本棚を閉じる
+            </button>
+
+        </div>
+
+        <p class="section-label">
+            SPIDER-MAN COLLECTION
+        </p>
+
+        <h2 id="collection-title">
+            Spider-manから学ぶ英単語・表現
+        </h2>
+
+        <div class="bookshelf">
+
+            <p class="shelf-plaque">
+                SPIDER-MAN ARCHIVES
+            </p>
+
+
+            <!-- 単語帳 -->
+            <button
+                class="movie-card shelf-book lesson-card"
+                type="button"
+                id="open-book-button"
+            >
+
+                <span
+                    class="movie-image trailer-image"
+                    aria-hidden="true"
+                >
+                    🕸️
+                </span>
+
+                <span class="book-info">
+
+                    <strong>
+                        BRAND NEW DAY-<br>
+                        New Trailer 4k
+                    </strong>
+
+                    <span id="library-count">
+                        29 words &amp; phrases
                     </span>
-                    <span class="open-book">読む →</span>
-                </button>
-                <a class="youtube-preview" href="https://www.youtube.com/watch?v=62bIsvRcPv0" target="_blank" rel="noopener noreferrer" aria-label="Brand New Day - New Trailer 4K をYouTubeで開く">
-                    <img src="https://i.ytimg.com/vi/62bIsvRcPv0/hqdefault.jpg" alt="Brand New Day - New Trailer 4K のYouTubeサムネイル" loading="lazy">
-                    <span class="youtube-play" aria-hidden="true">▶</span>
-                    <span class="youtube-caption"><strong>Watch the trailer</strong><span>BRAND NEW DAY - New Trailer 4K · YouTube</span></span>
-                </a>
-            </div>
-        </section>
 
-        <section id="vocabulary" class="vocabulary hidden" aria-labelledby="book-title">
-            <div class="reader-topbar">
-                <button class="back-button" type="button" onclick="goBackToCollection()">← 単語帳一覧へ</button>
-                <p id="progress" class="progress">1 / 32</p>
-            </div>
+                </span>
 
-            <div class="book-heading">
-                <p class="section-label">SPIDER-MAN · VOCABULARY BOOK</p>
-                <h2 id="book-title">BRAND NEW DAY- New Trailer 4k</h2>
-            </div>
+                <span class="open-book">
+                    読む →
+                </span>
 
-            <div class="book-shell vocabulary-page">
-                <ol class="word-list" id="word-list" aria-label="単語リスト"></ol>
-                <button class="page-turn page-turn-left" id="previous-button" type="button" aria-label="前のページへ"><span aria-hidden="true">‹</span><small>PREV</small></button>
-                <button class="page-turn page-turn-right" id="next-button" type="button" aria-label="次のページへ"><small>NEXT</small><span aria-hidden="true">›</span></button>
-            </div>
+            </button>
 
-            <p class="flip-guide">1ページに5語ずつ収録しています</p>
-        </section>
-    </main>
-    <script src="script.js"></script>
+
+            <!-- YouTube -->
+            <a
+                class="youtube-preview"
+                href="https://www.youtube.com/watch?v=62bIsvRcPv0"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Brand New Day - New Trailer 4K をYouTubeで開く"
+            >
+
+                <img
+                    src="https://i.ytimg.com/vi/62bIsvRcPv0/hqdefault.jpg"
+                    alt="Brand New Day - New Trailer 4K のYouTubeサムネイル"
+                    loading="lazy"
+                >
+
+                <span
+                    class="youtube-play"
+                    aria-hidden="true"
+                >
+                    ▶
+                </span>
+
+                <span class="youtube-caption">
+
+                    <strong>
+                        Watch the trailer
+                    </strong>
+
+                    <span>
+                        BRAND NEW DAY - New Trailer 4K · YouTube
+                    </span>
+
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         単語帳
+    ========================== -->
+    <section
+        id="vocabulary"
+        class="vocabulary hidden"
+        aria-labelledby="book-title"
+    >
+
+        <div class="reader-topbar">
+
+            <button
+                class="back-button"
+                type="button"
+                id="back-collection-button"
+            >
+                ← 単語帳一覧へ
+            </button>
+
+            <p
+                id="progress"
+                class="progress"
+            >
+                1 / 8 ページ
+            </p>
+
+        </div>
+
+
+        <div class="book-heading">
+
+            <p class="section-label">
+                SPIDER-MAN · VOCABULARY BOOK
+            </p>
+
+            <h2 id="book-title">
+                BRAND NEW DAY- New Trailer 4k
+            </h2>
+
+        </div>
+
+
+        <div class="book-shell vocabulary-page">
+
+            <ol
+                class="word-list"
+                id="word-list"
+                aria-label="単語リスト"
+            ></ol>
+
+
+            <!-- ページ送り -->
+            <button
+                class="page-turn page-turn-left"
+                id="previous-button"
+                type="button"
+                aria-label="前のページ"
+            >
+                <span>‹</span>
+                <small>PREV</small>
+            </button>
+
+
+            <button
+                class="page-turn page-turn-right"
+                id="next-button"
+                type="button"
+                aria-label="次のページ"
+            >
+                <small>NEXT</small>
+                <span>›</span>
+            </button>
+
+        </div>
+
+
+        <p class="flip-guide">
+            1ページに4語ずつ収録しています · 左右にスワイプしてページをめくれます
+        </p>
+
+    </section>
+
+</main>
+
+
+<script src="script.js"></script>
+
 </body>
 </html>
