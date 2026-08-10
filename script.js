@@ -1,3 +1,9 @@
+const SUPABASE_URL = "https://duroflqocxilxpnziypr.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_Qxq8Q7Ee3GFV309fpQGsfA_73i84qm_";
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 /* =========================
    MOVIE ENGLISH
    SPIDER-MAN VOCABULARY
@@ -22,7 +28,7 @@ const words = [
     ["find", "見つける", "I need to find a better solution.", "（もっと良い解決策を見つける必要がある）", "Did you find your keys?", "（鍵見つかった？）", "I found a great restaurant nearby.", "（近くに良いレストランを見つけた）"],
     ["way", "方法、やり方", "Is there another way to solve this problem?", "（この問題を解決する別の方法はある？）", "There's no easy way to do this.", "（これを簡単にやる方法はない）", "I know a better way.", "（もっと良いやり方を知っているよ）"],
     ["bad aspect", "悪い側面", "Every technology has a bad aspect.", "（どんな技術にも悪い側面がある）", "We shouldn't ignore the bad aspects.", "（悪い側面を無視すべきではない）", "There are some bad aspects to social media.", "（SNSにはいくつか悪い側面がある）"],
-    ["good aspect", "良い側面", "Let’s focus on the good aspects.", "（良い側面に目を向けよう）", "One good aspect of this job is the flexibility.", "（この仕事の良い点の一つは柔軟性だ）", "We should look at the good aspects too.", "（良い側面も見るべきだ）"],
+    ["good aspect", "良い側面", "Let’s focus on the good aspects.", "（良い側面に目を向けよう）", "One good aspect of this job is the flexibility.", "（その仕事の良い点の一つは柔軟性だ）", "We should look at the good aspects too.", "（良い側面も見るべきだ）"],
     ["decide what ～", "何が〜かを決める", "It’s difficult to decide what is right.", "（何が正しいのかを決めるのは難しい）", "You have to decide what is most important.", "（何が一番重要なのか決めなければならない）", "It's hard to decide what to choose.", "（何を選ぶべきか決めるのは難しい）"],
     ["part of ～", "〜の一部", "Humans are part of nature.", "（人間は自然の一部だ）", "This is part of the plan.", "（これは計画の一部だ）", "Everyone wants to be part of something.", "（誰もが何かの一部になりたいと思っている）"],
     ["come across", "偶然見つける、出会う", "I came across this video online.", "（ネットでこの動画を偶然見つけた）", "I came across an interesting article.", "（面白い記事を偶然見つけた）", "She came across an old friend at the station.", "（彼女は駅で昔の友達に偶然会った）"],
@@ -74,48 +80,98 @@ const studyWords = words
 ========================= */
 const wordsPerPage = 4;
 let currentPage = 0;
-const masteredStorageKey =
-    "movie-english-spiderman-mastered-v4";
 /* =========================
-   LOCAL STORAGE
+   SUPABASE MASTERED
 ========================= */
-function loadMasteredWords() {
+const masteredWords = new Set();
+/*
+   SupabaseからMastered状態を取得
+*/
+async function loadMasteredWords() {
     try {
-        const saved =
-            localStorage.getItem(masteredStorageKey);
-        if (!saved) return new Set();
-        const parsed = JSON.parse(saved);
-        if (!Array.isArray(parsed)) {
-            return new Set();
+        const { data, error } =
+            await supabaseClient
+                .from("words")
+                .select("word, mastered");
+        if (error) {
+            console.error(
+                "Supabase load error:",
+                error
+            );
+            return;
         }
-        return new Set(
-            parsed.filter(
-                index =>
-                    Number.isInteger(index) &&
-                    index >= 0 &&
-                    index < words.length
-            )
-        );
+        masteredWords.clear();
+        data.forEach(row => {
+            if (row.mastered === true) {
+                const index =
+                    words.findIndex(
+                        item =>
+                            item[0] === row.word
+                    );
+                if (index !== -1) {
+                    masteredWords.add(index);
+                }
+            }
+        });
+        renderPage();
     } catch (error) {
         console.error(
             "Mastered data could not be loaded:",
             error
         );
-        return new Set();
     }
 }
-const masteredWords = loadMasteredWords();
-function saveMasteredWords() {
+/*
+   Mastered状態をSupabaseに保存
+*/
+async function setMastered(
+    index,
+    mastered
+) {
+    const wordName =
+        words[index][0];
     try {
-        localStorage.setItem(
-            masteredStorageKey,
-            JSON.stringify([...masteredWords])
-        );
+        const { data, error } =
+            await supabaseClient
+                .from("words")
+                .update({
+                    mastered: mastered
+                })
+                .eq("word", wordName)
+                .select();
+        if (error) {
+            console.error(
+                "Supabase update error:",
+                error
+            );
+            alert(
+                "Masteredの保存に失敗しました。"
+            );
+            return false;
+        }
+        if (!data || data.length === 0) {
+            console.error(
+                "Word was not found in Supabase:",
+                wordName
+            );
+            alert(
+                `Supabaseのwordsテーブルに「${wordName}」がありません。`
+            );
+            return false;
+        }
+        if (mastered) {
+            masteredWords.add(index);
+        } else {
+            masteredWords.delete(index);
+        }
         return true;
     } catch (error) {
         console.error(
             "Mastered data could not be saved:",
             error
+        );
+        alert(
+            "Masteredの保存中にエラーが発生しました。"
         );
         return false;
     }
@@ -124,41 +180,74 @@ function saveMasteredWords() {
    ELEMENTS
 ========================= */
 const collectionButton =
-    document.querySelector("#collection-button");
+    document.querySelector(
+        "#collection-button"
+    );
 const backLibraryButton =
-    document.querySelector("#back-library-button");
+    document.querySelector(
+        "#back-library-button"
+    );
 const openBookButton =
-    document.querySelector("#open-book-button");
+    document.querySelector(
+        "#open-book-button"
+    );
 const backCollectionButton =
-    document.querySelector("#back-collection-button");
+    document.querySelector(
+        "#back-collection-button"
+    );
 const previousButton =
-    document.querySelector("#previous-button");
+    document.querySelector(
+        "#previous-button"
+    );
 const nextButton =
-    document.querySelector("#next-button");
+    document.querySelector(
+        "#next-button"
+    );
 const movieList =
-    document.querySelector(".movie-list");
+    document.querySelector(
+        ".movie-list"
+    );
 const bookList =
-    document.querySelector("#book-list");
+    document.querySelector(
+        "#book-list"
+    );
 const vocabulary =
-    document.querySelector("#vocabulary");
+    document.querySelector(
+        "#vocabulary"
+    );
 const wordList =
-    document.querySelector("#word-list");
+    document.querySelector(
+        "#word-list"
+    );
 const progress =
-    document.querySelector("#progress");
+    document.querySelector(
+        "#progress"
+    );
 const libraryCount =
-    document.querySelector("#library-count");
+    document.querySelector(
+        "#library-count"
+    );
 /* =========================
    PAGE RENDER
 ========================= */
-function renderPage(turnDirection = 0) {
+function renderPage(
+    turnDirection = 0
+) {
     const totalPages =
         Math.ceil(
-            studyWords.length / wordsPerPage
+            studyWords.length /
+            wordsPerPage
         );
     currentPage =
         Math.min(
-            Math.max(currentPage, 0),
-            Math.max(totalPages - 1, 0)
+            Math.max(
+                currentPage,
+                0
+            ),
+            Math.max(
+                totalPages - 1,
+                0
+            )
         );
     const masteredCount =
         masteredWords.size;
@@ -167,7 +256,8 @@ function renderPage(turnDirection = 0) {
             `${words.length} words & phrases · ${masteredCount} mastered`;
     }
     const start =
-        currentPage * wordsPerPage;
+        currentPage *
+        wordsPerPage;
     const pageWords =
         studyWords.slice(
             start,
@@ -191,7 +281,9 @@ function renderPage(turnDirection = 0) {
                     difficulty
                 }) => {
                     const isMastered =
-                        masteredWords.has(index);
+                        masteredWords.has(
+                            index
+                        );
                     return `
 <li
     class="word-entry${isMastered ? " is-mastered" : ""}"
@@ -253,11 +345,9 @@ function renderPage(turnDirection = 0) {
             </span>
         </span>
     </button>
-    <!-- TAP HINT -->
     <span class="word-flip-hint">
         TAP TO FLIP
     </span>
-    <!-- SOUND -->
     <button
         class="speak-button"
         type="button"
@@ -267,7 +357,6 @@ function renderPage(turnDirection = 0) {
     >
         🔊
     </button>
-    <!-- MASTER -->
     ${
         isMastered
             ? `
@@ -299,8 +388,8 @@ function renderPage(turnDirection = 0) {
     previousButton.disabled =
         currentPage === 0;
     nextButton.disabled =
-        currentPage === totalPages - 1;
-    /* PAGE ANIMATION */
+        currentPage ===
+        totalPages - 1;
     wordList.classList.remove(
         "page-turn-next",
         "page-turn-previous"
@@ -318,9 +407,15 @@ function renderPage(turnDirection = 0) {
    NAVIGATION
 ========================= */
 function openCollection() {
-    movieList.classList.add("hidden");
-    bookList.classList.remove("hidden");
-    vocabulary.classList.add("hidden");
+    movieList.classList.add(
+        "hidden"
+    );
+    bookList.classList.remove(
+        "hidden"
+    );
+    vocabulary.classList.add(
+        "hidden"
+    );
     collectionButton.setAttribute(
         "aria-expanded",
         "true"
@@ -331,9 +426,15 @@ function openCollection() {
     });
 }
 function goBackToLibrary() {
-    vocabulary.classList.add("hidden");
-    bookList.classList.add("hidden");
-    movieList.classList.remove("hidden");
+    vocabulary.classList.add(
+        "hidden"
+    );
+    bookList.classList.add(
+        "hidden"
+    );
+    movieList.classList.remove(
+        "hidden"
+    );
     collectionButton.setAttribute(
         "aria-expanded",
         "false"
@@ -344,9 +445,15 @@ function goBackToLibrary() {
     });
 }
 function openBook() {
-    movieList.classList.add("hidden");
-    bookList.classList.add("hidden");
-    vocabulary.classList.remove("hidden");
+    movieList.classList.add(
+        "hidden"
+    );
+    bookList.classList.add(
+        "hidden"
+    );
+    vocabulary.classList.remove(
+        "hidden"
+    );
     currentPage = 0;
     renderPage();
     window.scrollTo({
@@ -355,9 +462,15 @@ function openBook() {
     });
 }
 function goBackToCollection() {
-    vocabulary.classList.add("hidden");
-    bookList.classList.remove("hidden");
-    movieList.classList.add("hidden");
+    vocabulary.classList.add(
+        "hidden"
+    );
+    bookList.classList.remove(
+        "hidden"
+    );
+    movieList.classList.add(
+        "hidden"
+    );
     window.scrollTo({
         top: 0,
         behavior: "smooth"
@@ -366,7 +479,8 @@ function goBackToCollection() {
 function movePage(amount) {
     const lastPage =
         Math.ceil(
-            studyWords.length / wordsPerPage
+            studyWords.length /
+            wordsPerPage
         ) - 1;
     const nextPage =
         Math.min(
@@ -376,17 +490,25 @@ function movePage(amount) {
             ),
             lastPage
         );
-    if (nextPage === currentPage) {
+    if (
+        nextPage ===
+        currentPage
+    ) {
         return;
     }
-    currentPage = nextPage;
-    renderPage(amount);
+    currentPage =
+        nextPage;
+    renderPage(
+        amount
+    );
 }
 /* =========================
    SPEECH
 ========================= */
 function speak(text) {
-    if (!("speechSynthesis" in window)) {
+    if (
+        !("speechSynthesis" in window)
+    ) {
         alert(
             "このブラウザでは音声再生に対応していません。"
         );
@@ -394,9 +516,13 @@ function speak(text) {
     }
     window.speechSynthesis.cancel();
     const utterance =
-        new SpeechSynthesisUtterance(text);
-    utterance.lang = "en-US";
-    utterance.rate = 0.82;
+        new SpeechSynthesisUtterance(
+            text
+        );
+    utterance.lang =
+        "en-US";
+    utterance.rate =
+        0.82;
     window.speechSynthesis.speak(
         utterance
     );
@@ -433,7 +559,7 @@ nextButton.addEventListener(
 ========================= */
 wordList.addEventListener(
     "click",
-    event => {
+    async event => {
         /* SOUND */
         const speakButton =
             event.target.closest(
@@ -457,14 +583,21 @@ wordList.addEventListener(
                 cancelButton.closest(
                     ".word-entry"
                 );
-            if (!entry) return;
+            if (!entry) {
+                return;
+            }
             const index =
                 Number(
                     entry.dataset.wordIndex
                 );
-            masteredWords.delete(index);
-            saveMasteredWords();
-            renderPage();
+            const success =
+                await setMastered(
+                    index,
+                    false
+                );
+            if (success) {
+                renderPage();
+            }
             return;
         }
         /* MASTERED */
@@ -478,14 +611,21 @@ wordList.addEventListener(
                 masterButton.closest(
                     ".word-entry"
                 );
-            if (!entry) return;
+            if (!entry) {
+                return;
+            }
             const index =
                 Number(
                     entry.dataset.wordIndex
                 );
-            masteredWords.add(index);
-            saveMasteredWords();
-            renderPage();
+            const success =
+                await setMastered(
+                    index,
+                    true
+                );
+            if (success) {
+                renderPage();
+            }
             return;
         }
         /* FLIP */
@@ -493,9 +633,13 @@ wordList.addEventListener(
             event.target.closest(
                 ".word-flip"
             );
-        if (!card) return;
+        if (!card) {
+            return;
+        }
         const entry =
-            card.closest(".word-entry");
+            card.closest(
+                ".word-entry"
+            );
         if (
             entry &&
             entry.classList.contains(
@@ -510,9 +654,10 @@ wordList.addEventListener(
             );
         card.setAttribute(
             "aria-pressed",
-            String(isFlipped)
+            String(
+                isFlipped
+            )
         );
-        /* TAP TEXT */
         const flipHint =
             entry
                 ? entry.querySelector(
@@ -552,11 +697,17 @@ document.addEventListener(
         ) {
             return;
         }
-        if (event.key === "ArrowLeft") {
+        if (
+            event.key ===
+            "ArrowLeft"
+        ) {
             event.preventDefault();
             movePage(-1);
         }
-        if (event.key === "ArrowRight") {
+        if (
+            event.key ===
+            "ArrowRight"
+        ) {
             event.preventDefault();
             movePage(1);
         }
@@ -597,15 +748,20 @@ vocabulary.addEventListener(
             return;
         }
         const touchEndX =
-            event.changedTouches[0].clientX;
+            event.changedTouches[0]
+                .clientX;
         const touchEndY =
-            event.changedTouches[0].clientY;
+            event.changedTouches[0]
+                .clientY;
         const deltaX =
-            touchEndX - touchStartX;
+            touchEndX -
+            touchStartX;
         const deltaY =
-            touchEndY - touchStartY;
+            touchEndY -
+            touchStartY;
         const elapsed =
-            Date.now() - touchStartTime;
+            Date.now() -
+            touchStartTime;
         touchStartX = 0;
         touchStartY = 0;
         touchStartTime = 0;
@@ -637,3 +793,8 @@ vocabulary.addEventListener(
    INITIAL
 ========================= */
 renderPage();
+/*
+   ページを読み込んだら
+   SupabaseからMastered状態を取得
+*/
+loadMasteredWords();
