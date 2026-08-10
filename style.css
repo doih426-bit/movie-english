@@ -23,6 +23,10 @@ button {
     font: inherit;
 }
 
+/* =========================
+   HEADER
+========================= */
+
 header {
     padding: 54px 20px 48px;
     color: #fff9ef;
@@ -62,6 +66,10 @@ header > p:last-child {
     color: #e0b968;
 }
 
+/* =========================
+   MAIN
+========================= */
+
 main {
     width: min(100% - 32px, 820px);
     margin: 42px auto 60px;
@@ -80,7 +88,6 @@ h2 {
 .hidden {
     display: none !important;
 }
-
 
 /* =========================
    LIBRARY
@@ -143,6 +150,10 @@ h2 {
     font-weight: bold;
 }
 
+/* =========================
+   BOOKSHELF
+========================= */
+
 .bookshelf {
     position: relative;
     min-height: 290px;
@@ -204,7 +215,12 @@ h2 {
     left: -8px;
     height: 25px;
     border-top: 2px solid #a9794a;
-    background: linear-gradient(#4b2d1a, #2d1a0f);
+
+    background:
+        linear-gradient(
+            #4b2d1a,
+            #2d1a0f
+        );
 
     box-shadow:
         0 -5px 9px rgba(16,8,4,.48),
@@ -218,16 +234,21 @@ h2 {
     z-index: 2;
     top: 12px;
     left: 50%;
+
     margin: 0;
     padding: 4px 12px;
+
     border: 1px solid #b89550;
+
     color: #f2d997;
-    background: linear-gradient(
-        135deg,
-        #795822,
-        #b48a3b,
-        #6c4c19
-    );
+
+    background:
+        linear-gradient(
+            135deg,
+            #795822,
+            #b48a3b,
+            #6c4c19
+        );
 
     box-shadow:
         0 2px 3px rgba(0,0,0,.4),
@@ -237,14 +258,19 @@ h2 {
     font-size: 9px;
     font-weight: bold;
     letter-spacing: .16em;
+
     transform: translateX(-50%);
 }
 
 .shelf-book {
     position: relative;
     z-index: 1;
+
+    display: flex;
+
     min-height: 168px;
     max-width: 570px;
+
     margin: 19px auto 0;
     padding: 19px 25px 19px 20px;
 
@@ -282,8 +308,11 @@ h2 {
     top: 0;
     bottom: 0;
     left: 13px;
+
     width: 2px;
+
     background: rgba(255,223,178,.38);
+
     content: "";
 }
 
@@ -293,7 +322,9 @@ h2 {
     right: 15px;
     bottom: 12px;
     left: 20px;
+
     border: 1px solid rgba(120,81,39,.25);
+
     content: "";
     pointer-events: none;
 }
@@ -308,8 +339,12 @@ h2 {
 .shelf-book .movie-image {
     position: relative;
     z-index: 1;
+
+    flex-shrink: 0;
+
     width: 86px;
     height: 118px;
+
     border: 1px solid rgba(255,255,255,.3);
     border-radius: 1px;
 
@@ -366,7 +401,6 @@ h2 {
         ) !important;
 }
 
-
 /* =========================
    YOUTUBE
 ========================= */
@@ -415,8 +449,10 @@ h2 {
     place-items: center;
 
     border-radius: 8px;
+
     color: white;
     background: #d42128;
+
     font-size: 15px;
 }
 
@@ -437,7 +473,6 @@ h2 {
     font-size: 12px;
     line-height: 1.35;
 }
-
 
 /* =========================
    READER
@@ -464,21 +499,27 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     margin-bottom: 34px;
 }
 
 .back-button {
     padding: 0;
+
     border: 0;
+
     color: #574d41;
     background: transparent;
+
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
 
 .progress {
     margin: 0;
+
     color: #766b5d;
+
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
@@ -493,10 +534,15 @@ h2 {
 
 .book-shell {
     position: relative;
+
     padding: 8px 13px 13px;
+
     border-radius: 8px;
+
     background: #6b4d32;
-    box-shadow: 0 18px 30px rgba(70,46,23,.25);
+
+    box-shadow:
+        0 18px 30px rgba(70,46,23,.25);
 }
 
 .vocabulary-page {
@@ -507,13 +553,17 @@ h2 {
         0 18px 30px rgba(70,46,23,.25);
 
     touch-action: pan-y;
+
     overflow: hidden;
 }
 
 .vocabulary-page::before {
     display: block;
+
     height: 6px;
+
     margin: -8px -13px 8px;
+
     opacity: .8;
 
     background:
@@ -533,17 +583,26 @@ h2 {
     content: "";
 }
 
+/* =========================
+   WORD LIST
+========================= */
+
 .word-list {
     margin: 0;
     padding: 0;
+
     list-style: none;
+
     counter-reset: vocabulary;
 }
 
 .word-entry {
     position: relative;
+
     min-height: 125px;
+
     border-bottom: 1px solid #ded2bf;
+
     counter-increment: vocabulary;
 }
 
@@ -554,8 +613,10 @@ h2 {
 .word-entry::before {
     position: absolute;
     z-index: 2;
+
     top: 18px;
     left: 12px;
+
     color: #b09570;
 
     content: counter(vocabulary, decimal-leading-zero);
@@ -567,11 +628,14 @@ h2 {
 
 .word-flip {
     display: block;
+
     width: 100%;
     min-height: 124px;
+
     padding: 18px 125px 18px 55px;
 
     border: 0;
+
     color: inherit;
     background: transparent;
 
@@ -581,7 +645,9 @@ h2 {
 
 .word-flip-inner {
     position: relative;
+
     display: block;
+
     min-height: 85px;
 
     transform-style: preserve-3d;
@@ -596,18 +662,22 @@ h2 {
 
 .word-face {
     display: block;
+
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
 
 .word-back {
     position: absolute;
+
     inset: 0;
+
     transform: rotateX(180deg);
 }
 
 .word {
     color: #292218;
+
     font-size: clamp(24px, 3.9vw, 31px);
     font-weight: bold;
     line-height: 1.3;
@@ -615,20 +685,24 @@ h2 {
 
 .meaning {
     color: #9a7041;
+
     font-size: clamp(19px, 3vw, 23px);
     font-weight: bold;
 }
 
 .word-level {
     display: inline-block;
+
     margin-left: 8px;
     padding: 4px 7px;
+
     border-radius: 2px;
 
     font-family: Arial, sans-serif;
     font-size: 9px;
     font-weight: bold;
     letter-spacing: .08em;
+
     vertical-align: middle;
 }
 
@@ -649,8 +723,11 @@ h2 {
 
 .example {
     display: block;
+
     margin-top: 11px;
+
     color: #403729;
+
     font-size: clamp(16px, 2.6vw, 18px);
     font-style: italic;
     line-height: 1.55;
@@ -658,29 +735,78 @@ h2 {
 
 .translation {
     display: block;
+
     margin-top: 9px;
+
     color: #796e5f;
+
     font-size: clamp(15px, 2.5vw, 17px);
     line-height: 1.55;
 }
 
+/* =========================
+   FLIP HINT
+========================= */
+
 .word-flip-hint {
     position: absolute;
-    right: 10px;
-    bottom: 8px;
+    z-index: 3;
+
+    top: 63px;
+    right: 46px;
+
+    display: block;
+
+    width: 82px;
+
     color: #ad9b82;
 
     font-family: Arial, sans-serif;
-    font-size: 9px;
+    font-size: 14px;
+    font-weight: 600;
+
+    letter-spacing: .08em;
+    line-height: 1.2;
+
+    text-align: center;
+    white-space: nowrap;
+
+    pointer-events: none;
 }
+
+.word-flip-front-hint {
+    display: inline-flex;
+}
+
+.word-flip-return-hint {
+    display: none;
+}
+
+.word-entry > .word-flip-front-hint {
+    display: inline-flex;
+}
+
+.word-entry:has(.word-flip.is-flipped) > .word-flip-front-hint {
+    display: none;
+}
+
+.word-entry:has(.word-flip.is-flipped) > .word-flip-return-hint {
+    display: inline-flex;
+}
+
+/* =========================
+   SOUND
+========================= */
 
 .speak-button {
     position: absolute;
+
     top: 14px;
     right: 15px;
     z-index: 3;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
     gap: 6px;
@@ -703,15 +829,21 @@ h2 {
     content: "Sound";
 }
 
+/* =========================
+   MASTERED
+========================= */
+
 .master-button,
 .cancel-button {
     position: absolute;
+
     right: 15px;
     bottom: 12px;
     z-index: 3;
 
     min-width: 84px;
     min-height: 38px;
+
     padding: 7px 11px;
 
     border-radius: 8px;
@@ -723,18 +855,21 @@ h2 {
 
 .master-button {
     border: 0;
+
     color: #fff7eb;
     background: #9d2c2e;
 }
 
 .cancel-button {
     border: 1px solid #607570;
+
     color: #38534d;
     background: #f8fbf8;
 }
 
 .word-entry.is-mastered::after {
     position: absolute;
+
     inset: 0;
     z-index: 4;
 
@@ -753,6 +888,7 @@ h2 {
         rgba(255,250,240,.28);
 
     content: "🕸";
+
     font-size: 44px;
 
     pointer-events: none;
@@ -762,7 +898,6 @@ h2 {
     opacity: .48;
 }
 
-
 /* =========================
    PAGE TURN
 ========================= */
@@ -770,27 +905,38 @@ h2 {
 .page-turn {
     position: absolute;
     z-index: 5;
+
     top: 50%;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
     gap: 3px;
 
     width: 66px;
     height: 106px;
+
     padding: 0 7px;
 
     border: 0;
 
     color: #f8ead0;
-    background: linear-gradient(90deg,#573920,#855936);
 
-    box-shadow: 0 7px 12px rgba(46,27,12,.38);
+    background:
+        linear-gradient(
+            90deg,
+            #573920,
+            #855936
+        );
+
+    box-shadow:
+        0 7px 12px rgba(46,27,12,.38);
 
     font-family: Arial, sans-serif;
 
     transform: translateY(-50%);
+
     user-select: none;
 }
 
@@ -819,11 +965,12 @@ h2 {
 
 .flip-guide {
     margin: 18px 0;
+
     color: #766b5d;
+
     font-size: 14px;
     text-align: center;
 }
-
 
 /* =========================
    PAGE ANIMATION
@@ -840,17 +987,21 @@ h2 {
 @keyframes pageNext {
     0% {
         opacity: .5;
+
         transform:
             perspective(1200px)
             rotateY(-70deg);
+
         transform-origin: left center;
     }
 
     100% {
         opacity: 1;
+
         transform:
             perspective(1200px)
             rotateY(0);
+
         transform-origin: left center;
     }
 }
@@ -858,25 +1009,28 @@ h2 {
 @keyframes pagePrevious {
     0% {
         opacity: .5;
+
         transform:
             perspective(1200px)
             rotateY(70deg);
+
         transform-origin: right center;
     }
 
     100% {
         opacity: 1;
+
         transform:
             perspective(1200px)
             rotateY(0);
+
         transform-origin: right center;
     }
 }
 
-
-/* =========================
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media (max-width: 540px) {
 
@@ -891,6 +1045,10 @@ h2 {
         overscroll-behavior: none;
     }
 
+    /* =====================
+       HEADER
+    ===================== */
+
     header {
         padding: 28px 16px 26px;
     }
@@ -903,9 +1061,14 @@ h2 {
         font-size: 13px;
     }
 
+    /* =====================
+       MAIN
+    ===================== */
+
     main {
         width: calc(100% - 20px);
         max-width: none;
+
         margin: 20px auto;
     }
 
@@ -913,9 +1076,15 @@ h2 {
         font-size: 22px;
     }
 
+    /* =====================
+       LIBRARY
+    ===================== */
+
     .bookshelf {
         min-height: 0;
+
         padding: 40px 13px 25px;
+
         border-width: 7px;
     }
 
@@ -925,20 +1094,26 @@ h2 {
 
     .shelf-book {
         min-height: 135px;
+
         margin-top: 10px;
+
         padding: 12px 10px 12px 8px;
+
         border-left-width: 9px;
     }
 
     .shelf-book .movie-image {
         flex: 0 0 58px;
+
         width: 58px;
         height: 88px;
+
         font-size: 28px;
     }
 
     .shelf-book .book-info {
         gap: 4px;
+
         padding: 0 9px;
     }
 
@@ -954,9 +1129,15 @@ h2 {
         display: none;
     }
 
+    /* =====================
+       YOUTUBE
+    ===================== */
+
     .youtube-preview {
         grid-template-columns: 100px 1fr;
+
         gap: 8px;
+
         margin-top: 12px;
     }
 
@@ -968,13 +1149,16 @@ h2 {
     .youtube-play {
         top: 18px;
         left: 36px;
+
         width: 30px;
         height: 24px;
+
         font-size: 11px;
     }
 
     .youtube-caption {
         gap: 3px;
+
         padding-right: 7px;
     }
 
@@ -986,21 +1170,24 @@ h2 {
         font-size: 9px;
     }
 
-
-    /* =====================
+    /* =====================================================
        READER
-    ===================== */
+    ===================================================== */
 
     #vocabulary {
         position: fixed;
+
         inset: 0;
+
         z-index: 50;
 
         display: flex;
+
         flex-direction: column;
 
         width: 100%;
         height: 100dvh;
+
         min-height: 0;
 
         padding:
@@ -1011,6 +1198,7 @@ h2 {
         margin: 0;
 
         overflow: hidden;
+
         background: #e8e0d2;
     }
 
@@ -1018,10 +1206,18 @@ h2 {
         display: none;
     }
 
+    /* =====================
+       TOP BAR
+    ===================== */
+
     #vocabulary .reader-topbar {
         flex: 0 0 auto;
+
+        width: 100%;
         height: 42px;
+
         margin: 0;
+
         align-items: center;
     }
 
@@ -1033,8 +1229,13 @@ h2 {
         font-size: 11px;
     }
 
+    /* =====================
+       TITLE
+    ===================== */
+
     .book-heading {
         flex: 0 0 auto;
+
         margin: 3px 0 7px;
     }
 
@@ -1044,17 +1245,28 @@ h2 {
 
     .book-heading h2 {
         margin: 3px 0 0;
+
         font-size: 17px;
         line-height: 1.2;
     }
 
+    /* =====================
+       BOOK
+    ===================== */
+
     .book-shell {
         flex: 1 1 auto;
+
         min-height: 0;
+
         width: 100%;
+
         margin: 0;
+
         padding: 5px;
+
         overflow: hidden;
+
         border-radius: 6px;
 
         box-shadow:
@@ -1063,53 +1275,75 @@ h2 {
 
     .vocabulary-page {
         height: 100%;
+
         min-height: 0;
+
         padding: 0 4px;
+
         overflow: hidden;
     }
 
     .vocabulary-page::before {
         height: 4px;
+
         margin: 0 -4px 2px;
     }
 
+    /* =====================
+       WORD LIST
+    ===================== */
+
     .word-list {
         display: flex;
+
         flex-direction: column;
 
         width: 100%;
         height: calc(100% - 6px);
+
         min-height: 0;
 
         overflow: hidden;
+
         touch-action: pan-y;
     }
 
     .word-entry {
         flex: 1 1 25%;
+
         min-height: 0;
+
         height: 25%;
+
         overflow: hidden;
     }
 
     .word-entry::before {
         top: 8px;
         left: 4px;
+
         font-size: 8px;
     }
 
     .word-flip {
         width: 100%;
         height: 100%;
+
         min-height: 0;
 
-        padding: 9px 100px 9px 27px;
+        /*
+         * 左右の余白を整理
+         * 右側のSound / Masteredボタンとの
+         * 干渉を防ぐ
+         */
+        padding: 9px 94px 9px 27px;
 
         overflow: hidden;
     }
 
     .word-flip-inner {
         min-height: 0;
+
         height: 100%;
     }
 
@@ -1120,41 +1354,140 @@ h2 {
 
     .word {
         display: inline;
+
         font-size: clamp(17px, 4.8vw, 22px);
+
         line-height: 1.2;
     }
 
     .word-level {
         margin-left: 3px;
+
         padding: 2px 4px;
+
         font-size: 6px;
     }
 
     .example,
     .translation {
         margin-top: 5px;
+
         font-size: clamp(11px, 3vw, 14px);
+
         line-height: 1.25;
     }
 
     .meaning {
         font-size: clamp(14px, 3.8vw, 18px);
+
         line-height: 1.25;
     }
 
+    /* =====================================================
+       MOBILE FLIP HINT
+       
+       ★ ここを大幅修正
+       「Tap to return」が右にはみ出さないように
+       右端からではなく、ボタンより十分左側へ配置
+    ===================================================== */
+
     .word-flip-hint {
-        right: 4px;
-        bottom: 3px;
-        font-size: 6px;
+        position: absolute;
+
+        z-index: 3;
+
+        /*
+         * 以前:
+         * right: 115px;
+         *
+         * 今回:
+         * 右端からさらに距離を取る
+         */
+        right: 145px;
+
+        bottom: 7px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        /*
+         * 文字を収めるための固定幅
+         */
+        width: 82px;
+
+        /*
+         * はみ出し防止
+         */
+        max-width: 82px;
+
+        color: #ad9b82;
+
+        font-family: Arial, sans-serif;
+
+        /*
+         * 12pxだとスマホ幅によって
+         * 長くなりすぎるため11px
+         */
+        font-size: 11px;
+
+        font-weight: 600;
+
+        letter-spacing: .04em;
+
+        line-height: 1.15;
+
+        text-align: center;
+
+        white-space: nowrap;
+
+        /*
+         * ヒント自体が横方向に
+         * はみ出すのを防ぐ
+         */
+        overflow: hidden;
+
+        pointer-events: none;
     }
+
+    .word-flip-front-hint {
+        display: inline-flex;
+    }
+
+    .word-flip-return-hint {
+        display: none;
+    }
+
+    .word-entry > .word-flip-front-hint {
+        display: inline-flex;
+    }
+
+    .word-entry:has(.word-flip.is-flipped) > .word-flip-front-hint {
+        display: none;
+    }
+
+    .word-entry:has(.word-flip.is-flipped) > .word-flip-return-hint {
+        display: flex;
+    }
+
+    /* =====================================================
+       MOBILE SOUND
+    ===================================================== */
 
     .speak-button {
         top: 6px;
         right: 4px;
+
         width: 78px;
         height: 36px;
+
         font-size: 13px;
     }
+
+    /* =====================================================
+       MOBILE MASTERED
+    ===================================================== */
 
     .master-button,
     .cancel-button {
@@ -1165,6 +1498,7 @@ h2 {
         min-height: 32px;
 
         padding: 5px 7px;
+
         font-size: 9px;
     }
 
@@ -1172,13 +1506,20 @@ h2 {
         font-size: 28px;
     }
 
+    /* =====================================================
+       MOBILE PAGE BUTTON
+    ===================================================== */
+
     .page-turn {
         width: 30px;
         height: 58px;
+
         padding: 0;
 
         background: rgba(72,45,26,.86);
-        box-shadow: 0 4px 8px rgba(46,27,12,.3);
+
+        box-shadow:
+            0 4px 8px rgba(46,27,12,.3);
     }
 
     .page-turn span {
@@ -1199,15 +1540,16 @@ h2 {
 
     .flip-guide {
         flex: 0 0 auto;
+
         margin: 5px 0 4px;
+
         font-size: 9px;
     }
 }
 
-
-/* =========================
+/* =========================================================
    SHORT PHONES
-========================= */
+========================================================= */
 
 @media (max-width: 540px) and (max-height: 700px) {
 
@@ -1230,6 +1572,7 @@ h2 {
     .example,
     .translation {
         font-size: 10px;
+
         line-height: 1.15;
     }
 
@@ -1239,5 +1582,15 @@ h2 {
 
     .flip-guide {
         display: none;
+    }
+
+    /*
+     * 短いスマホではさらに左へ
+     */
+    .word-flip-hint {
+        right: 125px;
+        width: 78px;
+        max-width: 78px;
+        font-size: 10px;
     }
 }
