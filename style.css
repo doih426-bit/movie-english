@@ -9,11 +9,11 @@ body {
     overflow-x: hidden;
 }
 body {
-    position: relative;
-    color: #252018;
-    background: #e8e0d2;
-    font-family: Georgia, "Hiragino Mincho ProN", "Yu Mincho", serif;
-    overscroll-behavior-x: none;
+position: relative;
+color: #252018;
+background: #151a1e;
+font-family: Georgia, “Hiragino Mincho ProN”, “Yu Mincho”, serif;
+overscroll-behavior-x: none;
 }
 button {
     cursor: pointer;
@@ -28,34 +28,58 @@ button {
 }
 
 .logout-button {
-    padding: 9px 16px;
-    border: 1px solid #c9b48a;
-    border-radius: 6px;
-    color: #f8ead0;
-    background: transparent;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
+display: inline-flex;
+align-items: center;
+gap: 7px;
+
+padding: 8px 13px;
+border: 1px solid rgba(201,180,138,.65);
+border-radius: 5px;
+color: #e8d3a5;
+background: rgba(255,255,255,.025);
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: bold;
+letter-spacing: .08em;
+transition:
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
+
+}
+
+.logout-button::before {
+content: “↪”;
+
+font-size: 16px;
+line-height: 1;
+
 }
 
 .logout-button:hover {
-    background: rgba(255,255,255,.08);
+border-color: #e0b968;
+background: rgba(224,185,104,.08);
+transform: translateY(-1px);
 }
     padding: 54px 20px 48px;
 /* =========================
    HEADER
 ========================= */
 header {
-  
-    color: #fff9ef;
-    text-align: center;
-    background: #1e2a33;
-    background-image:
-        radial-gradient(
-            circle at top,
-            #425868 0,
-            #1e2a33 60%
-        );
+color: #fff9ef;
+text-align: center;
+
+background:
+    radial-gradient(
+        circle at 50% -20%,
+        #344652 0,
+        #1b252c 38%,
+        #101518 75%,
+        #0b0f11 100%
+    );
+box-shadow:
+    0 10px 35px rgba(0,0,0,.35);
+
 }
 header h1 {
     margin: 7px 0 9px;
@@ -77,7 +101,8 @@ header > p:last-child {
     letter-spacing: .16em;
 }
 .eyebrow {
-    color: #e0b968;
+color: #d4af63;
+text-shadow: 0 1px 10px rgba(212,175,99,.15);
 }
 /* =========================
    MAIN
@@ -1192,102 +1217,767 @@ h2 {
     z-index: 1000;
 
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 
     padding: 30px 20px;
 
-    background:
-        radial-gradient(
-            circle at top,
-            #425868 0,
-            #1e2a33 60%
-        );
+   background:
+radial-gradient(
+circle at 50% 15%,
+#344652 0,
+#1b252c 32%,
+#101518 68%,
+#080b0d 100%
+);
 
     color: #fff9ef;
 }
 
-#auth-screen.hidden {
-    display: none;
+/* subtle cinematic glow */
+
+#auth-screen::before {
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(224,185,104,.08),
+            transparent 55%
+        );
+
+    content: "";
+    pointer-events: none;
+}
+
+/* =========================
+   AUTH CARD
+========================= */
+
+.auth-card {
+    position: relative;
+    z-index: 1;
+
+    width: min(100%, 430px);
+
+    padding: 52px 48px 44px;
+
+    border: 1px solid rgba(224,185,104,.32);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,250,240,.08),
+            rgba(255,250,240,.025)
+        );
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.38),
+        inset 0 1px rgba(255,255,255,.08);
+
+    backdrop-filter: blur(8px);
+}
+
+/* small gold line */
+
+.auth-card::before {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    width: 70px;
+    height: 2px;
+
+    background: #e0b968;
+
+    content: "";
+
+    transform: translateX(-50%);
+}
+
+/* =========================
+   BRAND
+========================= */
+
+.auth-eyebrow {
+    margin: 0 0 13px;
+
+    color: #e0b968;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: .25em;
+
+    text-align: center;
 }
 
 #auth-screen h2 {
-    margin: 0 0 28px;
+    margin: 0;
 
     color: #fff9ef;
 
-    font-size: 32px;
-    letter-spacing: .03em;
+    font-family:
+        Georgia,
+        "Hiragino Mincho ProN",
+        "Yu Mincho",
+        serif;
+
+    font-size: clamp(34px, 8vw, 42px);
+    font-weight: normal;
+
+    letter-spacing: .02em;
+
+    text-align: center;
+}
+
+.auth-subtitle {
+    margin: 12px 0 34px;
+
+    color: #c5cfcd;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    text-align: center;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
 }
 
 #auth-screen input {
-    width: min(100%, 340px);
+    width: 100%;
 
-    margin-bottom: 12px;
     padding: 14px 15px;
 
-    border: 1px solid #71828a;
-    border-radius: 7px;
+    border: 1px solid rgba(224,185,104,.28);
+    border-radius: 3px;
 
     outline: none;
 
-    color: #252018;
-    background: #fffaf0;
+    color: #30291f;
+    background: #f8f1e4;
 
     font-family: Arial, sans-serif;
-    font-size: 15px;
+    font-size: 14px;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s;
+}
+
+#auth-screen input::placeholder {
+    color: #958b7d;
 }
 
 #auth-screen input:focus {
     border-color: #e0b968;
+
     box-shadow:
-        0 0 0 2px rgba(224,185,104,.18);
+        0 0 0 2px rgba(224,185,104,.13);
 }
 
-#login-button {
-    width: min(100%, 340px);
+/* =========================
+   LOGIN BUTTON
+========================= */
 
-    margin-top: 8px;
+#login-button {
+    width: 100%;
+
+    margin-top: 5px;
+
     padding: 14px;
 
-    border: 0;
-    border-radius: 7px;
+    border: 1px solid #b68d42;
+    border-radius: 3px;
 
     color: #fff9ef;
-    background: #9d2c2e;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a77c32,
+            #c29a4d,
+            #956b28
+        );
 
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
+
+    letter-spacing: .12em;
+    text-transform: uppercase;
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.22);
 
     transition:
         transform .2s,
-        background .2s;
+        box-shadow .2s,
+        filter .2s;
 }
 
 #login-button:hover {
     transform: translateY(-2px);
-    background: #b2383b;
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 8px 17px rgba(0,0,0,.3);
 }
 
+/* =========================
+   DIVIDER
+========================= */
+
+.auth-divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 27px 0 20px;
+
+    color: #7e8989;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+
+    letter-spacing: .18em;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    flex: 1;
+
+    height: 1px;
+
+    background: rgba(224,185,104,.18);
+
+    content: "";
+}
+
+/* =========================
+   CONTINUE WITHOUT LOGIN
+========================= */
+
+#guest-button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid rgba(224,185,104,.35);
+    border-radius: 3px;
+
+    color: #d8c9a8;
+
+    background: transparent;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+
+    letter-spacing: .05em;
+
+    transition:
+        color .2s,
+        background .2s,
+        border-color .2s;
+}
+
+#guest-button:hover {
+    color: #fff9ef;
+
+    border-color: rgba(224,185,104,.7);
+
+    background: rgba(224,185,104,.07);
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
 #auth-message {
-    min-height: 20px;
-    margin: 14px 0 0;
+    min-height: 18px;
+
+    margin: 15px 0 0;
 
     color: #e8c98c;
 
     font-family: Arial, sans-serif;
-    font-size: 13px;
+    font-size: 11px;
+
+    line-height: 1.5;
+
     text-align: center;
 }
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 540px) {
-    .site-header-top {
-        align-items: flex-start;
+
+    #auth-screen {
+        padding: 20px;
     }
 
-    .logout-button {
-        padding: 7px 10px;
-        font-size: 10px;
+    .auth-card {
+        width: 100%;
+
+        padding: 42px 25px 34px;
     }
+
+    #auth-screen h2 {
+        font-size: 32px;
+    }
+
+    .auth-subtitle {
+        margin-bottom: 28px;
+
+        font-size: 11px;
+    }
+}
+/* =========================
+   BRAND / HEADINGS
+========================= */
+
+#auth-screen h2 {
+    color: #f5f0e6;
+}
+
+.auth-subtitle {
+    color: #d9d6cf;
+}
+
+.site-header-top h1 {
+    color: #f5f0e6;
+}
+
+.site-header-top > div > p:last-child {
+    color: #d9d6cf;
+}
+
+main h2 {
+    color: #f1ede4;
+}
+
+.section-label {
+    color: #d8d2c5;
+}
+/* =========================
+CINEMA LANGUAGE — MAIN
+========================= */
+
+header {
+position: relative;
+padding: 42px 20px 38px;
+
+border-bottom: 1px solid rgba(212,175,99,.18);
+background:
+    radial-gradient(
+        circle at 50% -30%,
+        #344652 0,
+        #1b252c 35%,
+        #101518 72%,
+        #0b0f11 100%
+    );
+box-shadow:
+    0 15px 40px rgba(0,0,0,.35);
+
+}
+
+.site-header-top {
+width: min(100%, 820px);
+margin: 0 auto;
+}
+
+.site-header-top h1 {
+margin: 8px 0 10px;
+
+color: #f5f0e6;
+font-size: clamp(32px, 5vw, 44px);
+font-weight: normal;
+letter-spacing: .04em;
+text-shadow:
+    0 2px 18px rgba(255,255,255,.07);
+
+}
+
+.site-header-top > div > p:last-child {
+margin: 0;
+
+color: #aeb5b5;
+font-family: Arial, sans-serif;
+font-size: 13px;
+letter-spacing: .03em;
+
+}
+
+/* =========================
+LOGOUT
+========================= */
+
+.logout-button {
+padding: 9px 15px;
+
+border: 1px solid rgba(212,175,99,.35);
+border-radius: 3px;
+color: #d9d6cf;
+background: transparent;
+font-family: Arial, sans-serif;
+font-size: 10px;
+font-weight: bold;
+letter-spacing: .08em;
+transition:
+    border-color .2s,
+    color .2s,
+    background .2s;
+
+}
+
+.logout-button:hover {
+border-color: #d4af63;
+
+color: #f5f0e6;
+background: rgba(212,175,99,.06);
+
+}
+
+/* =========================
+MAIN BACKGROUND
+========================= */
+
+body {
+color: #f1ede4;
+
+background:
+    radial-gradient(
+        circle at 50% 0%,
+        #202a30 0,
+        #151b1f 35%,
+        #0c1012 100%
+    );
+
+}
+
+/* =========================
+LIBRARY
+========================= */
+
+main {
+width: min(100% - 32px, 820px);
+margin: 48px auto 70px;
+}
+
+.section-label {
+color: #d4af63;
+
+font-size: 10px;
+letter-spacing: .22em;
+
+}
+
+main h2 {
+color: #f1ede4;
+
+font-weight: normal;
+letter-spacing: .02em;
+
+}
+
+/* =========================
+CINEMA ARCHIVE
+========================= */
+
+.bookshelf {
+min-height: 290px;
+
+padding: 48px 42px 34px;
+border: 1px solid rgba(212,175,99,.25);
+border-radius: 4px;
+background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.055),
+        rgba(255,255,255,.015)
+    );
+box-shadow:
+    0 25px 55px rgba(0,0,0,.4),
+    inset 0 1px rgba(255,255,255,.05);
+
+}
+
+.bookshelf::before,
+.bookshelf::after {
+display: none;
+}
+
+.shelf-plaque {
+top: 16px;
+
+padding: 5px 14px;
+border: 1px solid rgba(212,175,99,.45);
+color: #d4af63;
+background: rgba(0,0,0,.22);
+box-shadow:
+    0 4px 15px rgba(0,0,0,.25);
+font-size: 8px;
+letter-spacing: .22em;
+
+}
+
+/* =========================
+BOOK CARD
+========================= */
+
+.shelf-book {
+min-height: 160px;
+
+margin-top: 20px;
+border: 1px solid rgba(255,255,255,.12);
+border-left: 2px solid #d4af63;
+border-radius: 3px;
+color: #f1ede4;
+background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.08),
+        rgba(255,255,255,.025)
+    );
+box-shadow:
+    0 18px 35px rgba(0,0,0,.4),
+    inset 0 1px rgba(255,255,255,.05);
+transform: none;
+
+}
+
+.shelf-book:hover {
+transform: translateY(-4px);
+
+box-shadow:
+    0 25px 45px rgba(0,0,0,.5),
+    0 0 0 1px rgba(212,175,99,.12);
+
+}
+
+.shelf-book .book-info strong {
+color: #f5f0e6;
+}
+
+.shelf-book .book-info span {
+color: #9fa6a6;
+}
+
+.shelf-book .open-book {
+color: #d4af63;
+}
+
+/* =========================
+MOVIE IMAGE
+========================= */
+
+.shelf-book .movie-image {
+border: 1px solid rgba(212,175,99,.25);
+
+box-shadow:
+    0 8px 20px rgba(0,0,0,.45);
+
+}
+/* =========================
+WOODEN CINEMA SHELF
+========================= */
+
+.bookshelf {
+position: relative;
+
+border: 10px solid #342218;
+background:
+    linear-gradient(
+        90deg,
+        rgba(255,255,255,.04),
+        transparent 18%,
+        rgba(0,0,0,.18) 50%,
+        transparent 82%
+    ),
+    repeating-linear-gradient(
+        3deg,
+        #70492f 0 3px,
+        #5d3b27 4px 8px,
+        #795035 9px 12px
+    );
+box-shadow:
+    inset 0 0 0 2px rgba(212,175,99,.12),
+    inset 0 15px 25px rgba(25,12,6,.35),
+    0 25px 50px rgba(0,0,0,.45);
+
+}
+
+/* 木目 */
+
+.bookshelf::before {
+position: absolute;
+inset: 18px 18px 24px;
+
+border: 1px solid rgba(20,10,5,.5);
+background:
+    linear-gradient(
+        90deg,
+        rgba(0,0,0,.18),
+        transparent 15%,
+        transparent 85%,
+        rgba(0,0,0,.18)
+    ),
+    repeating-linear-gradient(
+        88deg,
+        rgba(255,255,255,.025) 0 2px,
+        transparent 3px 15px
+    );
+box-shadow:
+    inset 0 15px 25px rgba(15,7,3,.3);
+content: "";
+
+}
+
+/* 下の木製棚板 */
+
+.bookshelf::after {
+position: absolute;
+
+right: -8px;
+bottom: -2px;
+left: -8px;
+height: 22px;
+border-top: 2px solid #a9794a;
+background:
+    linear-gradient(
+        #4d2e1b,
+        #29180e
+    );
+box-shadow:
+    0 -5px 10px rgba(0,0,0,.45),
+    0 8px 12px rgba(0,0,0,.4);
+content: "";
+
+}
+
+/* =========================
+WOODEN PLAQUE
+========================= */
+
+.shelf-plaque {
+position: absolute;
+z-index: 2;
+
+top: 11px;
+left: 50%;
+padding: 6px 18px;
+border: 1px solid #a9794a;
+border-radius: 2px;
+color: #f0d79d;
+background:
+    linear-gradient(
+        135deg,
+        #56351d,
+        #8a5c32 45%,
+        #4a2b18
+    );
+box-shadow:
+    0 3px 7px rgba(0,0,0,.45),
+    inset 0 1px rgba(255,255,255,.15);
+font-family: Arial, sans-serif;
+font-size: 8px;
+font-weight: bold;
+letter-spacing: .22em;
+transform: translateX(-50%);
+
+}
+/* =========================
+LESSON PROGRESS
+========================= */
+
+.lesson-meta {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-top: 5px;
+}
+
+.lesson-progress {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+min-width: 48px;
+padding: 4px 8px;
+border: 1px solid rgba(212,175,99,.45);
+border-radius: 3px;
+color: #d4af63;
+background: rgba(212,175,99,.06);
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: bold;
+letter-spacing: .04em;
+
+}
+.progress-box {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px 10px;
+    margin-top: 14px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    width: min(260px, 100%);
+}
+
+.progress-label {
+    grid-column: 1 / -1;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: #d8c7a0;
+}
+
+.progress-track {
+    position: relative;
+    align-self: center;
+    height: 7px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.progress-fill {
+    display: block;
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        #d8c7a0,
+        #f0dfb2
+    );
+    transition: width 0.6s ease;
+}
+
+.progress-percent {
+    min-width: 42px;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 600;
+    color: #f0dfb2;
+    letter-spacing: 0.05em;
 }

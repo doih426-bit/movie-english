@@ -445,6 +445,10 @@ const libraryCount =
     document.querySelector(
         "#library-count"
     );
+    const libraryProgress =
+    document.querySelector(
+        "#library-progress"
+    );
 /* =========================
    PAGE RENDER
 ========================= */
@@ -468,11 +472,34 @@ function renderPage(
             )
         );
     const masteredCount =
-        masteredWords.size;
-    if (libraryCount) {
-        libraryCount.textContent =
-            `${words.length} words & phrases · ${masteredCount} mastered`;
-    }
+    masteredWords.size;
+
+const masteryPercentage =
+    words.length > 0
+        ? Math.round(
+            (masteredCount / words.length) * 100
+        )
+        : 0;
+
+const libraryProgress =
+    document.querySelector(
+        "#library-progress"
+    );
+
+const libraryProgressBar =
+    document.querySelector(
+        "#library-progress-bar"
+    );
+
+if (libraryProgress) {
+    libraryProgress.textContent =
+        `${masteryPercentage}%`;
+}
+
+if (libraryProgressBar) {
+    libraryProgressBar.style.width =
+        `${masteryPercentage}%`;
+}
     const start =
         currentPage *
         wordsPerPage;

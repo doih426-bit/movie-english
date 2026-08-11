@@ -3,39 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie English | Vocabulary</title>
+    <title>Cinema Language | Learn Languages Through Cinema</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div id="auth-screen">
-    <h2>Movie English</h2>
 
-    <input
-        type="email"
-        id="email"
-        placeholder="Email"
-    >
+    <div class="auth-card">
 
-    <input
-        type="password"
-        id="password"
-        placeholder="Password"
-    >
+        <p class="auth-eyebrow">
+            CINEMA × LANGUAGE
+        </p>
 
-    <button id="login-button">
-        Log in
-    </button>
+        <h2>CINEMA LANGUAGE</h2>
 
-    <button
-        id="guest-button"
-        type="button"
-    >
-        ログインせずに使う
-    </button>
+        <p class="auth-subtitle">
+            Learn languages through cinema
+        </p>
 
-    <p id="auth-message"></p>
+        <div class="auth-form">
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                autocomplete="email"
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                autocomplete="current-password"
+            >
+
+            <button id="login-button">
+                Log in
+            </button>
+
+        </div>
+
+        <div class="auth-divider">
+            <span>OR</span>
+        </div>
+
+        <button
+            id="guest-button"
+            type="button"
+        >
+            Continue without login
+        </button>
+
+        <p id="auth-message"></p>
+
+    </div>
+
 </div>
 
 <header>
@@ -43,9 +67,9 @@
     <div class="site-header-top">
 
         <div>
-            <p class="eyebrow">MOVIE ENGLISH</p>
-            <h1>Vocabulary</h1>
-            <p>映画から学ぶ、英単語帳</p>
+            <p class="eyebrow">CINEMA × LANGUAGE</p>
+            <h1>CINEMA LANGUAGE</h1>
+            <p>Learn languages through cinema</p> 
             
         </div>
 
@@ -108,7 +132,7 @@
                 </span>
 
                 <span class="open-book">
-                    開く ↓
+                    Open →
                 </span>
             </button>
 
@@ -164,22 +188,40 @@
                     🕸️
                 </span>
 
-                <span class="book-info">
+               <span class="book-info">
 
-                    <strong>
-                        BRAND NEW DAY-<br>
-                        New Trailer 4k
-                    </strong>
+    <strong>
+        BRAND NEW DAY-<br>
+        New Trailer 4K
+    </strong>
 
-                    <span id="library-count">
-                        29 words &amp; phrases
-                    </span>
+    <span class="progress-box">
 
-                </span>
+        <span class="progress-label">
+            LEARNING PROGRESS
+        </span>
 
-                <span class="open-book">
-                    読む →
-                </span>
+        <span class="progress-track">
+            <span
+                id="library-progress-bar"
+                class="progress-fill"
+            ></span>
+        </span>
+
+        <span
+            id="library-progress"
+            class="progress-percent"
+        >
+            0%
+        </span>
+
+    </span>
+
+</span>
+
+<span class="open-book">
+    NEXT →
+</span>
 
             </button>
 
