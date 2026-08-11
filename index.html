@@ -12,46 +12,63 @@
 ========================================================= -->
 <div id="auth-screen">
     <div class="auth-card">
-        <p class="auth-eyebrow">
-            CINEMA × LANGUAGE
-        </p>
-        <h2>
-            CINEMA LANGUAGE
-        </h2>
-        <p class="auth-subtitle">
-            Learn languages through cinema
-        </p>
-        <div class="auth-form">
-            <input
-                type="email"
-                id="email"
-                placeholder="Email"
-                autocomplete="email"
-            >
-            <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                autocomplete="current-password"
-            >
-            <button
-                id="login-button"
-                type="button"
-            >
-                Log in
-            </button>
-        </div>
-        <div class="auth-divider">
-            <span>OR</span>
-        </div>
+    <p class="auth-eyebrow">
+        CINEMA × LANGUAGE
+    </p>
+    <h2 id="auth-title">
+        CINEMA LANGUAGE
+    </h2>
+    <p class="auth-subtitle">
+        Learn languages through cinema
+    </p>
+    <div class="auth-form">
+        <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            autocomplete="email"
+        >
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password"
+        >
         <button
-            id="guest-button"
+            id="login-button"
             type="button"
         >
-            Continue without login
+            Log in
         </button>
-        <p id="auth-message"></p>
+        <button
+            id="signup-button"
+            class="hidden"
+            type="button"
+        >
+            Create account
+        </button>
     </div>
+    <div class="auth-switch" id="auth-switch">
+        Don't have an account?
+        <button
+            id="show-signup-button"
+            type="button"
+        >
+            Sign up
+        </button>
+    </div>
+    <div class="auth-divider">
+        <span>OR</span>
+    </div>
+    <button
+        id="guest-button"
+        type="button"
+    >
+        <span>Continue without login</span>
+        <small>(ログインせずに利用する)</small>
+    </button>
+    <p id="auth-message"></p>
+</div>
 </div>
 <!-- =========================================================
      HEADER

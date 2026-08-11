@@ -10,95 +10,357 @@ const supabaseClient = supabase.createClient(
    AUTH
 ========================= */
 
-const authScreen = document.querySelector("#auth-screen");
-const emailInput = document.querySelector("#email");
-const passwordInput = document.querySelector("#password");
-const loginButton = document.querySelector("#login-button");
-const authMessage = document.querySelector("#auth-message");
-const guestButton = document.querySelector("#guest-button");
-const logoutButton = document.querySelector("#logout-button");
+const authScreen =
+    document.querySelector("#auth-screen");
+
+const emailInput =
+    document.querySelector("#email");
+
+const passwordInput =
+    document.querySelector("#password");
+
+const loginButton =
+    document.querySelector("#login-button");
+
+const signupButton =
+    document.querySelector("#signup-button");
+
+const authMessage =
+    document.querySelector("#auth-message");
+
+const guestButton =
+    document.querySelector("#guest-button");
+
+const logoutButton =
+    document.querySelector("#logout-button");
+
+const authSwitch =
+    document.querySelector("#auth-switch");
+
+const authTitle =
+    document.querySelector("#auth-title");
 
 let isGuest = false;
+let isSignupMode = false;
 
-loginButton.addEventListener("click", async () => {
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
 
-    if (!email || !password) {
+/* =========================
+   SWITCH TO SIGN UP
+========================= */
+
+authSwitch.addEventListener("click", event => {
+
+    if (
+        event.target.id ===
+        "show-signup-button"
+    ) {
+
+        isSignupMode = true;
+
+        authTitle.textContent =
+            "CREATE ACCOUNT";
+
+        loginButton.classList.add(
+            "hidden"
+        );
+
+        signupButton.classList.remove(
+            "hidden"
+        );
+
+        authSwitch.innerHTML = `
+            Already have an account?
+            <button
+                id="show-login-button"
+                type="button"
+            >
+                Log in
+            </button>
+        `;
+
+        authMessage.textContent = "";
+    }
+
+
+    if (
+        event.target.id ===
+        "show-login-button"
+    ) {
+
+        isSignupMode = false;
+
+        authTitle.textContent =
+            "CINEMA LANGUAGE";
+
+        signupButton.classList.add(
+            "hidden"
+        );
+
+        loginButton.classList.remove(
+            "hidden"
+        );
+
+        authSwitch.innerHTML = `
+            Don't have an account?
+            <button
+                id="show-signup-button"
+                type="button"
+            >
+                Sign up
+            </button>
+        `;
+
+        authMessage.textContent = "";
+    }
+
+});
+
+
+/* =========================
+   SIGN UP
+========================= */
+
+signupButton.addEventListener(
+    "click",
+    async () => {
+
+        const email =
+            emailInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+
+        if (!email || !password) {
+
+            authMessage.textContent =
+                "EmailとPasswordを入力してください。";
+
+            return;
+        }
+
+
+        if (password.length < 6) {
+
+            authMessage.textContent =
+                "Passwordは6文字以上で入力してください。";
+
+            return;
+        }
+
+
         authMessage.textContent =
-            "EmailとPasswordを入力してください。";
-        return;
-    }
+            "アカウントを作成しています...";
 
-    authMessage.textContent = "ログイン中...";
 
-    const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-            email,
-            password
-        });
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signUp({
+                email,
+                password
+            });
 
-    if (error) {
-        console.error("Login error:", error);
+
+        if (error) {
+
+            console.error(
+                "Signup error:",
+                error
+            );
+
+            authMessage.textContent =
+                "アカウント作成に失敗しました。";
+
+            return;
+        }
+
+
+        console.log(
+            "Created user:",
+            data.user
+        );
+
 
         authMessage.textContent =
-            "ログインに失敗しました。EmailまたはPasswordを確認してください。";
-
-        return;
+            "アカウントを作成しました。メールを確認してください。";
     }
-
-    console.log("Logged in user:", data.user);
-
-    isGuest = false;
-
-    authScreen.classList.add("hidden");
-    logoutButton.classList.remove("hidden");
-
-    await loadMasteredWords();
-});
+);
 
 
-guestButton.addEventListener("click", () => {
-    isGuest = true;
+/* =========================
+   LOGIN
+========================= */
 
-    authScreen.classList.add("hidden");
-    logoutButton.classList.add("hidden");
+loginButton.addEventListener(
+    "click",
+    async () => {
 
-    console.log("Using Movie English as guest.");
+        const email =
+            emailInput.value.trim();
 
-    currentPage = 0;
-    renderPage();
-});
+        const password =
+            passwordInput.value;
 
 
-logoutButton.addEventListener("click", async () => {
-    const { error } =
-        await supabaseClient.auth.signOut();
+        if (!email || !password) {
 
-    if (error) {
-        console.error("Logout error:", error);
-        alert("ログアウトに失敗しました。");
-        return;
+            authMessage.textContent =
+                "EmailとPasswordを入力してください。";
+
+            return;
+        }
+
+
+        authMessage.textContent =
+            "ログイン中...";
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .signInWithPassword({
+                    email,
+                    password
+                });
+
+
+        if (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+            authMessage.textContent =
+                "ログインに失敗しました。EmailまたはPasswordを確認してください。";
+
+            return;
+        }
+
+
+        console.log(
+            "Logged in user:",
+            data.user
+        );
+
+
+        isGuest = false;
+
+
+        authScreen.classList.add(
+            "hidden"
+        );
+
+
+        logoutButton.classList.remove(
+            "hidden"
+        );
+
+
+        await loadMasteredWords();
     }
-
-    isGuest = false;
-
-    authScreen.classList.remove("hidden");
-    logoutButton.classList.add("hidden");
-
-    emailInput.value = "";
-    passwordInput.value = "";
-    authMessage.textContent = "";
-
-    masteredWords.clear();
-    currentPage = 0;
-
-    renderPage();
-
-    console.log("Logged out.");
-});
+);
 
 
+/* =========================
+   CONTINUE WITHOUT LOGIN
+========================= */
+
+guestButton.addEventListener(
+    "click",
+    () => {
+
+        isGuest = true;
+
+
+        authScreen.classList.add(
+            "hidden"
+        );
+
+
+        logoutButton.classList.add(
+            "hidden"
+        );
+
+
+        console.log(
+            "Using Movie English as guest."
+        );
+
+
+        currentPage = 0;
+
+        renderPage();
+    }
+);
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+logoutButton.addEventListener(
+    "click",
+    async () => {
+
+        const {
+            error
+        } =
+            await supabaseClient.auth
+                .signOut();
+
+
+        if (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+            alert(
+                "ログアウトに失敗しました。"
+            );
+
+            return;
+        }
+
+
+        isGuest = false;
+
+
+        authScreen.classList.remove(
+            "hidden"
+        );
+
+
+        logoutButton.classList.add(
+            "hidden"
+        );
+
+
+        emailInput.value = "";
+
+        passwordInput.value = "";
+
+        authMessage.textContent = "";
+
+
+        masteredWords.clear();
+
+        currentPage = 0;
+
+        renderPage();
+
+
+        console.log(
+            "Logged out."
+        );
+    }
+);
 /* =========================
    MOVIE ENGLISH
    SPIDER-MAN VOCABULARY
@@ -108,8 +370,6 @@ const words = [
     ["actually", "実際に、本当に", "Who do you think is actually watching these?", "（実際に誰がこれを見ていると思う？）", "I actually enjoyed the movie.", "（私は実際、その映画を楽しんだ）", "She actually knows him.", "（彼女は実際に彼のことを知っている）"],
 
     ["mutate", "突然変異する、変異する", "Some viruses can mutate quickly.", "（一部のウイルスは急速に変異することがある）", "Viruses can mutate over time.", "（ウイルスは時間とともに変異することがある）", "The virus may mutate again.", "（そのウイルスは再び変異するかもしれない）"],
-
-    ["mutating", "変異している、変異する", "You found a way to suppress mutating DNA, right?", "（変異しているDNAを抑える方法を見つけたんだよね？）", "The scientists are studying mutating cells.", "（科学者たちは変異している細胞を研究している）", "Mutating genes can cause serious problems.", "（変異する遺伝子は深刻な問題を引き起こすことがある）"],
 
     ["get rid of", "〜を取り除く、なくす", "Could you get rid of the bad aspects?", "（悪い部分を取り除くことはできる？）", "I need to get rid of these old clothes.", "（この古い服を処分しないといけない）", "How can we get rid of this problem?", "（どうすればこの問題をなくせる？）"],
 
