@@ -1858,76 +1858,116 @@ main h2 {
 
 /* =========================================================
    MOBILE
+   PC版の世界観をそのままスマホへ
 ========================================================= */
 
 @media (max-width: 768px) {
 
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
     header {
-        padding: 28px 16px 26px;
+        padding: 30px 18px 28px;
     }
 
     .site-header-top {
         width: 100%;
+        gap: 14px;
     }
 
     .site-header-top h1 {
-        font-size: 28px;
+        margin: 5px 0 8px;
+
+        font-size: 27px;
+        letter-spacing: .035em;
     }
 
     .site-header-top > div > p:last-child {
-        font-size: 11px;
+        font-size: 10px;
+        letter-spacing: .04em;
     }
 
     .logout-button {
-        padding: 7px 10px;
+        flex-shrink: 0;
 
-        font-size: 9px;
-    }
+        padding: 8px 11px;
 
-    main {
-        width: calc(100% - 20px);
-
-        margin: 20px auto;
-    }
-
-    main h2 {
-        font-size: 22px;
+        font-size: 8px;
+        letter-spacing: .08em;
     }
 
 
     /* =====================================================
-       COLLECTION
+       MAIN
+    ===================================================== */
+
+    main {
+        width: calc(100% - 28px);
+
+        margin: 32px auto 50px;
+    }
+
+    main h2 {
+        margin: 6px 0 20px;
+
+        font-size: 22px;
+        letter-spacing: .01em;
+    }
+
+
+    /* =====================================================
+       COLLECTION BOOK
     ===================================================== */
 
     .collection-book {
-        min-height: 155px;
+        display: flex;
+        align-items: center;
 
-        padding: 22px 20px;
+        min-height: 145px;
+
+        padding: 22px 18px;
     }
 
     .collection-book .movie-image {
-        width: 70px;
-        height: 70px;
+        width: 68px;
+        height: 78px;
 
-        font-size: 32px;
+        flex-shrink: 0;
+
+        font-size: 31px;
     }
 
     .collection-book .book-info {
-        padding-left: 8px;
+        min-width: 0;
+
+        padding:
+            0
+            10px
+            0
+            15px;
     }
 
     .collection-book .book-info strong {
-        font-size: 19px;
+        font-size: 18px;
+
+        line-height: 1.35;
     }
 
     .collection-book .book-info > span {
-        font-size: 9px;
+        margin-top: 7px;
+
+        font-size: 8px;
+        letter-spacing: .12em;
+
+        line-height: 1.4;
     }
 
     .collection-book .open-book {
-        min-width: 62px;
+        min-width: 54px;
 
         font-size: 8px;
+        letter-spacing: .12em;
     }
 
 
@@ -1936,44 +1976,66 @@ main h2 {
     ===================================================== */
 
     .book-list {
-        margin-top: 16px;
+        margin-top: 14px;
 
         padding:
             18px
-            12px
+            10px
             22px;
+
+        border-top-width: 1px;
+    }
+
+    .collection-divider {
+        gap: 9px;
+
+        margin:
+            0 3px 14px;
+    }
+
+    .collection-divider span {
+        font-size: 8px;
+        letter-spacing: .16em;
     }
 
 
     /* =====================================================
-       LESSON
+       LESSON CARD
     ===================================================== */
 
     .lesson-card {
         width: 100%;
 
-        min-height: 115px;
+        min-height: 105px;
 
         margin: 0;
 
-        padding: 15px 16px;
+        padding: 14px 12px;
     }
 
     .lesson-card .movie-image {
-        width: 52px;
-        height: 52px;
+        width: 48px;
+        height: 58px;
 
-        flex-basis: 52px;
+        flex: 0 0 48px;
 
-        font-size: 23px;
+        font-size: 21px;
     }
 
     .lesson-card .book-info {
-        padding: 0 10px;
+        min-width: 0;
+
+        padding:
+            0
+            9px
+            0
+            11px;
     }
 
     .lesson-card .book-info > strong {
-        font-size: 15px;
+        font-size: 14px;
+
+        line-height: 1.3;
     }
 
     .lesson-card .progress-box {
@@ -1982,72 +2044,92 @@ main h2 {
             auto;
 
         gap: 6px;
+
+        margin-top: 7px;
     }
 
     .lesson-card .progress-label {
         grid-column: 1 / -1;
+
+        font-size: 7px;
     }
 
     .lesson-card .progress-track {
         min-width: 0;
+
+        height: 4px;
+    }
+
+    .lesson-card .progress-percent {
+        font-size: 8px;
     }
 
     .lesson-card .open-book {
-        font-size: 8px;
+        flex-shrink: 0;
+
+        font-size: 7px;
+        letter-spacing: .12em;
     }
 
 
     /* =====================================================
-       YOUTUBE
+       YOUTUBE PREVIEW
     ===================================================== */
 
     .youtube-preview {
-        grid-template-columns: 100px 1fr;
+        grid-template-columns: 96px 1fr;
 
         gap: 8px;
 
-        width: calc(100% - 30px);
+        width: calc(100% - 20px);
 
         margin:
-            12px 15px 0;
+            12px 10px 0;
 
         transform: none;
     }
 
     .youtube-preview img {
-        width: 100px;
-        height: 60px;
-
-        max-height: 130px;
+        width: 96px;
+        height: 58px;
     }
 
     .youtube-play {
-        top: 18px;
-        left: 36px;
+        top: 17px;
+        left: 34px;
 
-        width: 30px;
-        height: 24px;
+        width: 29px;
+        height: 23px;
 
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .youtube-caption {
         gap: 3px;
 
-        padding-right: 7px;
+        padding:
+            8px
+            8px
+            8px
+            3px;
     }
 
     .youtube-caption strong {
-        font-size: 11px;
+        font-size: 10px;
+
+        line-height: 1.3;
     }
 
     .youtube-caption span {
-        font-size: 9px;
+        font-size: 8px;
+
+        line-height: 1.3;
     }
 
 
     /* =====================================================
-       READER FULL SCREEN
+       READER
+       PC版の本をそのままスマホいっぱいに
     ===================================================== */
 
     #vocabulary {
@@ -2064,39 +2146,59 @@ main h2 {
 
         min-height: 0;
 
+        margin: 0;
+
         padding:
             env(safe-area-inset-top)
-            10px
+            12px
             env(safe-area-inset-bottom);
-
-        margin: 0;
 
         overflow: hidden;
 
-        background: #e8e0d2;
+        background:
+            radial-gradient(
+                circle at 50% 0%,
+                #202a30 0,
+                #151b1f 40%,
+                #0c1012 100%
+            );
     }
 
     #vocabulary.hidden {
         display: none;
     }
 
+
+    /* =====================================================
+       READER TOP BAR
+    ===================================================== */
+
     #vocabulary .reader-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
         flex: 0 0 auto;
 
         width: 100%;
-        height: 42px;
+        height: 44px;
 
         margin: 0;
 
-        align-items: center;
+        border-bottom:
+            1px solid rgba(212, 175, 99, .18);
     }
 
     .back-button {
-        font-size: 12px;
+        padding: 6px 0;
+
+        font-size: 10px;
+        letter-spacing: .08em;
     }
 
     .progress {
-        font-size: 11px;
+        font-size: 10px;
+        letter-spacing: .03em;
     }
 
 
@@ -2108,27 +2210,38 @@ main h2 {
         flex: 0 0 auto;
 
         margin:
-            3px 0 7px;
+            10px
+            0
+            10px;
     }
 
     .book-heading .section-label {
         font-size: 8px;
+
+        letter-spacing: .18em;
     }
 
     .book-heading h2 {
-        margin: 3px 0 0;
+        margin:
+            4px
+            0
+            0;
 
         font-size: 17px;
 
-        line-height: 1.2;
+        line-height: 1.25;
     }
 
 
     /* =====================================================
-       BOOK
+       BOOK SHELL
     ===================================================== */
 
     .book-shell {
+        position: relative;
+
+        display: flex;
+
         flex: 1 1 auto;
 
         width: 100%;
@@ -2137,33 +2250,57 @@ main h2 {
 
         margin: 0;
 
-        padding: 5px;
+        padding: 6px;
 
         overflow: hidden;
 
-        border-radius: 6px;
+        border-radius: 7px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #5c412b,
+                #795536,
+                #5a3e29
+            );
+
+        box-shadow:
+            0 16px 30px rgba(0, 0, 0, .38);
     }
 
     .vocabulary-page {
+        position: relative;
+
+        width: 100%;
         height: 100%;
 
         min-height: 0;
 
-        padding: 0 4px;
+        padding: 0 5px;
 
         overflow: hidden;
+
+        background:
+            #fffaf0;
+
+        box-shadow:
+            inset 0 0 30px rgba(103, 73, 35, .12),
+            0 12px 25px rgba(70, 46, 23, .2);
     }
 
     .vocabulary-page::before {
-        height: 4px;
+        height: 5px;
 
         margin:
-            0 -4px 2px;
+            0
+            -5px
+            3px;
     }
 
 
     /* =====================================================
        WORD LIST
+       4単語を無理に圧縮しすぎない
     ===================================================== */
 
     .word-list {
@@ -2171,8 +2308,7 @@ main h2 {
         flex-direction: column;
 
         width: 100%;
-
-        height: calc(100% - 6px);
+        height: calc(100% - 8px);
 
         min-height: 0;
 
@@ -2191,11 +2327,16 @@ main h2 {
     }
 
     .word-entry::before {
-        top: 8px;
-        left: 4px;
+        top: 10px;
+        left: 5px;
 
         font-size: 8px;
     }
+
+
+    /* =====================================================
+       WORD FLIP
+    ===================================================== */
 
     .word-flip {
         width: 100%;
@@ -2204,17 +2345,19 @@ main h2 {
         min-height: 0;
 
         padding:
-            9px
+            11px
             94px
-            9px
-            27px;
+            10px
+            28px;
 
         overflow: hidden;
     }
 
     .word-flip-inner {
-        min-height: 0;
+        width: 100%;
         height: 100%;
+
+        min-height: 0;
     }
 
     .word-face {
@@ -2226,34 +2369,44 @@ main h2 {
         display: inline;
 
         font-size:
-            clamp(17px, 4.8vw, 22px);
+            clamp(18px, 5vw, 23px);
 
-        line-height: 1.2;
-    }
-
-    .word-level {
-        margin-left: 3px;
-
-        padding: 2px 4px;
-
-        font-size: 6px;
+        line-height: 1.25;
     }
 
     .meaning {
         font-size:
-            clamp(14px, 3.8vw, 18px);
+            clamp(15px, 4vw, 19px);
 
-        line-height: 1.25;
+        line-height: 1.3;
     }
 
-    .example,
+    .word-level {
+        margin-left: 4px;
+
+        padding:
+            3px
+            5px;
+
+        font-size: 6px;
+    }
+
+    .example {
+        margin-top: 6px;
+
+        font-size:
+            clamp(11px, 3.1vw, 14px);
+
+        line-height: 1.35;
+    }
+
     .translation {
         margin-top: 5px;
 
         font-size:
-            clamp(11px, 3vw, 14px);
+            clamp(10px, 2.9vw, 13px);
 
-        line-height: 1.25;
+        line-height: 1.35;
     }
 
 
@@ -2263,23 +2416,23 @@ main h2 {
 
     .word-flip-hint {
         top: 50%;
-        right: 4px;
+        right: 5px;
 
         display: flex;
-
         align-items: center;
         justify-content: center;
 
-        width: 78px;
+        width: 76px;
         height: 30px;
 
         margin: 0;
 
         color: #ad9b82;
 
-        font-size: 10px;
-
+        font-size: 9px;
         letter-spacing: .04em;
+
+        line-height: 1.2;
 
         transform:
             translateY(-50%);
@@ -2291,13 +2444,17 @@ main h2 {
     ===================================================== */
 
     .speak-button {
-        top: 6px;
-        right: 4px;
+        top: 7px;
+        right: 5px;
 
-        width: 78px;
-        height: 36px;
+        width: 76px;
+        height: 34px;
 
-        font-size: 13px;
+        gap: 4px;
+
+        border-radius: 7px;
+
+        font-size: 12px;
     }
 
 
@@ -2307,15 +2464,19 @@ main h2 {
 
     .master-button,
     .cancel-button {
-        right: 4px;
+        right: 5px;
         bottom: 5px;
 
-        min-width: 78px;
-        min-height: 32px;
+        min-width: 76px;
+        min-height: 31px;
 
-        padding: 5px 7px;
+        padding:
+            5px
+            7px;
 
-        font-size: 9px;
+        border-radius: 7px;
+
+        font-size: 8px;
     }
 
     .word-entry.is-mastered::after {
@@ -2324,24 +2485,30 @@ main h2 {
 
 
     /* =====================================================
-       PAGE BUTTON
+       PAGE TURN
     ===================================================== */
 
     .page-turn {
-        width: 30px;
-        height: 58px;
+        width: 28px;
+        height: 56px;
 
         padding: 0;
 
+        border-radius: 2px;
+
         background:
-            rgba(72, 45, 26, .86);
+            linear-gradient(
+                90deg,
+                rgba(73, 46, 27, .96),
+                rgba(119, 78, 47, .96)
+            );
 
         box-shadow:
-            0 4px 8px rgba(46, 27, 12, .3);
+            0 4px 9px rgba(46, 27, 12, .35);
     }
 
     .page-turn span {
-        font-size: 27px;
+        font-size: 26px;
     }
 
     .page-turn small {
@@ -2349,64 +2516,97 @@ main h2 {
     }
 
     .page-turn-left {
-        left: 4px;
+        left: 3px;
     }
 
     .page-turn-right {
-        right: 4px;
+        right: 3px;
     }
 
     .flip-guide {
         flex: 0 0 auto;
 
         margin:
-            5px 0 4px;
+            6px
+            0
+            4px;
 
-        font-size: 9px;
+        color: #aeb5b5;
+
+        font-size: 8px;
     }
 
 
     /* =====================================================
        AUTH
+       ログイン画面もPC版の雰囲気を維持
     ===================================================== */
 
     #auth-screen {
-        padding: 20px;
+        padding:
+            20px
+            18px;
     }
 
     .auth-card {
         width: 100%;
 
         padding:
-            42px
-            25px
-            34px;
+            44px
+            24px
+            36px;
     }
 
     #auth-screen h2 {
-        font-size: 32px;
+        font-size: 31px;
     }
 
     .auth-subtitle {
-        margin-bottom: 28px;
+        margin:
+            12px
+            0
+            28px;
+
+        font-size: 10px;
+
+        line-height: 1.65;
+    }
+
+    #auth-screen input {
+        padding: 13px 14px;
+
+        font-size: 13px;
+    }
+
+    #login-button {
+        padding: 13px;
 
         font-size: 11px;
+    }
+
+    #guest-button {
+        padding: 11px;
+
+        font-size: 10px;
     }
 }
 
 
 /* =========================================================
-   SHORT PHONES
+   SMALL PHONES
 ========================================================= */
 
 @media (max-width: 540px) and (max-height: 700px) {
 
     #vocabulary .reader-topbar {
-        height: 36px;
+        height: 38px;
     }
 
     .book-heading {
-        margin-bottom: 4px;
+        margin:
+            7px
+            0
+            7px;
     }
 
     .book-heading h2 {
@@ -2417,15 +2617,15 @@ main h2 {
         font-size: 16px;
     }
 
+    .meaning {
+        font-size: 13px;
+    }
+
     .example,
     .translation {
         font-size: 10px;
 
-        line-height: 1.15;
-    }
-
-    .meaning {
-        font-size: 13px;
+        line-height: 1.2;
     }
 
     .flip-guide {
@@ -2433,16 +2633,23 @@ main h2 {
     }
 
     .word-flip-hint {
-        top: 50%;
+        width: 74px;
 
-        right: 4px;
+        font-size: 8px;
+    }
 
-        width: 78px;
-        height: 28px;
+    .speak-button {
+        width: 72px;
+        height: 32px;
 
-        font-size: 9px;
+        font-size: 11px;
+    }
 
-        transform:
-            translateY(-50%);
+    .master-button,
+    .cancel-button {
+        width: 72px;
+        min-width: 72px;
+
+        font-size: 8px;
     }
 }
