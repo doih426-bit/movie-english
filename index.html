@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  
+
 <div id="auth-screen">
     <h2>Movie English</h2>
 
@@ -28,12 +28,37 @@
         Log in
     </button>
 
+    <button
+        id="guest-button"
+        type="button"
+    >
+        ログインせずに使う
+    </button>
+
     <p id="auth-message"></p>
 </div>
+
 <header>
-    <p class="eyebrow">MOVIE ENGLISH</p>
-    <h1>Vocabulary</h1>
-    <p>映画から学ぶ、英単語帳</p>
+
+    <div class="site-header-top">
+
+        <div>
+            <p class="eyebrow">MOVIE ENGLISH</p>
+            <h1>Vocabulary</h1>
+            <p>映画から学ぶ、英単語帳</p>
+            
+        </div>
+
+        <button
+            id="logout-button"
+            type="button"
+            class="logout-button hidden"
+        >
+            Logout
+        </button>
+
+    </div>
+
 </header>
 
 <main>
@@ -126,8 +151,6 @@
                 SPIDER-MAN ARCHIVES
             </p>
 
-
-            <!-- 単語帳 -->
             <button
                 class="movie-card shelf-book lesson-card"
                 type="button"
@@ -161,7 +184,6 @@
             </button>
 
 
-            <!-- YouTube -->
             <a
                 class="youtube-preview"
                 href="https://www.youtube.com/watch?v=62bIsvRcPv0"
@@ -253,7 +275,6 @@
             ></ol>
 
 
-            <!-- ページ送り -->
             <button
                 class="page-turn page-turn-left"
                 id="previous-button"
@@ -288,5 +309,6 @@
 
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
+
 </body>
 </html>

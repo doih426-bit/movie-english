@@ -12,6 +12,10 @@ const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
 const loginButton = document.querySelector("#login-button");
 const authMessage = document.querySelector("#auth-message");
+const guestButton = document.querySelector("#guest-button");
+const logoutButton = document.querySelector("#logout-button");
+
+let isGuest = false;
 loginButton.addEventListener("click", async () => {
     const email = emailInput.value.trim();
     const password = passwordInput.value;
@@ -34,7 +38,46 @@ loginButton.addEventListener("click", async () => {
     }
     console.log("Logged in user:", data.user);
     authScreen.classList.add("hidden");
-    await loadMasteredWords();
+logoutButton.classList.remove("hidden");
+
+isGuest = false;
+
+await loadMasteredWords();
+});
+guestButton.addEventListener("click", () => {
+    isGuest = true;
+
+    authScreen.classList.add("hidden");
+    logoutButton.classList.add("hidden");
+
+    console.log("Using Movie English as guest.");
+
+    renderPage();
+});
+logoutButton.addEventListener("click", async () => {
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+        console.error("Logout error:", error);
+        alert("ログアウトに失敗しました。");
+        return;
+    }
+
+    isGuest = false;
+
+    authScreen.classList.remove("hidden");
+    logoutButton.classList.add("hidden");
+
+    emailInput.value = "";
+    passwordInput.value = "";
+    authMessage.textContent = "";
+
+    masteredWords.clear();
+    currentPage = 0;
+
+    renderPage();
+
+    console.log("Logged out.");
 });
 /* =========================
    MOVIE ENGLISH
@@ -202,6 +245,15 @@ async function loadMasteredWords() {
    MASTEREDを個人別に保存
 ========================= */
 async function setMastered(index, mastered) {
+  if (isGuest) {
+    if (mastered) {
+        masteredWords.add(index);
+    } else {
+        masteredWords.delete(index);
+    }
+
+    return true;
+}
     const wordName = words[index][0];
 
     try {
@@ -967,22 +1019,30 @@ async function initializeAuth() {
     const {
         data: { session }
     } = await supabaseClient.auth.getSession();
+
     if (session) {
         console.log(
             "Existing session:",
             session.user
         );
-        authScreen.classList.add(
-            "hidden"
-        );
+
+        isGuest = false;
+
+        authScreen.classList.add("hidden");
+        logoutButton.classList.remove("hidden");
+
         await loadMasteredWords();
+
     } else {
         console.log(
             "No logged-in user."
         );
-        authScreen.classList.remove(
-            "hidden"
-        );
+
+        isGuest = false;
+
+        authScreen.classList.remove("hidden");
+        logoutButton.classList.add("hidden");
     }
 }
+
 initializeAuth();
