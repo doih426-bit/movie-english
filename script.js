@@ -120,7 +120,80 @@ const masteredWords = new Set();
    LOAD USER PROGRESS
 ========================= */
 async function loadMasteredWords() {
-  
+    try {
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+        if (userError || !user) {
+            console.error(
+                "User is not logged in:",
+                userError
+            );
+            return;
+        }
+
+        console.log("Loading progress for:", user.id);
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("user_word_progress")
+            .select(`
+                word_id,
+                mastered,
+                words (
+                    word
+                )
+            `)
+            .eq("user_id", user.id);
+
+        if (error) {
+            console.error(
+                "Progress load error:",
+                error
+            );
+            return;
+        }
+
+        console.log(
+            "Loaded user progress:",
+            data
+        );
+
+        masteredWords.clear();
+
+        data.forEach(row => {
+            if (
+                row.mastered === true &&
+                row.words
+            ) {
+                const index = words.findIndex(
+                    item =>
+                        item[0] === row.words.word
+                );
+
+                if (index !== -1) {
+                    masteredWords.add(index);
+                }
+            }
+        });
+
+        console.log(
+            "Mastered word indexes:",
+            [...masteredWords]
+        );
+
+        renderPage();
+
+    } catch (error) {
+        console.error(
+            "Mastered data could not be loaded:",
+            error
+        );
+    }
 }
 /* =========================
    SAVE USER PROGRESS
