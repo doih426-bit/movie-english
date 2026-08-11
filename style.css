@@ -1,6 +1,11 @@
+/* =========================================================
+   BASE
+========================================================= */
+
 * {
     box-sizing: border-box;
 }
+
 html,
 body {
     margin: 0;
@@ -8,1213 +13,1563 @@ body {
     min-height: 100%;
     overflow-x: hidden;
 }
+
 body {
-position: relative;
-color: #252018;
-background: #151a1e;
-font-family: Georgia, “Hiragino Mincho ProN”, “Yu Mincho”, serif;
-overscroll-behavior-x: none;
+    position: relative;
+
+    color: #f1ede4;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #202a30 0,
+            #151b1f 35%,
+            #0c1012 100%
+        );
+
+    font-family:
+        Georgia,
+        "Hiragino Mincho ProN",
+        "Yu Mincho",
+        serif;
+
+    overscroll-behavior-x: none;
 }
+
 button {
     cursor: pointer;
     font: inherit;
 }
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    position: relative;
+
+    padding: 42px 20px 38px;
+
+    color: #fff9ef;
+    text-align: center;
+
+    border-bottom: 1px solid rgba(212, 175, 99, .18);
+
+    background:
+        radial-gradient(
+            circle at 50% -30%,
+            #344652 0,
+            #1b252c 35%,
+            #101518 72%,
+            #0b0f11 100%
+        );
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .35);
+}
+
 .site-header-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 820px;
+
+    width: min(100%, 820px);
     margin: 0 auto;
 }
 
+.site-header-top h1 {
+    margin: 8px 0 10px;
+
+    color: #f5f0e6;
+
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: normal;
+
+    letter-spacing: .04em;
+
+    text-shadow:
+        0 2px 18px rgba(255, 255, 255, .07);
+}
+
+.site-header-top > div > p:last-child {
+    margin: 0;
+
+    color: #aeb5b5;
+
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+
+    letter-spacing: .03em;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
 .logout-button {
-display: inline-flex;
-align-items: center;
-gap: 7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
 
-padding: 8px 13px;
-border: 1px solid rgba(201,180,138,.65);
-border-radius: 5px;
-color: #e8d3a5;
-background: rgba(255,255,255,.025);
-font-family: Arial, sans-serif;
-font-size: 11px;
-font-weight: bold;
-letter-spacing: .08em;
-transition:
-    background .2s ease,
-    border-color .2s ease,
-    transform .2s ease;
+    padding: 9px 15px;
 
+    border: 1px solid rgba(212, 175, 99, .35);
+    border-radius: 3px;
+
+    color: #d9d6cf;
+    background: transparent;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: .08em;
+
+    transition:
+        border-color .2s ease,
+        color .2s ease,
+        background .2s ease,
+        transform .2s ease;
 }
 
 .logout-button::before {
-content: “↪”;
+    content: "↪";
 
-font-size: 16px;
-line-height: 1;
-
+    font-size: 16px;
+    line-height: 1;
 }
 
 .logout-button:hover {
-border-color: #e0b968;
-background: rgba(224,185,104,.08);
-transform: translateY(-1px);
-}
-    padding: 54px 20px 48px;
-/* =========================
-   HEADER
-========================= */
-header {
-color: #fff9ef;
-text-align: center;
+    border-color: #d4af63;
 
-background:
-    radial-gradient(
-        circle at 50% -20%,
-        #344652 0,
-        #1b252c 38%,
-        #101518 75%,
-        #0b0f11 100%
-    );
-box-shadow:
-    0 10px 35px rgba(0,0,0,.35);
+    color: #f5f0e6;
 
+    background: rgba(212, 175, 99, .06);
+
+    transform: translateY(-1px);
 }
-header h1 {
-    margin: 7px 0 9px;
-    font-size: clamp(30px, 5vw, 44px);
-    letter-spacing: .02em;
-}
-header > p:last-child {
-    margin: 0;
-    color: #cbd7d5;
-    font-size: 16px;
-}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
 .eyebrow,
 .section-label,
 .card-label {
     margin: 0;
+
     font-family: Arial, sans-serif;
     font-size: 11px;
     font-weight: bold;
+
     letter-spacing: .16em;
 }
+
 .eyebrow {
-color: #d4af63;
-text-shadow: 0 1px 10px rgba(212,175,99,.15);
+    color: #d4af63;
 }
-/* =========================
+
+.section-label {
+    color: #d4af63;
+
+    font-size: 10px;
+
+    letter-spacing: .22em;
+}
+
+
+/* =========================================================
    MAIN
-========================= */
+========================================================= */
+
 main {
     width: min(100% - 32px, 820px);
-    margin: 42px auto 60px;
-    overflow: hidden;
+
+    margin: 48px auto 70px;
 }
-h2 {
+
+main h2 {
     margin: 7px 0 24px;
+
+    color: #f1ede4;
+
     font-size: 27px;
+    font-weight: normal;
+
+    letter-spacing: .02em;
 }
-.section-label {
-    color: #9a7041;
-}
-.hidden {
-    display: none !important;
-}
-/* =========================
-   LIBRARY
-========================= */
+
+
+/* =========================================================
+   MOVIE CARD BASE
+========================================================= */
+
 .movie-card {
     display: flex;
     align-items: center;
+
     width: 100%;
+
     padding: 22px;
+
     border: 0;
     border-radius: 12px;
+
     color: inherit;
     background: #fffaf0;
-    box-shadow: 0 10px 25px rgba(69, 51, 28, .15);
+
+    box-shadow:
+        0 10px 25px rgba(69, 51, 28, .15);
+
     text-align: left;
+
     transition:
-        transform .2s,
-        box-shadow .2s;
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
 }
+
 .movie-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 30px rgba(69, 51, 28, .2);
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 24px rgba(37, 32, 24, .10);
 }
+
+
+/* =========================================================
+   MOVIE IMAGE
+========================================================= */
+
 .movie-image {
     display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
     width: 76px;
     height: 96px;
-    place-items: center;
+
     border-radius: 4px;
+
     background: #9d2c2e;
-    box-shadow: 4px 4px 0 #592123;
+
+    box-shadow:
+        4px 4px 0 #592123;
+
     font-size: 43px;
 }
+
+
+/* =========================================================
+   BOOK INFO
+========================================================= */
+
 .book-info {
     display: flex;
     flex: 1;
     flex-direction: column;
     gap: 7px;
+
     padding: 0 22px;
 }
+
 .book-info strong {
     font-size: 24px;
 }
+
 .book-info span {
     color: #766b5d;
+
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
-.open-book {
-    color: #9d2c2e;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-}
-/* =========================
-   BOOKSHELF
-========================= */
-.bookshelf {
+
+
+/* =========================================================
+   COLLECTION BOOK
+   SPIDER-MAN COLLECTION
+========================================================= */
+
+.collection-book {
     position: relative;
-    min-height: 290px;
-    padding: 48px 42px 34px;
-    overflow: hidden;
-    border: 12px solid #382619;
-    border-radius: 4px;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.06),
-            transparent 13%,
-            rgba(0,0,0,.16) 48%,
-            transparent 86%
-        ),
-        repeating-linear-gradient(
-            4deg,
-            #70482d 0 2px,
-            #613d26 3px 7px,
-            #784e30 8px 10px
-        );
-    box-shadow:
-        inset 0 0 0 4px rgba(24,13,8,.45),
-        inset 0 18px 22px rgba(32,17,9,.4),
-        0 18px 28px rgba(51,34,17,.25);
-}
-.bookshelf::before {
-    position: absolute;
-    inset: 25px 22px 29px;
-    border: 1px solid rgba(15,8,4,.55);
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.28),
-            transparent 12%,
-            transparent 88%,
-            rgba(0,0,0,.28)
-        ),
-        repeating-linear-gradient(
-            88deg,
-            rgba(255,255,255,.025) 0 2px,
-            transparent 3px 13px
-        );
-    box-shadow:
-        inset 0 18px 28px rgba(18,10,5,.4);
-    content: "";
-}
-.bookshelf::after {
-    position: absolute;
-    right: -8px;
-    bottom: 0;
-    left: -8px;
-    height: 25px;
-    border-top: 2px solid #a9794a;
-    background: linear-gradient(#4b2d1a, #2d1a0f);
-    box-shadow:
-        0 -5px 9px rgba(16,8,4,.48),
-        0 8px 7px rgba(45,27,14,.4);
-    content: "";
-}
-.shelf-plaque {
-    position: absolute;
-    z-index: 2;
-    top: 12px;
-    left: 50%;
-    margin: 0;
-    padding: 4px 12px;
-    border: 1px solid #b89550;
-    color: #f2d997;
+
+    min-height: 180px;
+
+    padding: 28px 34px;
+
+    border: 1px solid rgba(150, 118, 65, .42);
+
     background:
         linear-gradient(
             135deg,
-            #795822,
-            #b48a3b,
-            #6c4c19
+            rgba(255, 252, 244, .96),
+            rgba(232, 224, 210, .96)
         );
+
     box-shadow:
-        0 2px 3px rgba(0,0,0,.4),
-        inset 0 1px rgba(255,255,255,.35);
-    font-family: Arial, sans-serif;
-    font-size: 9px;
-    font-weight: bold;
-    letter-spacing: .16em;
-    transform: translateX(-50%);
-}
-.shelf-book {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    min-height: 168px;
-    max-width: 570px;
-    margin: 19px auto 0;
-    padding: 19px 25px 19px 20px;
-    border: 1px solid #c6ac76;
-    border-left: 15px solid #7a2529;
-    border-radius: 2px 5px 5px 2px;
-    color: #2c251c;
-    background:
-        linear-gradient(
-            105deg,
-            #e8dcc2,
-            #fff9e9 42%,
-            #daceb5
-        );
-    box-shadow:
-        -7px 5px 0 #51191c,
-        -11px 8px 0 #311013,
-        8px 10px 16px rgba(16,8,4,.62),
-        inset 0 0 28px rgba(95,67,29,.18);
-    transform:
-        perspective(800px)
-        rotateY(-3deg);
+        0 14px 30px rgba(37, 32, 24, .12),
+        inset 0 1px 0 rgba(255, 255, 255, .8);
+
     transition:
-        transform .25s ease,
-        box-shadow .25s ease;
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
 }
-.shelf-book::before {
+
+.collection-book::before {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 13px;
-    width: 2px;
-    background: rgba(255,223,178,.38);
+
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+
+    width: 4px;
+
+    background: #9b7a43;
+
     content: "";
 }
-.shelf-book::after {
+
+.collection-book:hover {
+    border-color: rgba(155, 122, 67, .7);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 18px 34px rgba(37, 32, 24, .14),
+        inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+
+
+/* =========================================================
+   SPIDER-MAN LOGO
+   赤い蜘蛛を主役にする
+========================================================= */
+
+.collection-book .movie-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 92px;
+    height: 92px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #3b0d12 0%,
+            #240b12 70%,
+            #17263b 100%
+        );
+
+    border: 1px solid rgba(170, 48, 55, .8);
+    border-radius: 2px;
+
+    color: #c8323d;
+
+    font-size: 42px;
+
+    text-shadow:
+        0 0 10px rgba(200, 50, 61, .35);
+
+    box-shadow:
+        inset 0 0 0 5px rgba(170, 48, 55, .12),
+        0 5px 15px rgba(80, 20, 25, .15);
+}
+
+.collection-book .book-info {
+    padding-left: 8px;
+}
+
+.collection-book .book-info strong {
+    color: #1d2d42;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(20px, 2vw, 27px);
+    font-weight: normal;
+
+    line-height: 1.35;
+
+    letter-spacing: .01em;
+}
+
+.collection-book .book-info > span {
+    margin-top: 9px;
+
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+
+    letter-spacing: .14em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   OPEN / CLOSE BUTTON
+========================================================= */
+
+.collection-book .open-book {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    flex: 0 0 auto;
+
+    min-width: 82px;
+    height: 28px;
+
+    overflow: hidden;
+
+    color: #1d2d42;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: .15em;
+
+    white-space: nowrap;
+}
+
+
+/* ラベル共通 */
+
+.collection-book .open-label,
+.collection-book .close-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    white-space: nowrap;
+
+    transition:
+        opacity .28s ease,
+        transform .38s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* Open */
+
+.collection-book .open-label {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* Close */
+
+.collection-book .close-label {
     position: absolute;
-    top: 12px;
-    right: 15px;
-    bottom: 12px;
-    left: 20px;
-    border: 1px solid rgba(120,81,39,.25);
-    content: "";
+
+    right: 0;
+
+    opacity: 0;
+
+    transform:
+        translateY(8px);
+
     pointer-events: none;
 }
-.shelf-book:hover {
+
+
+/* 開いた状態 */
+
+.collection-book[aria-expanded="true"] .open-label {
+    opacity: 0;
+
     transform:
-        perspective(800px)
-        translateY(-9px)
-        rotateY(-4deg);
+        translateY(-8px);
+
+    pointer-events: none;
 }
-.shelf-book .movie-image {
-    position: relative;
-    z-index: 1;
-    flex-shrink: 0;
-    width: 86px;
-    height: 118px;
-    border: 1px solid rgba(255,255,255,.3);
-    border-radius: 1px;
+
+.collection-book[aria-expanded="true"] .close-label {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   COLLECTION LIST
+========================================================= */
+
+.book-list {
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 24px 24px 28px;
+
+    border: 1px solid rgba(89, 76, 54, .16);
+    border-top: 2px solid rgba(155, 122, 67, .45);
+
+    background: rgba(31, 43, 57, .055);
+
+    transform-origin: top center;
+}
+
+
+/*
+   IMPORTANT:
+
+   book-list 自体には常時 animation を付けない。
+   Open時に一度だけ .collection-opening を付ける。
+   これで「二重にモーションがかかる」問題を防ぐ。
+*/
+
+.book-list.collection-opening {
+    animation:
+        collectionOpen .42s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.book-list.collection-closing {
+    animation:
+        collectionClose .32s cubic-bezier(.4, 0, .2, 1) both;
+}
+
+
+/* =========================================================
+   COLLECTION OPEN
+========================================================= */
+
+@keyframes collectionOpen {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-8px)
+            scaleY(.985);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scaleY(1);
+    }
+}
+
+
+/* =========================================================
+   COLLECTION CLOSE
+========================================================= */
+
+/*
+   初期画面へ戻るような大きな移動はしない。
+   その場で静かにフェードして少しだけ縮む。
+*/
+
+@keyframes collectionClose {
+
+    from {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scaleY(1);
+    }
+
+    to {
+        opacity: 0;
+
+        transform:
+            translateY(-3px)
+            scaleY(.99);
+    }
+}
+
+
+/* =========================================================
+   COLLECTION DIVIDER
+========================================================= */
+
+.collection-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin: 0 4px 18px;
+}
+
+.collection-divider::before,
+.collection-divider::after {
+    flex: 1;
+
+    height: 1px;
+
     background:
-        radial-gradient(
-            circle at 50% 38%,
-            #b84143 0 14%,
-            #741f27 15% 42%,
-            #251d20 43%
+        rgba(128, 108, 77, .3);
+
+    content: "";
+}
+
+.collection-divider span {
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: .2em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LESSON CARD
+========================================================= */
+
+.lesson-card {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: calc(100% - 20px);
+
+    min-height: 105px;
+
+    margin: 0 10px;
+
+    padding: 17px 22px;
+
+    border: 1px solid rgba(105, 86, 54, .25);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8f4eb,
+            #ebe3d4
         );
+
     box-shadow:
-        3px 4px 0 #55301f,
-        0 5px 10px rgba(27,12,10,.27);
+        0 5px 14px rgba(37, 32, 24, .06);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 }
-.shelf-book .book-info,
-.shelf-book .open-book {
-    position: relative;
-    z-index: 1;
+
+.lesson-card:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(37, 32, 24, .08);
 }
-.shelf-book .book-info {
-    align-self: center;
+
+.lesson-card::before {
+    position: absolute;
+
+    top: 9px;
+    bottom: 9px;
+    left: 0;
+
+    width: 3px;
+
+    background: #9b7a43;
+
+    content: "";
 }
-.shelf-book .book-info strong {
-    color: #332719;
-    font-size: clamp(20px, 3.7vw, 28px);
+
+
+/* =========================================================
+   LESSON IMAGE
+========================================================= */
+
+.lesson-card .movie-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 62px;
+
+    width: 62px;
+    height: 62px;
+
+    border: 1px solid rgba(155, 122, 67, .6);
+    border-radius: 2px;
+
+    background: #182c45;
+
+    font-size: 27px;
+}
+
+
+/* =========================================================
+   LESSON INFO
+========================================================= */
+
+.lesson-card .book-info {
+    min-width: 0;
+
+    flex: 1;
+
+    padding: 0 14px;
+}
+
+.lesson-card .book-info > strong {
+    display: block;
+
+    width: 100%;
+
+    color: #26374c;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 17px;
+    font-weight: 600;
+
     line-height: 1.25;
+
+    letter-spacing: .01em;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
 }
-.shelf-book .book-info span {
-    color: #766044;
+
+
+/* =========================================================
+   LEARNING PROGRESS
+========================================================= */
+
+.lesson-card .progress-box {
+    display: grid;
+
+    grid-template-columns:
+        auto
+        minmax(90px, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 9px;
+
+    width: min(390px, 100%);
+
+    margin-top: 9px;
 }
-.shelf-book .open-book {
-    align-self: flex-end;
-    padding: 7px 0;
-    color: #7a2529;
+
+.lesson-card .progress-label {
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+
+    letter-spacing: .13em;
+
+    white-space: nowrap;
 }
-.trailer-image {
+
+.lesson-card .progress-track {
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 0;
+
     background:
-        radial-gradient(
-            circle at 50% 38%,
-            #f2e8d2 0 2%,
-            transparent 3% 12%,
-            #be9b58 13% 14%,
-            transparent 15% 23%,
-            #9d2c2e 24% 25%,
-            #29272b 26% 48%,
-            #10171b 49%
-        ) !important;
+        rgba(71, 63, 50, .12);
 }
-/* =========================
-   YOUTUBE
-========================= */
+
+.lesson-card .progress-fill {
+    display: block;
+
+    width: 0%;
+    height: 100%;
+
+    background: #9b7a43;
+
+    transition:
+        width .3s ease;
+}
+
+.lesson-card .progress-percent {
+    color: #554a3b;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+
+    letter-spacing: .08em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LESSON OPEN
+========================================================= */
+
+.lesson-card .open-book {
+    flex: 0 0 auto;
+
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+
+    letter-spacing: .16em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   YOUTUBE / WATCH THE TRAILER
+========================================================= */
+
 .youtube-preview {
     position: relative;
-    z-index: 1;
+
     display: grid;
+
     grid-template-columns: 150px 1fr;
+
     gap: 14px;
+
     align-items: center;
-    max-width: 570px;
-    margin: 17px auto 0;
+
+    width: calc(100% - 100px);
+
+    max-width: 760px;
+
+    margin:
+        14px 50px 0;
+
     overflow: hidden;
-    border: 1px solid rgba(219,195,146,.48);
+
+    border: 1px solid rgba(89, 76, 54, .18);
     border-radius: 3px;
-    color: #f7ead0;
-    background: rgba(25,16,10,.78);
-    box-shadow: 0 5px 12px rgba(16,8,4,.38);
+
+    color: #26374c;
+
+    background:
+        rgba(248, 244, 235, .8);
+
+    box-shadow:
+        0 4px 12px rgba(37, 32, 24, .05);
+
     font-family: Arial, sans-serif;
+
     text-decoration: none;
+
+    transform:
+        scale(.88);
+
+    transform-origin:
+        top center;
+
+    opacity: .92;
 }
+
 .youtube-preview img {
     display: block;
+
     width: 150px;
     height: 84px;
+
     object-fit: cover;
 }
+
 .youtube-play {
     position: absolute;
+
     top: 27px;
     left: 58px;
+
     display: grid;
+    place-items: center;
+
     width: 38px;
     height: 30px;
-    place-items: center;
+
     border-radius: 8px;
+
     color: white;
+
     background: #d42128;
+
     font-size: 15px;
 }
+
 .youtube-caption {
     display: flex;
     flex-direction: column;
+
     gap: 5px;
-    padding-right: 12px;
+
+    padding: 10px 14px;
 }
+
 .youtube-caption strong {
-    color: #f5db9b;
-    font-size: 14px;
+    color: #26374c;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 13px;
 }
+
 .youtube-caption span {
-    color: #d0c1a5;
-    font-size: 12px;
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+
     line-height: 1.35;
 }
-/* =========================
+
+
+/* =========================================================
    READER
-========================= */
-.book-list {
-    margin-top: 32px;
-    animation: openCollection .35s ease-out;
+========================================================= */
+
+.book-heading {
+    text-align: center;
 }
-@keyframes openCollection {
-    from {
-        opacity: 0;
-        transform: translateY(-15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+
+.book-heading h2 {
+    margin-bottom: 24px;
+
+    color: #f4efe5;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-weight: normal;
+
+    letter-spacing: .015em;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, .18);
 }
+
+.book-heading .section-label {
+    color: #c9b58e;
+}
+
 .reader-topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     margin-bottom: 34px;
+
+    border-bottom:
+        1px solid rgba(128, 108, 77, .25);
 }
+
 .back-button {
     padding: 0;
+
     border: 0;
-    color: #574d41;
+
+    color: #c9b58e !important;
     background: transparent;
+
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: .08em;
+
+    transition:
+        color .2s ease;
 }
+
+.back-button:hover {
+    color: #f4efe5 !important;
+}
+
 .progress {
     margin: 0;
-    color: #766b5d;
+
+    color: #9fa6a6;
+
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
-.book-heading {
-    text-align: center;
-}
-.book-heading h2 {
-    margin-bottom: 24px;
-}
+
+
+/* =========================================================
+   BOOK SHELL
+========================================================= */
+
 .book-shell {
     position: relative;
+
     padding: 8px 13px 13px;
+
     border-radius: 8px;
+
     background: #6b4d32;
+
     box-shadow:
-        0 18px 30px rgba(70,46,23,.25);
+        0 18px 30px rgba(70, 46, 23, .25);
 }
+
 .vocabulary-page {
-    background: #fffaf0;
-    box-shadow:
-        inset 0 0 35px rgba(103,73,35,.12),
-        0 18px 30px rgba(70,46,23,.25);
-    touch-action: pan-y;
     overflow: hidden;
+
+    background: #fffaf0;
+
+    box-shadow:
+        inset 0 0 35px rgba(103, 73, 35, .12),
+        0 18px 30px rgba(70, 46, 23, .25);
+
+    touch-action: pan-y;
 }
+
 .vocabulary-page::before {
     display: block;
+
     height: 6px;
+
     margin: -8px -13px 8px;
+
     opacity: .8;
+
     background:
         repeating-linear-gradient(
             60deg,
             transparent 0 12px,
-            rgba(120,34,37,.42) 13px 14px,
+            rgba(120, 34, 37, .42) 13px 14px,
             transparent 15px 27px
         ),
         repeating-linear-gradient(
             -60deg,
             transparent 0 12px,
-            rgba(120,34,37,.32) 13px 14px,
+            rgba(120, 34, 37, .32) 13px 14px,
             transparent 15px 27px
         );
+
     content: "";
 }
-/* =========================
+
+
+/* =========================================================
    WORD LIST
-========================= */
+========================================================= */
+
 .word-list {
     margin: 0;
     padding: 0;
+
     list-style: none;
+
     counter-reset: vocabulary;
 }
+
 .word-entry {
     position: relative;
+
     min-height: 125px;
-    border-bottom: 1px solid #ded2bf;
+
+    border-bottom:
+        1px solid #ded2bf;
+
     counter-increment: vocabulary;
 }
+
 .word-entry:last-child {
     border-bottom: 0;
 }
+
 .word-entry::before {
     position: absolute;
     z-index: 2;
+
     top: 18px;
     left: 12px;
+
     color: #b09570;
-    content: counter(vocabulary, decimal-leading-zero);
+
+    content:
+        counter(vocabulary, decimal-leading-zero);
+
     font-family: Arial, sans-serif;
     font-size: 11px;
+
     letter-spacing: .08em;
 }
+
 .word-flip {
     display: block;
+
     width: 100%;
     min-height: 124px;
+
     padding: 18px 125px 18px 55px;
+
     border: 0;
+
     color: inherit;
     background: transparent;
+
     font: inherit;
+
     text-align: left;
 }
+
 .word-flip-inner {
     position: relative;
+
     display: block;
+
     min-height: 85px;
+
     transform-style: preserve-3d;
+
     transition:
-        transform .5s cubic-bezier(.2,.75,.25,1);
+        transform .5s cubic-bezier(.2, .75, .25, 1);
 }
+
 .word-flip.is-flipped .word-flip-inner {
-    transform: rotateX(180deg);
+    transform:
+        rotateX(180deg);
 }
+
 .word-face {
     display: block;
+
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
+
 .word-back {
     position: absolute;
+
     inset: 0;
-    transform: rotateX(180deg);
+
+    transform:
+        rotateX(180deg);
 }
+
 .word {
     color: #292218;
+
     font-size: clamp(24px, 3.9vw, 31px);
     font-weight: bold;
+
     line-height: 1.3;
 }
+
 .meaning {
     color: #9a7041;
+
     font-size: clamp(19px, 3vw, 23px);
     font-weight: bold;
 }
+
 .word-level {
     display: inline-block;
+
     margin-left: 8px;
     padding: 4px 7px;
+
     border-radius: 2px;
+
     font-family: Arial, sans-serif;
     font-size: 9px;
     font-weight: bold;
+
     letter-spacing: .08em;
+
     vertical-align: middle;
 }
+
 .level-easy {
     color: #346550;
     background: #dcece0;
 }
+
 .level-medium {
     color: #886225;
     background: #f1e4be;
 }
+
 .level-advanced {
     color: #883d3f;
     background: #f0d9d7;
 }
+
 .example {
     display: block;
+
     margin-top: 11px;
+
     color: #403729;
+
     font-size: clamp(16px, 2.6vw, 18px);
     font-style: italic;
+
     line-height: 1.55;
 }
+
 .translation {
     display: block;
+
     margin-top: 9px;
+
     color: #796e5f;
+
     font-size: clamp(15px, 2.5vw, 17px);
+
     line-height: 1.55;
 }
-/* =========================
+
+
+/* =========================================================
    FLIP HINT
-========================= */
+========================================================= */
+
 .word-flip-hint {
     position: absolute;
     z-index: 3;
+
     top: 63px;
     right: 46px;
+
     display: block;
+
     width: 82px;
+
     color: #ad9b82;
+
     font-family: Arial, sans-serif;
     font-size: 14px;
     font-weight: 600;
+
     letter-spacing: .08em;
+
     line-height: 1.2;
+
     text-align: center;
+
     white-space: nowrap;
+
     pointer-events: none;
 }
+
 .word-flip-front-hint {
     display: inline-flex;
 }
+
 .word-flip-return-hint {
     display: none;
 }
+
 .word-entry > .word-flip-front-hint {
     display: inline-flex;
 }
-.word-entry:has(.word-flip.is-flipped) > .word-flip-front-hint {
+
+.word-entry:has(.word-flip.is-flipped)
+> .word-flip-front-hint {
     display: none;
 }
-.word-entry:has(.word-flip.is-flipped) > .word-flip-return-hint {
+
+.word-entry:has(.word-flip.is-flipped)
+> .word-flip-return-hint {
     display: inline-flex;
 }
-/* =========================
+
+
+/* =========================================================
    SOUND
-========================= */
+========================================================= */
+
 .speak-button {
     position: absolute;
+    z-index: 3;
+
     top: 14px;
     right: 15px;
-    z-index: 3;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     gap: 6px;
+
     width: 84px;
     height: 42px;
+
     border: 1px solid #c9b48a;
     border-radius: 8px;
+
     color: #604424;
     background: #fffaf0;
+
     font-family: Arial, sans-serif;
     font-size: 14px;
     font-weight: bold;
 }
+
 .speak-button::after {
     content: "Sound";
 }
-/* =========================
+
+
+/* =========================================================
    MASTERED
-========================= */
+========================================================= */
+
 .master-button,
 .cancel-button {
     position: absolute;
+    z-index: 3;
+
     right: 15px;
     bottom: 12px;
-    z-index: 3;
+
     min-width: 84px;
     min-height: 38px;
+
     padding: 7px 11px;
+
     border-radius: 8px;
+
     font-family: Arial, sans-serif;
     font-size: 12px;
     font-weight: bold;
 }
+
 .master-button {
     border: 0;
+
     color: #fff7eb;
+
     background: #9d2c2e;
 }
+
 .cancel-button {
     border: 1px solid #607570;
+
     color: #38534d;
     background: #f8fbf8;
 }
+
 .word-entry.is-mastered::after {
     position: absolute;
-    inset: 0;
     z-index: 4;
+
+    inset: 0;
+
     display: grid;
     place-items: center;
-    color: rgba(92,111,106,.76);
+
+    color: rgba(92, 111, 106, .76);
+
     background:
         repeating-linear-gradient(
             45deg,
             transparent 0 14px,
-            rgba(193,205,202,.72) 15px 16px,
+            rgba(193, 205, 202, .72) 15px 16px,
             transparent 17px 29px
         ),
-        rgba(255,250,240,.28);
+        rgba(255, 250, 240, .28);
+
     content: "🕸";
+
     font-size: 44px;
+
     pointer-events: none;
 }
+
 .word-entry.is-mastered .word-flip {
     opacity: .48;
 }
-/* =========================
+
+
+/* =========================================================
    PAGE TURN
-========================= */
+========================================================= */
+
 .page-turn {
     position: absolute;
     z-index: 5;
+
     top: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     gap: 3px;
+
     width: 66px;
     height: 106px;
+
     padding: 0 7px;
+
     border: 0;
+
     color: #f8ead0;
+
     background:
         linear-gradient(
             90deg,
             #573920,
             #855936
         );
+
     box-shadow:
-        0 7px 12px rgba(46,27,12,.38);
+        0 7px 12px rgba(46, 27, 12, .38);
+
     font-family: Arial, sans-serif;
-    transform: translateY(-50%);
+
+    transform:
+        translateY(-50%);
+
     user-select: none;
 }
+
 .page-turn span {
     font-family: Georgia, serif;
     font-size: 44px;
 }
+
 .page-turn small {
     font-size: 8px;
     font-weight: bold;
 }
+
 .page-turn-left {
     left: -37px;
 }
+
 .page-turn-right {
     right: -37px;
 }
+
 .page-turn:disabled {
     opacity: .3;
+
     cursor: default;
 }
+
 .flip-guide {
     margin: 18px 0;
+
     color: #766b5d;
+
     font-size: 14px;
+
     text-align: center;
 }
-/* =========================
-   PAGE ANIMATION
-========================= */
+
+
+/* =========================================================
+   PAGE TURN ANIMATION
+========================================================= */
+
 .page-turn-next {
-    animation: pageNext .48s cubic-bezier(.2,.8,.25,1);
+    animation:
+        pageNext .48s cubic-bezier(.2, .8, .25, 1);
 }
+
 .page-turn-previous {
-    animation: pagePrevious .48s cubic-bezier(.2,.8,.25,1);
+    animation:
+        pagePrevious .48s cubic-bezier(.2, .8, .25, 1);
 }
+
 @keyframes pageNext {
+
     0% {
         opacity: .5;
+
         transform:
             perspective(1200px)
             rotateY(-70deg);
-        transform-origin: left center;
+
+        transform-origin:
+            left center;
     }
+
     100% {
         opacity: 1;
+
         transform:
             perspective(1200px)
             rotateY(0);
-        transform-origin: left center;
+
+        transform-origin:
+            left center;
     }
 }
+
 @keyframes pagePrevious {
+
     0% {
         opacity: .5;
+
         transform:
             perspective(1200px)
             rotateY(70deg);
-        transform-origin: right center;
+
+        transform-origin:
+            right center;
     }
+
     100% {
         opacity: 1;
+
         transform:
             perspective(1200px)
             rotateY(0);
-        transform-origin: right center;
+
+        transform-origin:
+            right center;
     }
 }
+
+
 /* =========================================================
-   MOBILE
-========================================================= */
-@media (max-width: 540px) {
-    html,
-    body {
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden;
-    }
-    body {
-        overscroll-behavior: none;
-    }
-    header {
-        padding: 28px 16px 26px;
-    }
-    header h1 {
-        font-size: 28px;
-    }
-    header > p:last-child {
-        font-size: 13px;
-    }
-    main {
-        width: calc(100% - 20px);
-        max-width: none;
-        margin: 20px auto;
-    }
-    h2 {
-        font-size: 22px;
-    }
-    /* =====================
-       LIBRARY
-    ===================== */
-    .bookshelf {
-        min-height: 0;
-        padding: 40px 13px 25px;
-        border-width: 7px;
-    }
-    .bookshelf::before {
-        inset: 21px 8px 23px;
-    }
-    .shelf-book {
-        min-height: 135px;
-        margin-top: 10px;
-        padding: 12px 10px 12px 8px;
-        border-left-width: 9px;
-    }
-    .shelf-book .movie-image {
-        flex: 0 0 58px;
-        width: 58px;
-        height: 88px;
-        font-size: 28px;
-    }
-    .shelf-book .book-info {
-        gap: 4px;
-        padding: 0 9px;
-    }
-    .shelf-book .book-info strong {
-        font-size: 16px;
-    }
-    .shelf-book .book-info span {
-        font-size: 10px;
-    }
-    .shelf-book .open-book {
-        display: none;
-    }
-    /* =====================
-       YOUTUBE
-    ===================== */
-    .youtube-preview {
-        grid-template-columns: 100px 1fr;
-        gap: 8px;
-        margin-top: 12px;
-    }
-    .youtube-preview img {
-        width: 100px;
-        height: 60px;
-    }
-    .youtube-play {
-        top: 18px;
-        left: 36px;
-        width: 30px;
-        height: 24px;
-        font-size: 11px;
-    }
-    .youtube-caption {
-        gap: 3px;
-        padding-right: 7px;
-    }
-    .youtube-caption strong {
-        font-size: 11px;
-    }
-    .youtube-caption span {
-        font-size: 9px;
-    }
-    /* =====================================================
-       READER
-    ===================================================== */
-    #vocabulary {
-        position: fixed;
-        inset: 0;
-        z-index: 50;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 100dvh;
-        min-height: 0;
-        padding:
-            env(safe-area-inset-top)
-            10px
-            env(safe-area-inset-bottom);
-        margin: 0;
-        overflow: hidden;
-        background: #e8e0d2;
-    }
-    #vocabulary.hidden {
-        display: none;
-    }
-    #vocabulary .reader-topbar {
-        flex: 0 0 auto;
-        width: 100%;
-        height: 42px;
-        margin: 0;
-        align-items: center;
-    }
-    .back-button {
-        font-size: 12px;
-    }
-    .progress {
-        font-size: 11px;
-    }
-    /* =====================
-       TITLE
-    ===================== */
-    .book-heading {
-        flex: 0 0 auto;
-        margin: 3px 0 7px;
-    }
-    .book-heading .section-label {
-        font-size: 8px;
-    }
-    .book-heading h2 {
-        margin: 3px 0 0;
-        font-size: 17px;
-        line-height: 1.2;
-    }
-    /* =====================
-       BOOK
-    ===================== */
-    .book-shell {
-        flex: 1 1 auto;
-        min-height: 0;
-        width: 100%;
-        margin: 0;
-        padding: 5px;
-        overflow: hidden;
-        border-radius: 6px;
-        box-shadow:
-            0 10px 22px rgba(70,46,23,.25);
-    }
-    .vocabulary-page {
-        height: 100%;
-        min-height: 0;
-        padding: 0 4px;
-        overflow: hidden;
-    }
-    .vocabulary-page::before {
-        height: 4px;
-        margin: 0 -4px 2px;
-    }
-    /* =====================
-       WORD LIST
-    ===================== */
-    .word-list {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: calc(100% - 6px);
-        min-height: 0;
-        overflow: hidden;
-        touch-action: pan-y;
-    }
-    .word-entry {
-        position: relative;
-        flex: 1 1 25%;
-        min-height: 0;
-        height: 25%;
-        overflow: hidden;
-    }
-    .word-entry::before {
-        top: 8px;
-        left: 4px;
-        font-size: 8px;
-    }
-    .word-flip {
-        width: 100%;
-        height: 100%;
-        min-height: 0;
-        /*
-         * Sound / Masteredのための右側スペース
-         */
-        padding: 9px 94px 9px 27px;
-        overflow: hidden;
-    }
-    .word-flip-inner {
-        min-height: 0;
-        height: 100%;
-    }
-    .word-face {
-        width: 100%;
-        height: 100%;
-    }
-    .word {
-        display: inline;
-        font-size: clamp(17px, 4.8vw, 22px);
-        line-height: 1.2;
-    }
-    .word-level {
-        margin-left: 3px;
-        padding: 2px 4px;
-        font-size: 6px;
-    }
-    .example,
-    .translation {
-        margin-top: 5px;
-        font-size: clamp(11px, 3vw, 14px);
-        line-height: 1.25;
-    }
-    .meaning {
-        font-size: clamp(14px, 3.8vw, 18px);
-        line-height: 1.25;
-    }
-    /* =====================================================
-       MOBILE FLIP HINT
-       
-       Sound
-       ↓
-       TAP TO FLIP / TAP TO RETURN
-       ↓
-       Mastered
-       
-       という配置にする
-    ===================================================== */
-    .word-flip-hint {
-        position: absolute;
-        z-index: 3;
-        /*
-         * Sound / Masteredと同じ右側の列。
-         * right: 4px + width: 78px のボタンに合わせる。
-         */
-        right: 4px;
-        /*
-         * Soundは top: 6px / height: 36px
-         * Masteredは bottom: 5px / height: 32px
-         *
-         * その中間に配置
-         */
-        top: 50%;
-        bottom: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 78px;
-        height: 30px;
-        margin: 0;
-        color: #ad9b82;
-        font-family: Arial, sans-serif;
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: .04em;
-        line-height: 1.15;
-        text-align: center;
-        white-space: nowrap;
-        pointer-events: none;
-        /*
-         * 中央配置
-         */
-        transform: translateY(-50%);
-    }
-    .word-flip-front-hint {
-        display: inline-flex;
-    }
-    .word-flip-return-hint {
-        display: none;
-    }
-    .word-entry > .word-flip-front-hint {
-        display: inline-flex;
-    }
-    .word-entry:has(.word-flip.is-flipped) > .word-flip-front-hint {
-        display: none;
-    }
-    .word-entry:has(.word-flip.is-flipped) > .word-flip-return-hint {
-        display: flex;
-    }
-    /* =====================================================
-       MOBILE SOUND
-    ===================================================== */
-    .speak-button {
-        top: 6px;
-        right: 4px;
-        width: 78px;
-        height: 36px;
-        font-size: 13px;
-    }
-    /* =====================================================
-       MOBILE MASTERED
-    ===================================================== */
-    .master-button,
-    .cancel-button {
-        right: 4px;
-        bottom: 5px;
-        min-width: 78px;
-        min-height: 32px;
-        padding: 5px 7px;
-        font-size: 9px;
-    }
-    .word-entry.is-mastered::after {
-        font-size: 28px;
-    }
-    /* =====================================================
-       MOBILE PAGE BUTTON
-    ===================================================== */
-    .page-turn {
-        width: 30px;
-        height: 58px;
-        padding: 0;
-        background: rgba(72,45,26,.86);
-        box-shadow:
-            0 4px 8px rgba(46,27,12,.3);
-    }
-    .page-turn span {
-        font-size: 27px;
-    }
-    .page-turn small {
-        display: none;
-    }
-    .page-turn-left {
-        left: 4px;
-    }
-    .page-turn-right {
-        right: 4px;
-    }
-    .flip-guide {
-        flex: 0 0 auto;
-        margin: 5px 0 4px;
-        font-size: 9px;
-    }
-}
-/* =========================================================
-   SHORT PHONES
-========================================================= */
-@media (max-width: 540px) and (max-height: 700px) {
-    #vocabulary .reader-topbar {
-        height: 36px;
-    }
-    .book-heading {
-        margin-bottom: 4px;
-    }
-    .book-heading h2 {
-        font-size: 15px;
-    }
-    .word {
-        font-size: 16px;
-    }
-    .example,
-    .translation {
-        font-size: 10px;
-        line-height: 1.15;
-    }
-    .meaning {
-        font-size: 13px;
-    }
-    .flip-guide {
-        display: none;
-    }
-    /*
-     * 短いスマホでもSoundとMasteredの
-     * 中間位置を維持する
-     */
-    .word-flip-hint {
-        right: 4px;
-        top: 50%;
-        bottom: auto;
-        width: 78px;
-        height: 28px;
-        font-size: 9px;
-        transform: translateY(-50%);
-    }
-}
-/* =========================
    AUTH SCREEN
-========================= */
+========================================================= */
 
 #auth-screen {
     position: fixed;
-    inset: 0;
     z-index: 1000;
+
+    inset: 0;
 
     display: flex;
     align-items: center;
@@ -1222,38 +1577,34 @@ h2 {
 
     padding: 30px 20px;
 
-   background:
-radial-gradient(
-circle at 50% 15%,
-#344652 0,
-#1b252c 32%,
-#101518 68%,
-#080b0d 100%
-);
-
     color: #fff9ef;
-}
 
-/* subtle cinematic glow */
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            #344652 0,
+            #1b252c 32%,
+            #101518 68%,
+            #080b0d 100%
+        );
+}
 
 #auth-screen::before {
     position: absolute;
+
     inset: 0;
 
     background:
         radial-gradient(
             ellipse at center,
-            rgba(224,185,104,.08),
+            rgba(224, 185, 104, .08),
             transparent 55%
         );
 
     content: "";
+
     pointer-events: none;
 }
-
-/* =========================
-   AUTH CARD
-========================= */
 
 .auth-card {
     position: relative;
@@ -1263,23 +1614,21 @@ circle at 50% 15%,
 
     padding: 52px 48px 44px;
 
-    border: 1px solid rgba(224,185,104,.32);
+    border: 1px solid rgba(224, 185, 104, .32);
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,250,240,.08),
-            rgba(255,250,240,.025)
+            rgba(255, 250, 240, .08),
+            rgba(255, 250, 240, .025)
         );
 
     box-shadow:
-        0 30px 70px rgba(0,0,0,.38),
-        inset 0 1px rgba(255,255,255,.08);
+        0 30px 70px rgba(0, 0, 0, .38),
+        inset 0 1px rgba(255, 255, 255, .08);
 
     backdrop-filter: blur(8px);
 }
-
-/* small gold line */
 
 .auth-card::before {
     position: absolute;
@@ -1294,12 +1643,9 @@ circle at 50% 15%,
 
     content: "";
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 }
-
-/* =========================
-   BRAND
-========================= */
 
 .auth-eyebrow {
     margin: 0 0 13px;
@@ -1318,7 +1664,7 @@ circle at 50% 15%,
 #auth-screen h2 {
     margin: 0;
 
-    color: #fff9ef;
+    color: #f5f0e6;
 
     font-family:
         Georgia,
@@ -1337,7 +1683,7 @@ circle at 50% 15%,
 .auth-subtitle {
     margin: 12px 0 34px;
 
-    color: #c5cfcd;
+    color: #d9d6cf;
 
     font-family: Arial, sans-serif;
     font-size: 12px;
@@ -1347,13 +1693,10 @@ circle at 50% 15%,
     text-align: center;
 }
 
-/* =========================
-   FORM
-========================= */
-
 .auth-form {
     display: flex;
     flex-direction: column;
+
     gap: 11px;
 }
 
@@ -1362,7 +1705,7 @@ circle at 50% 15%,
 
     padding: 14px 15px;
 
-    border: 1px solid rgba(224,185,104,.28);
+    border: 1px solid rgba(224, 185, 104, .28);
     border-radius: 3px;
 
     outline: none;
@@ -1374,8 +1717,8 @@ circle at 50% 15%,
     font-size: 14px;
 
     transition:
-        border-color .2s,
-        box-shadow .2s;
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
 #auth-screen input::placeholder {
@@ -1386,12 +1729,8 @@ circle at 50% 15%,
     border-color: #e0b968;
 
     box-shadow:
-        0 0 0 2px rgba(224,185,104,.13);
+        0 0 0 2px rgba(224, 185, 104, .13);
 }
-
-/* =========================
-   LOGIN BUTTON
-========================= */
 
 #login-button {
     width: 100%;
@@ -1418,33 +1757,30 @@ circle at 50% 15%,
     font-weight: bold;
 
     letter-spacing: .12em;
+
     text-transform: uppercase;
 
     box-shadow:
-        0 5px 12px rgba(0,0,0,.22);
+        0 5px 12px rgba(0, 0, 0, .22);
 
     transition:
-        transform .2s,
-        box-shadow .2s,
-        filter .2s;
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
 }
 
 #login-button:hover {
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     filter: brightness(1.08);
 
     box-shadow:
-        0 8px 17px rgba(0,0,0,.3);
+        0 8px 17px rgba(0, 0, 0, .3);
 }
-
-/* =========================
-   DIVIDER
-========================= */
 
 .auth-divider {
     display: flex;
-
     align-items: center;
 
     gap: 12px;
@@ -1465,21 +1801,18 @@ circle at 50% 15%,
 
     height: 1px;
 
-    background: rgba(224,185,104,.18);
+    background:
+        rgba(224, 185, 104, .18);
 
     content: "";
 }
-
-/* =========================
-   CONTINUE WITHOUT LOGIN
-========================= */
 
 #guest-button {
     width: 100%;
 
     padding: 12px;
 
-    border: 1px solid rgba(224,185,104,.35);
+    border: 1px solid rgba(224, 185, 104, .35);
     border-radius: 3px;
 
     color: #d8c9a8;
@@ -1492,22 +1825,20 @@ circle at 50% 15%,
     letter-spacing: .05em;
 
     transition:
-        color .2s,
-        background .2s,
-        border-color .2s;
+        color .2s ease,
+        background .2s ease,
+        border-color .2s ease;
 }
 
 #guest-button:hover {
     color: #fff9ef;
 
-    border-color: rgba(224,185,104,.7);
+    border-color:
+        rgba(224, 185, 104, .7);
 
-    background: rgba(224,185,104,.07);
+    background:
+        rgba(224, 185, 104, .07);
 }
-
-/* =========================
-   MESSAGE
-========================= */
 
 #auth-message {
     min-height: 18px;
@@ -1524,11 +1855,520 @@ circle at 50% 15%,
     text-align: center;
 }
 
-/* =========================
-   MOBILE
-========================= */
 
-@media (max-width: 540px) {
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    header {
+        padding: 28px 16px 26px;
+    }
+
+    .site-header-top {
+        width: 100%;
+    }
+
+    .site-header-top h1 {
+        font-size: 28px;
+    }
+
+    .site-header-top > div > p:last-child {
+        font-size: 11px;
+    }
+
+    .logout-button {
+        padding: 7px 10px;
+
+        font-size: 9px;
+    }
+
+    main {
+        width: calc(100% - 20px);
+
+        margin: 20px auto;
+    }
+
+    main h2 {
+        font-size: 22px;
+    }
+
+
+    /* =====================================================
+       COLLECTION
+    ===================================================== */
+
+    .collection-book {
+        min-height: 155px;
+
+        padding: 22px 20px;
+    }
+
+    .collection-book .movie-image {
+        width: 70px;
+        height: 70px;
+
+        font-size: 32px;
+    }
+
+    .collection-book .book-info {
+        padding-left: 8px;
+    }
+
+    .collection-book .book-info strong {
+        font-size: 19px;
+    }
+
+    .collection-book .book-info > span {
+        font-size: 9px;
+    }
+
+    .collection-book .open-book {
+        min-width: 62px;
+
+        font-size: 8px;
+    }
+
+
+    /* =====================================================
+       COLLECTION LIST
+    ===================================================== */
+
+    .book-list {
+        margin-top: 16px;
+
+        padding:
+            18px
+            12px
+            22px;
+    }
+
+
+    /* =====================================================
+       LESSON
+    ===================================================== */
+
+    .lesson-card {
+        width: 100%;
+
+        min-height: 115px;
+
+        margin: 0;
+
+        padding: 15px 16px;
+    }
+
+    .lesson-card .movie-image {
+        width: 52px;
+        height: 52px;
+
+        flex-basis: 52px;
+
+        font-size: 23px;
+    }
+
+    .lesson-card .book-info {
+        padding: 0 10px;
+    }
+
+    .lesson-card .book-info > strong {
+        font-size: 15px;
+    }
+
+    .lesson-card .progress-box {
+        grid-template-columns:
+            1fr
+            auto;
+
+        gap: 6px;
+    }
+
+    .lesson-card .progress-label {
+        grid-column: 1 / -1;
+    }
+
+    .lesson-card .progress-track {
+        min-width: 0;
+    }
+
+    .lesson-card .open-book {
+        font-size: 8px;
+    }
+
+
+    /* =====================================================
+       YOUTUBE
+    ===================================================== */
+
+    .youtube-preview {
+        grid-template-columns: 100px 1fr;
+
+        gap: 8px;
+
+        width: calc(100% - 30px);
+
+        margin:
+            12px 15px 0;
+
+        transform: none;
+    }
+
+    .youtube-preview img {
+        width: 100px;
+        height: 60px;
+
+        max-height: 130px;
+    }
+
+    .youtube-play {
+        top: 18px;
+        left: 36px;
+
+        width: 30px;
+        height: 24px;
+
+        font-size: 11px;
+    }
+
+    .youtube-caption {
+        gap: 3px;
+
+        padding-right: 7px;
+    }
+
+    .youtube-caption strong {
+        font-size: 11px;
+    }
+
+    .youtube-caption span {
+        font-size: 9px;
+    }
+
+
+    /* =====================================================
+       READER FULL SCREEN
+    ===================================================== */
+
+    #vocabulary {
+        position: fixed;
+        z-index: 50;
+
+        inset: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        height: 100dvh;
+
+        min-height: 0;
+
+        padding:
+            env(safe-area-inset-top)
+            10px
+            env(safe-area-inset-bottom);
+
+        margin: 0;
+
+        overflow: hidden;
+
+        background: #e8e0d2;
+    }
+
+    #vocabulary.hidden {
+        display: none;
+    }
+
+    #vocabulary .reader-topbar {
+        flex: 0 0 auto;
+
+        width: 100%;
+        height: 42px;
+
+        margin: 0;
+
+        align-items: center;
+    }
+
+    .back-button {
+        font-size: 12px;
+    }
+
+    .progress {
+        font-size: 11px;
+    }
+
+
+    /* =====================================================
+       READER TITLE
+    ===================================================== */
+
+    .book-heading {
+        flex: 0 0 auto;
+
+        margin:
+            3px 0 7px;
+    }
+
+    .book-heading .section-label {
+        font-size: 8px;
+    }
+
+    .book-heading h2 {
+        margin: 3px 0 0;
+
+        font-size: 17px;
+
+        line-height: 1.2;
+    }
+
+
+    /* =====================================================
+       BOOK
+    ===================================================== */
+
+    .book-shell {
+        flex: 1 1 auto;
+
+        width: 100%;
+
+        min-height: 0;
+
+        margin: 0;
+
+        padding: 5px;
+
+        overflow: hidden;
+
+        border-radius: 6px;
+    }
+
+    .vocabulary-page {
+        height: 100%;
+
+        min-height: 0;
+
+        padding: 0 4px;
+
+        overflow: hidden;
+    }
+
+    .vocabulary-page::before {
+        height: 4px;
+
+        margin:
+            0 -4px 2px;
+    }
+
+
+    /* =====================================================
+       WORD LIST
+    ===================================================== */
+
+    .word-list {
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+
+        height: calc(100% - 6px);
+
+        min-height: 0;
+
+        overflow: hidden;
+    }
+
+    .word-entry {
+        position: relative;
+
+        flex: 1 1 25%;
+
+        min-height: 0;
+        height: 25%;
+
+        overflow: hidden;
+    }
+
+    .word-entry::before {
+        top: 8px;
+        left: 4px;
+
+        font-size: 8px;
+    }
+
+    .word-flip {
+        width: 100%;
+        height: 100%;
+
+        min-height: 0;
+
+        padding:
+            9px
+            94px
+            9px
+            27px;
+
+        overflow: hidden;
+    }
+
+    .word-flip-inner {
+        min-height: 0;
+        height: 100%;
+    }
+
+    .word-face {
+        width: 100%;
+        height: 100%;
+    }
+
+    .word {
+        display: inline;
+
+        font-size:
+            clamp(17px, 4.8vw, 22px);
+
+        line-height: 1.2;
+    }
+
+    .word-level {
+        margin-left: 3px;
+
+        padding: 2px 4px;
+
+        font-size: 6px;
+    }
+
+    .meaning {
+        font-size:
+            clamp(14px, 3.8vw, 18px);
+
+        line-height: 1.25;
+    }
+
+    .example,
+    .translation {
+        margin-top: 5px;
+
+        font-size:
+            clamp(11px, 3vw, 14px);
+
+        line-height: 1.25;
+    }
+
+
+    /* =====================================================
+       FLIP HINT
+    ===================================================== */
+
+    .word-flip-hint {
+        top: 50%;
+        right: 4px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 78px;
+        height: 30px;
+
+        margin: 0;
+
+        color: #ad9b82;
+
+        font-size: 10px;
+
+        letter-spacing: .04em;
+
+        transform:
+            translateY(-50%);
+    }
+
+
+    /* =====================================================
+       SOUND
+    ===================================================== */
+
+    .speak-button {
+        top: 6px;
+        right: 4px;
+
+        width: 78px;
+        height: 36px;
+
+        font-size: 13px;
+    }
+
+
+    /* =====================================================
+       MASTERED
+    ===================================================== */
+
+    .master-button,
+    .cancel-button {
+        right: 4px;
+        bottom: 5px;
+
+        min-width: 78px;
+        min-height: 32px;
+
+        padding: 5px 7px;
+
+        font-size: 9px;
+    }
+
+    .word-entry.is-mastered::after {
+        font-size: 28px;
+    }
+
+
+    /* =====================================================
+       PAGE BUTTON
+    ===================================================== */
+
+    .page-turn {
+        width: 30px;
+        height: 58px;
+
+        padding: 0;
+
+        background:
+            rgba(72, 45, 26, .86);
+
+        box-shadow:
+            0 4px 8px rgba(46, 27, 12, .3);
+    }
+
+    .page-turn span {
+        font-size: 27px;
+    }
+
+    .page-turn small {
+        display: none;
+    }
+
+    .page-turn-left {
+        left: 4px;
+    }
+
+    .page-turn-right {
+        right: 4px;
+    }
+
+    .flip-guide {
+        flex: 0 0 auto;
+
+        margin:
+            5px 0 4px;
+
+        font-size: 9px;
+    }
+
+
+    /* =====================================================
+       AUTH
+    ===================================================== */
 
     #auth-screen {
         padding: 20px;
@@ -1537,7 +2377,10 @@ circle at 50% 15%,
     .auth-card {
         width: 100%;
 
-        padding: 42px 25px 34px;
+        padding:
+            42px
+            25px
+            34px;
     }
 
     #auth-screen h2 {
@@ -1550,434 +2393,56 @@ circle at 50% 15%,
         font-size: 11px;
     }
 }
-/* =========================
-   BRAND / HEADINGS
-========================= */
-
-#auth-screen h2 {
-    color: #f5f0e6;
-}
-
-.auth-subtitle {
-    color: #d9d6cf;
-}
-
-.site-header-top h1 {
-    color: #f5f0e6;
-}
-
-.site-header-top > div > p:last-child {
-    color: #d9d6cf;
-}
-
-main h2 {
-    color: #f1ede4;
-}
-
-.section-label {
-    color: #d8d2c5;
-}
-/* =========================
-CINEMA LANGUAGE — MAIN
-========================= */
-
-header {
-position: relative;
-padding: 42px 20px 38px;
-
-border-bottom: 1px solid rgba(212,175,99,.18);
-background:
-    radial-gradient(
-        circle at 50% -30%,
-        #344652 0,
-        #1b252c 35%,
-        #101518 72%,
-        #0b0f11 100%
-    );
-box-shadow:
-    0 15px 40px rgba(0,0,0,.35);
-
-}
-
-.site-header-top {
-width: min(100%, 820px);
-margin: 0 auto;
-}
-
-.site-header-top h1 {
-margin: 8px 0 10px;
-
-color: #f5f0e6;
-font-size: clamp(32px, 5vw, 44px);
-font-weight: normal;
-letter-spacing: .04em;
-text-shadow:
-    0 2px 18px rgba(255,255,255,.07);
-
-}
-
-.site-header-top > div > p:last-child {
-margin: 0;
-
-color: #aeb5b5;
-font-family: Arial, sans-serif;
-font-size: 13px;
-letter-spacing: .03em;
-
-}
-
-/* =========================
-LOGOUT
-========================= */
-
-.logout-button {
-padding: 9px 15px;
-
-border: 1px solid rgba(212,175,99,.35);
-border-radius: 3px;
-color: #d9d6cf;
-background: transparent;
-font-family: Arial, sans-serif;
-font-size: 10px;
-font-weight: bold;
-letter-spacing: .08em;
-transition:
-    border-color .2s,
-    color .2s,
-    background .2s;
-
-}
-
-.logout-button:hover {
-border-color: #d4af63;
-
-color: #f5f0e6;
-background: rgba(212,175,99,.06);
-
-}
-
-/* =========================
-MAIN BACKGROUND
-========================= */
-
-body {
-color: #f1ede4;
-
-background:
-    radial-gradient(
-        circle at 50% 0%,
-        #202a30 0,
-        #151b1f 35%,
-        #0c1012 100%
-    );
-
-}
-
-/* =========================
-LIBRARY
-========================= */
-
-main {
-width: min(100% - 32px, 820px);
-margin: 48px auto 70px;
-}
-
-.section-label {
-color: #d4af63;
-
-font-size: 10px;
-letter-spacing: .22em;
-
-}
-
-main h2 {
-color: #f1ede4;
-
-font-weight: normal;
-letter-spacing: .02em;
-
-}
-
-/* =========================
-CINEMA ARCHIVE
-========================= */
-
-.bookshelf {
-min-height: 290px;
-
-padding: 48px 42px 34px;
-border: 1px solid rgba(212,175,99,.25);
-border-radius: 4px;
-background:
-    linear-gradient(
-        145deg,
-        rgba(255,255,255,.055),
-        rgba(255,255,255,.015)
-    );
-box-shadow:
-    0 25px 55px rgba(0,0,0,.4),
-    inset 0 1px rgba(255,255,255,.05);
-
-}
-
-.bookshelf::before,
-.bookshelf::after {
-display: none;
-}
-
-.shelf-plaque {
-top: 16px;
-
-padding: 5px 14px;
-border: 1px solid rgba(212,175,99,.45);
-color: #d4af63;
-background: rgba(0,0,0,.22);
-box-shadow:
-    0 4px 15px rgba(0,0,0,.25);
-font-size: 8px;
-letter-spacing: .22em;
-
-}
-
-/* =========================
-BOOK CARD
-========================= */
-
-.shelf-book {
-min-height: 160px;
-
-margin-top: 20px;
-border: 1px solid rgba(255,255,255,.12);
-border-left: 2px solid #d4af63;
-border-radius: 3px;
-color: #f1ede4;
-background:
-    linear-gradient(
-        145deg,
-        rgba(255,255,255,.08),
-        rgba(255,255,255,.025)
-    );
-box-shadow:
-    0 18px 35px rgba(0,0,0,.4),
-    inset 0 1px rgba(255,255,255,.05);
-transform: none;
-
-}
-
-.shelf-book:hover {
-transform: translateY(-4px);
-
-box-shadow:
-    0 25px 45px rgba(0,0,0,.5),
-    0 0 0 1px rgba(212,175,99,.12);
-
-}
-
-.shelf-book .book-info strong {
-color: #f5f0e6;
-}
-
-.shelf-book .book-info span {
-color: #9fa6a6;
-}
-
-.shelf-book .open-book {
-color: #d4af63;
-}
-
-/* =========================
-MOVIE IMAGE
-========================= */
-
-.shelf-book .movie-image {
-border: 1px solid rgba(212,175,99,.25);
-
-box-shadow:
-    0 8px 20px rgba(0,0,0,.45);
-
-}
-/* =========================
-WOODEN CINEMA SHELF
-========================= */
-
-.bookshelf {
-position: relative;
-
-border: 10px solid #342218;
-background:
-    linear-gradient(
-        90deg,
-        rgba(255,255,255,.04),
-        transparent 18%,
-        rgba(0,0,0,.18) 50%,
-        transparent 82%
-    ),
-    repeating-linear-gradient(
-        3deg,
-        #70492f 0 3px,
-        #5d3b27 4px 8px,
-        #795035 9px 12px
-    );
-box-shadow:
-    inset 0 0 0 2px rgba(212,175,99,.12),
-    inset 0 15px 25px rgba(25,12,6,.35),
-    0 25px 50px rgba(0,0,0,.45);
-
-}
-
-/* 木目 */
-
-.bookshelf::before {
-position: absolute;
-inset: 18px 18px 24px;
-
-border: 1px solid rgba(20,10,5,.5);
-background:
-    linear-gradient(
-        90deg,
-        rgba(0,0,0,.18),
-        transparent 15%,
-        transparent 85%,
-        rgba(0,0,0,.18)
-    ),
-    repeating-linear-gradient(
-        88deg,
-        rgba(255,255,255,.025) 0 2px,
-        transparent 3px 15px
-    );
-box-shadow:
-    inset 0 15px 25px rgba(15,7,3,.3);
-content: "";
-
-}
-
-/* 下の木製棚板 */
-
-.bookshelf::after {
-position: absolute;
-
-right: -8px;
-bottom: -2px;
-left: -8px;
-height: 22px;
-border-top: 2px solid #a9794a;
-background:
-    linear-gradient(
-        #4d2e1b,
-        #29180e
-    );
-box-shadow:
-    0 -5px 10px rgba(0,0,0,.45),
-    0 8px 12px rgba(0,0,0,.4);
-content: "";
-
-}
-
-/* =========================
-WOODEN PLAQUE
-========================= */
-
-.shelf-plaque {
-position: absolute;
-z-index: 2;
-
-top: 11px;
-left: 50%;
-padding: 6px 18px;
-border: 1px solid #a9794a;
-border-radius: 2px;
-color: #f0d79d;
-background:
-    linear-gradient(
-        135deg,
-        #56351d,
-        #8a5c32 45%,
-        #4a2b18
-    );
-box-shadow:
-    0 3px 7px rgba(0,0,0,.45),
-    inset 0 1px rgba(255,255,255,.15);
-font-family: Arial, sans-serif;
-font-size: 8px;
-font-weight: bold;
-letter-spacing: .22em;
-transform: translateX(-50%);
-
-}
-/* =========================
-LESSON PROGRESS
-========================= */
-
-.lesson-meta {
-display: flex;
-align-items: center;
-gap: 12px;
-margin-top: 5px;
-}
-
-.lesson-progress {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-
-min-width: 48px;
-padding: 4px 8px;
-border: 1px solid rgba(212,175,99,.45);
-border-radius: 3px;
-color: #d4af63;
-background: rgba(212,175,99,.06);
-font-family: Arial, sans-serif;
-font-size: 11px;
-font-weight: bold;
-letter-spacing: .04em;
-
-}
-.progress-box {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 6px 10px;
-    margin-top: 14px;
-    padding: 10px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.04);
-    width: min(260px, 100%);
-}
-
-.progress-label {
-    grid-column: 1 / -1;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    color: #d8c7a0;
-}
-
-.progress-track {
-    position: relative;
-    align-self: center;
-    height: 7px;
-    overflow: hidden;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
-}
-
-.progress-fill {
-    display: block;
-    width: 0%;
-    height: 100%;
-    border-radius: inherit;
-    background: linear-gradient(
-        90deg,
-        #d8c7a0,
-        #f0dfb2
-    );
-    transition: width 0.6s ease;
-}
-
-.progress-percent {
-    min-width: 42px;
-    text-align: right;
-    font-size: 13px;
-    font-weight: 600;
-    color: #f0dfb2;
-    letter-spacing: 0.05em;
+
+
+/* =========================================================
+   SHORT PHONES
+========================================================= */
+
+@media (max-width: 540px) and (max-height: 700px) {
+
+    #vocabulary .reader-topbar {
+        height: 36px;
+    }
+
+    .book-heading {
+        margin-bottom: 4px;
+    }
+
+    .book-heading h2 {
+        font-size: 15px;
+    }
+
+    .word {
+        font-size: 16px;
+    }
+
+    .example,
+    .translation {
+        font-size: 10px;
+
+        line-height: 1.15;
+    }
+
+    .meaning {
+        font-size: 13px;
+    }
+
+    .flip-guide {
+        display: none;
+    }
+
+    .word-flip-hint {
+        top: 50%;
+
+        right: 4px;
+
+        width: 78px;
+        height: 28px;
+
+        font-size: 9px;
+
+        transform:
+            translateY(-50%);
+    }
 }
