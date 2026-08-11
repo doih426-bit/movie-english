@@ -19,11 +19,34 @@ button {
     cursor: pointer;
     font: inherit;
 }
+.site-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.logout-button {
+    padding: 9px 16px;
+    border: 1px solid #c9b48a;
+    border-radius: 6px;
+    color: #f8ead0;
+    background: transparent;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.logout-button:hover {
+    background: rgba(255,255,255,.08);
+}
+    padding: 54px 20px 48px;
 /* =========================
    HEADER
 ========================= */
 header {
-    padding: 54px 20px 48px;
+  
     color: #fff9ef;
     text-align: center;
     background: #1e2a33;
@@ -1257,4 +1280,14 @@ h2 {
     font-family: Arial, sans-serif;
     font-size: 13px;
     text-align: center;
+}
+@media (max-width: 540px) {
+    .site-header-top {
+        align-items: flex-start;
+    }
+
+    .logout-button {
+        padding: 7px 10px;
+        font-size: 10px;
+    }
 }
