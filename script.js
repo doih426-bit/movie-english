@@ -1,10 +1,41 @@
 const SUPABASE_URL = "https://duroflqocxilxpnziypr.supabase.co";
 const SUPABASE_KEY = "sb_publishable_Qxq8Q7Ee3GFV309fpQGsfA_73i84qm_";
-
 const supabaseClient = supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
+/* =========================
+   AUTH
+========================= */
+const authScreen = document.querySelector("#auth-screen");
+const emailInput = document.querySelector("#email");
+const passwordInput = document.querySelector("#password");
+const loginButton = document.querySelector("#login-button");
+const authMessage = document.querySelector("#auth-message");
+loginButton.addEventListener("click", async () => {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    if (!email || !password) {
+        authMessage.textContent =
+            "EmailとPasswordを入力してください。";
+        return;
+    }
+    authMessage.textContent = "ログイン中...";
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+        });
+    if (error) {
+        console.error("Login error:", error);
+        authMessage.textContent =
+            "ログインに失敗しました。EmailまたはPasswordを確認してください。";
+        return;
+    }
+    console.log("Logged in user:", data.user);
+    authScreen.classList.add("hidden");
+    await loadMasteredWords();
+});
 /* =========================
    MOVIE ENGLISH
    SPIDER-MAN VOCABULARY
@@ -82,98 +113,147 @@ const studyWords = words
 const wordsPerPage = 4;
 let currentPage = 0;
 /* =========================
-   SUPABASE MASTERED
+   MASTERED STATE
 ========================= */
 const masteredWords = new Set();
-/*
-   SupabaseからMastered状態を取得
-*/
+/* =========================
+   LOAD USER PROGRESS
+========================= */
 async function loadMasteredWords() {
-    try {
-        const { data, error } =
-            await supabaseClient
-                .from("words")
-                .select("word, mastered");
-        if (error) {
-            console.error(
-                "Supabase load error:",
-                error
-            );
-            return;
-        }
-        masteredWords.clear();
-        data.forEach(row => {
-            if (row.mastered === true) {
-                const index =
-                    words.findIndex(
-                        item =>
-                            item[0] === row.word
-                    );
-                if (index !== -1) {
-                    masteredWords.add(index);
-                }
-            }
-        });
-        renderPage();
-    } catch (error) {
-        console.error(
-            "Mastered data could not be loaded:",
-            error
-        );
-    }
+  
 }
-/*
-   Mastered状態をSupabaseに保存
-*/
-async function setMastered(
-    index,
-    mastered
-) {
-    const wordName =
-        words[index][0];
+/* =========================
+   SAVE USER PROGRESS
+========================= */
+/* =========================
+   MASTEREDを個人別に保存
+========================= */
+async function setMastered(index, mastered) {
+    const wordName = words[index][0];
+
     try {
-        const { data, error } =
-            await supabaseClient
-                .from("words")
+        // 現在ログインしているユーザーを取得
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+        if (userError || !user) {
+            console.error("User is not logged in:", userError);
+            alert("ログインしてください。");
+            return false;
+        }
+
+        // wordsテーブルから、この単語のIDを取得
+        const {
+            data: wordData,
+            error: wordError
+        } = await supabaseClient
+            .from("words")
+            .select("id, word")
+            .eq("word", wordName)
+            .single();
+
+        if (wordError || !wordData) {
+            console.error("Word lookup error:", wordError);
+            alert(`wordsテーブルに「${wordName}」が見つかりません。`);
+            return false;
+        }
+
+        const wordId = wordData.id;
+
+        // すでにこのユーザーの記録があるか確認
+        const {
+            data: existingProgress,
+            error: progressError
+        } = await supabaseClient
+            .from("user_word_progress")
+            .select("id")
+            .eq("user_id", user.id)
+            .eq("word_id", wordId)
+            .maybeSingle();
+
+        if (progressError) {
+            console.error(
+                "Progress lookup error:",
+                progressError
+            );
+            alert("学習記録の確認に失敗しました。");
+            return false;
+        }
+
+        // すでに記録がある → UPDATE
+        if (existingProgress) {
+            const {
+                error: updateError
+            } = await supabaseClient
+                .from("user_word_progress")
                 .update({
                     mastered: mastered
                 })
-                .eq("word", wordName)
-                .select();
-        if (error) {
-            console.error(
-                "Supabase update error:",
-                error
-            );
-            alert(
-                "Masteredの保存に失敗しました。"
-            );
-            return false;
+                .eq("id", existingProgress.id);
+
+            if (updateError) {
+                console.error(
+                    "Progress update error:",
+                    updateError
+                );
+                alert("Masteredの保存に失敗しました。");
+                return false;
+            }
         }
-        if (!data || data.length === 0) {
-            console.error(
-                "Word was not found in Supabase:",
-                wordName
-            );
-            alert(
-                `Supabaseのwordsテーブルに「${wordName}」がありません。`
-            );
-            return false;
+
+        // 記録がない → INSERT
+        else {
+            const {
+                error: insertError
+            } = await supabaseClient
+                .from("user_word_progress")
+                .insert({
+                    user_id: user.id,
+                    word_id: wordId,
+                    mastered: mastered
+                });
+
+            if (insertError) {
+                console.error(
+                    "Progress insert error:",
+                    insertError
+                );
+                alert("Masteredの保存に失敗しました。");
+                return false;
+            }
         }
+
+        // 画面上の状態も更新
         if (mastered) {
             masteredWords.add(index);
         } else {
             masteredWords.delete(index);
         }
+
+        console.log(
+            "Saved progress:",
+            {
+                user_id: user.id,
+                word_id: wordId,
+                word: wordName,
+                mastered: mastered
+            }
+        );
+
         return true;
+
     } catch (error) {
         console.error(
             "Mastered data could not be saved:",
             error
         );
+
         alert(
             "Masteredの保存中にエラーが発生しました。"
         );
+
         return false;
     }
 }
@@ -795,7 +875,29 @@ vocabulary.addEventListener(
 ========================= */
 renderPage();
 /*
-   ページを読み込んだら
-   SupabaseからMastered状態を取得
+   ログイン状態を確認して
+   ユーザーごとのMasteredを読み込む
 */
-loadMasteredWords();
+async function initializeAuth() {
+    const {
+        data: { session }
+    } = await supabaseClient.auth.getSession();
+    if (session) {
+        console.log(
+            "Existing session:",
+            session.user
+        );
+        authScreen.classList.add(
+            "hidden"
+        );
+        await loadMasteredWords();
+    } else {
+        console.log(
+            "No logged-in user."
+        );
+        authScreen.classList.remove(
+            "hidden"
+        );
+    }
+}
+initializeAuth();
