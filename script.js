@@ -219,13 +219,25 @@ async function setMastered(index, mastered) {
 
         // wordsテーブルから、この単語のIDを取得
         const {
-            data: wordData,
+            data: wordDataList,
             error: wordError
         } = await supabaseClient
             .from("words")
             .select("id, word")
             .eq("word", wordName)
-            .single();
+            .limit(1);
+
+        if (
+            wordError ||
+            !wordDataList ||
+            wordDataList.length === 0
+        ) {
+            console.error("Word lookup error:", wordError);
+            alert(`wordsテーブルに「${wordName}」が見つかりません。`);
+            return false;
+        }
+
+        const wordData = wordDataList[0];
 
         if (wordError || !wordData) {
             console.error("Word lookup error:", wordError);
