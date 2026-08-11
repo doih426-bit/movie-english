@@ -115,7 +115,6 @@ authSwitch.addEventListener("click", event => {
 
 });
 
-
 /* =========================
    SIGN UP
 ========================= */
@@ -183,11 +182,21 @@ signupButton.addEventListener(
         );
 
 
-        authMessage.textContent =
-            "アカウントを作成しました。メールを確認してください。";
+        isGuest = false;
+
+        authScreen.classList.add(
+            "hidden"
+        );
+
+        logoutButton.classList.remove(
+            "hidden"
+        );
+
+        authMessage.textContent = "";
+
+        await loadMasteredWords();
     }
 );
-
 
 /* =========================
    LOGIN
