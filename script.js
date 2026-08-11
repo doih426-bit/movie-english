@@ -164,16 +164,16 @@ signupButton.addEventListener(
 
         if (error) {
 
-            console.error(
-                "Signup error:",
-                error
-            );
+    console.error(
+        "Signup error:",
+        error
+    );
 
-            authMessage.textContent =
-                "アカウント作成に失敗しました。";
+    authMessage.textContent =
+        error.message;
 
-            return;
-        }
+    return;
+}
 
 
         console.log(
