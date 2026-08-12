@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Movie English — Admin</title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+</head>
+
+<body>
+
+    <main class="admin-container">
+
+        <header class="admin-header">
+
+            <p class="eyebrow">
+                MOVIE ENGLISH
+            </p>
+
+            <h1>
+                Content Admin
+            </h1>
+
+            <p class="subtitle">
+                Add vocabulary to your library
+            </p>
+
+        </header>
+
+
+        <section class="admin-card">
+
+            <label for="bulk-input">
+                Vocabulary Data
+            </label>
+
+            <p class="help-text">
+                1行に1単語。各項目は
+                <strong>|</strong>
+                で区切ってください。
+            </p>
+
+            <textarea
+                id="bulk-input"
+                placeholder="actually | 実際に、本当に | Who do you think is actually watching these? | （実際に誰がこれを見ていると思う？） | I actually enjoyed the movie. | （私は実際、その映画を楽しんだ） | She actually knows him. | （彼女は実際に彼のことを知っている） | easy"
+            ></textarea>
+
+            <button
+                id="preview-button"
+                type="button"
+            >
+                Preview
+            </button>
+
+        </section>
+
+
+        <section
+            id="preview-section"
+            class="admin-card hidden"
+        >
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="eyebrow">
+                        PREVIEW
+                    </p>
+
+                    <h2>
+                        Vocabulary
+                    </h2>
+                </div>
+
+                <span id="preview-count">
+                    0 items
+                </span>
+
+            </div>
+
+
+            <div id="preview-list"></div>
+
+
+            <button
+                id="save-button"
+                type="button"
+            >
+                Add to Supabase
+            </button>
+
+            <p
+                id="status-message"
+                class="status-message"
+            ></p>
+
+        </section>
+
+    </main>
+
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+    <script
+        src="admin.js"
+    ></script>
+
+</body>
+
+</html>

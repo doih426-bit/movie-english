@@ -1,0 +1,306 @@
+/* =========================================================
+   BASE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    position: relative;
+
+    color: #f1ede4;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #202a30 0,
+            #151b1f 35%,
+            #0c1012 100%
+        );
+
+    font-family:
+        Georgia,
+        "Hiragino Mincho ProN",
+        "Yu Mincho",
+        serif;
+
+    overscroll-behavior-x: none;
+}
+
+button {
+    cursor: pointer;
+    font: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    position: relative;
+
+    padding: 42px 20px 38px;
+
+    color: #fff9ef;
+    text-align: center;
+
+    border-bottom: 1px solid rgba(212, 175, 99, .18);
+
+    background:
+        radial-gradient(
+            circle at 50% -30%,
+            #344652 0,
+            #1b252c 35%,
+            #101518 72%,
+            #0b0f11 100%
+        );
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .35);
+}
+
+.site-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: min(100%, 820px);
+    margin: 0 auto;
+}
+
+.site-header-top h1 {
+    margin: 8px 0 10px;
+
+    color: #f5f0e6;
+
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: normal;
+
+    letter-spacing: .04em;
+
+    text-shadow:
+        0 2px 18px rgba(255, 255, 255, .07);
+}
+
+.site-header-top > div > p:last-child {
+    margin: 0;
+
+    color: #aeb5b5;
+
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+
+    letter-spacing: .03em;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.logout-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 15px;
+
+    border: 1px solid rgba(212, 175, 99, .35);
+    border-radius: 3px;
+
+    color: #d9d6cf;
+    background: transparent;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: .08em;
+
+    transition:
+        border-color .2s ease,
+        color .2s ease,
+        background .2s ease,
+        transform .2s ease;
+}
+
+.logout-button::before {
+    content: "↪";
+
+    font-size: 16px;
+    line-height: 1;
+}
+
+.logout-button:hover {
+    border-color: #d4af63;
+
+    color: #f5f0e6;
+
+    background: rgba(212, 175, 99, .06);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.eyebrow,
+.section-label,
+.card-label {
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+
+    letter-spacing: .16em;
+}
+
+.eyebrow {
+    color: #d4af63;
+}
+
+.section-label {
+    color: #d4af63;
+}
+
+.card-label {
+    color: #806c4d;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+    width: min(100% - 32px, 820px);
+
+    margin: 48px auto 70px;
+}
+
+main h2 {
+    margin: 7px 0 24px;
+
+    color: #f1ede4;
+
+    font-size: 27px;
+    font-weight: normal;
+
+    letter-spacing: .02em;
+}
+
+
+/* =========================================================
+   MOVIE CARD BASE
+========================================================= */
+
+.movie-card {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    border: 1px solid rgba(150, 118, 65, .32);
+
+    background:
+        rgba(248, 244, 235, .96);
+
+    box-shadow:
+        0 10px 24px rgba(37, 32, 24, .08);
+}
+
+.book-info {
+    min-width: 0;
+}
+
+.book-info strong {
+    display: block;
+
+    color: #26374c;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-weight: normal;
+}
+
+.book-info > span {
+    display: block;
+
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    header {
+        padding: 30px 18px 28px;
+    }
+
+    .site-header-top {
+        width: 100%;
+        gap: 14px;
+    }
+
+    .site-header-top h1 {
+        margin: 5px 0 8px;
+
+        font-size: 27px;
+        letter-spacing: .035em;
+    }
+
+    .site-header-top > div > p:last-child {
+        font-size: 10px;
+        letter-spacing: .04em;
+    }
+
+    .logout-button {
+        flex-shrink: 0;
+
+        padding: 8px 11px;
+
+        font-size: 8px;
+        letter-spacing: .08em;
+    }
+
+    main {
+        width: calc(100% - 28px);
+
+        margin: 32px auto 50px;
+    }
+
+    main h2 {
+        margin: 6px 0 20px;
+
+        font-size: 22px;
+        letter-spacing: .01em;
+    }
+
+}

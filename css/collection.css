@@ -1,0 +1,751 @@
+/* =========================================================
+   MOVIE IMAGE
+========================================================= */
+
+.movie-image {
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    width: 76px;
+    height: 96px;
+
+    border-radius: 4px;
+
+    background: #9d2c2e;
+
+    box-shadow:
+        4px 4px 0 #592123;
+
+    font-size: 43px;
+}
+
+
+/* =========================================================
+   COLLECTION BOOK
+   SPIDER-MAN COLLECTION
+========================================================= */
+
+.collection-book {
+    position: relative;
+
+    min-height: 180px;
+
+    padding: 28px 34px;
+
+    border: 1px solid rgba(150, 118, 65, .42);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 252, 244, .96),
+            rgba(232, 224, 210, .96)
+        );
+
+    box-shadow:
+        0 14px 30px rgba(37, 32, 24, .12),
+        inset 0 1px 0 rgba(255, 255, 255, .8);
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+.collection-book::before {
+    position: absolute;
+
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+
+    width: 4px;
+
+    background: #9b7a43;
+
+    content: "";
+}
+
+.collection-book:hover {
+    border-color: rgba(155, 122, 67, .7);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 18px 34px rgba(37, 32, 24, .14),
+        inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+
+
+/* =========================================================
+   SPIDER-MAN LOGO
+========================================================= */
+
+.spider-man-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 76px;
+    height: 96px;
+
+    flex-shrink: 0;
+
+    color: #fff;
+
+    background: #182c45;
+
+    border: 1px solid rgba(155, 122, 67, .6);
+}
+
+
+/* =========================================================
+   OPEN / CLOSE BUTTON
+========================================================= */
+
+.collection-book .open-book {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    flex: 0 0 auto;
+
+    min-width: 82px;
+    height: 28px;
+
+    overflow: hidden;
+
+    color: #1d2d42;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: .15em;
+
+    white-space: nowrap;
+}
+
+.collection-book .open-label,
+.collection-book .close-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    white-space: nowrap;
+
+    transition:
+        opacity .28s ease,
+        transform .38s cubic-bezier(.22, 1, .36, 1);
+}
+
+.collection-book .open-label {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+.collection-book .close-label {
+    position: absolute;
+
+    right: 0;
+
+    opacity: 0;
+
+    transform:
+        translateY(8px);
+
+    pointer-events: none;
+}
+
+.collection-book[aria-expanded="true"] .open-label {
+    opacity: 0;
+
+    transform:
+        translateY(-8px);
+
+    pointer-events: none;
+}
+
+.collection-book[aria-expanded="true"] .close-label {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   COLLECTION LIST
+========================================================= */
+
+.book-list {
+    margin-top: 18px;
+
+    padding:
+        24px
+        18px
+        28px;
+
+    border-top:
+        1px solid rgba(128, 108, 77, .25);
+}
+
+
+/* =========================================================
+   COLLECTION OPEN
+========================================================= */
+
+.collection-opening {
+    animation:
+        collectionOpen .35s cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes collectionOpen {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-8px)
+            scaleY(.985);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scaleY(1);
+    }
+}
+
+
+/* =========================================================
+   COLLECTION CLOSE
+========================================================= */
+
+.collection-closing {
+    animation:
+        collectionClose .25s ease;
+}
+
+@keyframes collectionClose {
+
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   COLLECTION DIVIDER
+========================================================= */
+
+.collection-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin: 0 4px 18px;
+}
+
+.collection-divider::before,
+.collection-divider::after {
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        rgba(128, 108, 77, .3);
+
+    content: "";
+}
+
+.collection-divider span {
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: .2em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LESSON CARD
+========================================================= */
+
+.lesson-card {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    min-height: 120px;
+
+    margin-bottom: 12px;
+
+    padding: 18px;
+
+    border:
+        1px solid rgba(150, 118, 65, .28);
+
+    background:
+        rgba(248, 244, 235, .72);
+
+    box-shadow:
+        0 6px 16px rgba(37, 32, 24, .06);
+}
+
+.lesson-card .movie-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 62px;
+
+    width: 62px;
+    height: 62px;
+
+    border: 1px solid rgba(155, 122, 67, .6);
+    border-radius: 2px;
+
+    background: #182c45;
+
+    font-size: 27px;
+}
+
+.lesson-card .book-info {
+    flex: 1;
+
+    min-width: 0;
+
+    padding:
+        0
+        16px;
+}
+
+.lesson-card .book-info > strong {
+    font-size: 17px;
+
+    line-height: 1.35;
+}
+
+.lesson-card .book-info > span {
+    margin-top: 5px;
+
+    font-size: 9px;
+
+    letter-spacing: .1em;
+}
+
+
+/* =========================================================
+   LEARNING PROGRESS
+========================================================= */
+
+.lesson-card .progress-box {
+    display: grid;
+
+    grid-template-columns:
+        auto
+        minmax(90px, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 9px;
+
+    width: min(390px, 100%);
+
+    margin-top: 9px;
+}
+
+.lesson-card .progress-label {
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+
+    letter-spacing: .13em;
+
+    white-space: nowrap;
+}
+
+.lesson-card .progress-track {
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 0;
+
+    background:
+        rgba(71, 63, 50, .12);
+}
+
+.lesson-card .progress-fill {
+    display: block;
+
+    width: 0%;
+    height: 100%;
+
+    background: #9b7a43;
+
+    transition:
+        width .3s ease;
+}
+
+.lesson-card .progress-percent {
+    color: #554a3b;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+
+    letter-spacing: .08em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LESSON OPEN
+========================================================= */
+
+.lesson-card .open-book {
+    flex: 0 0 auto;
+
+    color: #1d2d42;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: .12em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   YOUTUBE / WATCH THE TRAILER
+========================================================= */
+
+.youtube-preview {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 150px 1fr;
+
+    gap: 14px;
+
+    align-items: center;
+
+    width: calc(100% - 100px);
+
+    max-width: 760px;
+
+    margin:
+        14px 50px 0;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(89, 76, 54, .18);
+    border-radius: 3px;
+
+    color: #26374c;
+
+    background:
+        rgba(248, 244, 235, .8);
+
+    box-shadow:
+        0 4px 12px rgba(37, 32, 24, .05);
+
+    font-family: Arial, sans-serif;
+
+    text-decoration: none;
+
+    transform:
+        scale(.88);
+
+    transform-origin:
+        top center;
+
+    opacity: .92;
+}
+
+.youtube-preview img {
+    display: block;
+
+    width: 150px;
+    height: 84px;
+
+    object-fit: cover;
+}
+
+.youtube-play {
+    position: absolute;
+
+    top: 27px;
+    left: 58px;
+
+    display: grid;
+    place-items: center;
+
+    width: 38px;
+    height: 30px;
+
+    border-radius: 8px;
+
+    color: white;
+
+    background: #d42128;
+
+    font-size: 15px;
+}
+
+.youtube-caption {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 10px 14px;
+}
+
+.youtube-caption strong {
+    color: #26374c;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 13px;
+}
+
+.youtube-caption span {
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   MOBILE COLLECTION
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .collection-book {
+        display: flex;
+        align-items: center;
+
+        min-height: 145px;
+
+        padding: 22px 18px;
+    }
+
+    .collection-book .movie-image {
+        width: 68px;
+        height: 78px;
+
+        flex-shrink: 0;
+
+        font-size: 31px;
+    }
+
+    .collection-book .book-info {
+        min-width: 0;
+
+        padding:
+            0
+            10px
+            0
+            15px;
+    }
+
+    .collection-book .book-info strong {
+        font-size: 18px;
+
+        line-height: 1.35;
+    }
+
+    .collection-book .book-info > span {
+        margin-top: 7px;
+
+        font-size: 8px;
+        letter-spacing: .12em;
+
+        line-height: 1.4;
+    }
+
+    .collection-book .open-book {
+        min-width: 54px;
+
+        font-size: 8px;
+        letter-spacing: .12em;
+    }
+
+    .book-list {
+        margin-top: 14px;
+
+        padding:
+            18px
+            10px
+            22px;
+
+        border-top-width: 1px;
+    }
+
+    .collection-divider {
+        gap: 9px;
+
+        margin:
+            0 3px 14px;
+    }
+
+    .collection-divider span {
+        font-size: 8px;
+        letter-spacing: .16em;
+    }
+
+    .lesson-card {
+        width: 100%;
+
+        min-height: 105px;
+
+        margin: 0;
+
+        padding: 14px 12px;
+    }
+
+    .lesson-card .movie-image {
+        width: 48px;
+        height: 58px;
+
+        flex: 0 0 48px;
+
+        font-size: 21px;
+    }
+
+    .lesson-card .book-info {
+        min-width: 0;
+
+        padding:
+            0
+            9px
+            0
+            11px;
+    }
+
+    .lesson-card .book-info > strong {
+        font-size: 14px;
+
+        line-height: 1.3;
+    }
+
+    .lesson-card .progress-box {
+        grid-template-columns:
+            1fr
+            auto;
+
+        gap: 6px;
+
+        margin-top: 7px;
+    }
+
+    .lesson-card .progress-label {
+        grid-column: 1 / -1;
+
+        font-size: 7px;
+    }
+
+    .lesson-card .progress-track {
+        min-width: 0;
+
+        height: 4px;
+    }
+
+    .lesson-card .progress-percent {
+        font-size: 8px;
+    }
+
+    .lesson-card .open-book {
+        flex-shrink: 0;
+
+        font-size: 7px;
+        letter-spacing: .12em;
+    }
+
+    .youtube-preview {
+        grid-template-columns: 96px 1fr;
+
+        gap: 8px;
+
+        width: calc(100% - 20px);
+
+        margin:
+            12px 10px 0;
+
+        transform: none;
+    }
+
+    .youtube-preview img {
+        width: 96px;
+        height: 58px;
+    }
+
+    .youtube-play {
+        top: 17px;
+        left: 34px;
+
+        width: 29px;
+        height: 23px;
+
+        font-size: 10px;
+    }
+
+    .youtube-caption {
+        gap: 3px;
+
+        padding:
+            8px
+            8px
+            8px
+            3px;
+    }
+
+    .youtube-caption strong {
+        font-size: 10px;
+
+        line-height: 1.3;
+    }
+
+    .youtube-caption span {
+        font-size: 8px;
+
+        line-height: 1.3;
+    }
+
+}

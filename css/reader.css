@@ -1,0 +1,930 @@
+/* =========================================================
+   READER
+========================================================= */
+
+#vocabulary {
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 40px;
+}
+
+.reader-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.back-button {
+    border: 0;
+
+    color: #d4af63;
+    background: transparent;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: .08em;
+}
+
+.progress {
+    color: #aeb5b5;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.book-heading {
+    margin-bottom: 18px;
+}
+
+.book-heading h2 {
+    margin: 5px 0 0;
+
+    color: #f1ede4;
+
+    font-size: 27px;
+    font-weight: normal;
+}
+
+
+/* =========================================================
+   BOOK SHELL
+========================================================= */
+
+.book-shell {
+    position: relative;
+
+    padding: 8px 13px 13px;
+
+    border-radius: 8px;
+
+    background: #6b4d32;
+
+    box-shadow:
+        0 18px 30px rgba(70, 46, 23, .25);
+}
+
+.vocabulary-page {
+    position: relative;
+
+    overflow: hidden;
+
+    background: #fffaf0;
+
+    box-shadow:
+        inset 0 0 35px rgba(103, 73, 35, .12),
+        0 18px 30px rgba(70, 46, 23, .25);
+
+    touch-action: pan-y;
+}
+
+.vocabulary-page::before {
+    display: block;
+
+    height: 6px;
+
+    margin: -8px -13px 8px;
+
+    opacity: .8;
+
+    background:
+        repeating-linear-gradient(
+            60deg,
+            transparent 0 12px,
+            rgba(120, 34, 37, .42) 13px 14px,
+            transparent 15px 27px
+        ),
+        repeating-linear-gradient(
+            -60deg,
+            transparent 0 12px,
+            rgba(120, 34, 37, .32) 13px 14px,
+            transparent 15px 27px
+        );
+
+    content: "";
+}
+
+
+/* =========================================================
+   WORD LIST
+========================================================= */
+
+.word-list {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    width: 100%;
+}
+
+.word-entry {
+    position: relative;
+
+    min-height: 220px;
+
+    overflow: hidden;
+
+    border-bottom:
+        1px solid rgba(128, 108, 77, .25);
+}
+
+.word-entry::before {
+    position: absolute;
+
+    top: 14px;
+    left: 12px;
+
+    color: #806c4d;
+
+    font-family: Georgia, serif;
+    font-size: 10px;
+
+    content: attr(data-number);
+}
+
+.word-flip {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    min-height: 220px;
+
+    padding:
+        24px
+        100px
+        22px
+        38px;
+
+    perspective: 1000px;
+
+    cursor: pointer;
+}
+
+.word-flip-inner {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    transition:
+        transform .55s ease;
+
+    transform-style: preserve-3d;
+}
+
+.word-flip.is-flipped .word-flip-inner {
+    transform:
+        rotateY(180deg);
+}
+
+.word-face {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    backface-visibility: hidden;
+}
+
+.word-face.back {
+    transform:
+        rotateY(180deg);
+}
+
+.word {
+    color: #26374c;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 25px;
+    line-height: 1.25;
+}
+
+.meaning {
+    color: #554a3b;
+
+    font-size: 20px;
+
+    line-height: 1.35;
+}
+
+.word-level {
+    display: inline-block;
+
+    margin-left: 6px;
+
+    padding:
+        4px
+        7px;
+
+    border:
+        1px solid rgba(155, 122, 67, .5);
+
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 7px;
+
+    letter-spacing: .08em;
+
+    vertical-align: middle;
+}
+
+.example {
+    margin-top: 10px;
+
+    color: #26374c;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 15px;
+
+    line-height: 1.45;
+}
+
+.translation {
+    margin-top: 7px;
+
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   FLIP HINT
+========================================================= */
+
+.word-flip-hint {
+    position: absolute;
+    z-index: 3;
+
+    top: 63px;
+    right: 46px;
+
+    display: block;
+
+    width: 82px;
+
+    color: #ad9b82;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    letter-spacing: .08em;
+
+    line-height: 1.2;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+.word-flip-front-hint {
+    display: inline-flex;
+}
+
+.word-flip-return-hint {
+    display: none;
+}
+
+.word-entry > .word-flip-front-hint {
+    display: inline-flex;
+}
+
+.word-entry:has(.word-flip.is-flipped)
+> .word-flip-front-hint {
+    display: none;
+}
+
+.word-entry:has(.word-flip.is-flipped)
+> .word-flip-return-hint {
+    display: inline-flex;
+}
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+.speak-button {
+    position: absolute;
+    z-index: 3;
+
+    top: 14px;
+    right: 15px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 84px;
+    height: 38px;
+
+    gap: 5px;
+
+    border:
+        1px solid rgba(155, 122, 67, .45);
+
+    border-radius: 8px;
+
+    color: #38534d;
+    background: #f8fbf8;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   MASTERED
+========================================================= */
+
+.master-button,
+.cancel-button {
+    position: absolute;
+    z-index: 3;
+
+    right: 15px;
+    bottom: 12px;
+
+    min-width: 84px;
+    min-height: 38px;
+
+    padding: 7px 11px;
+
+    border-radius: 8px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.master-button {
+    border: 0;
+
+    color: #fff7eb;
+
+    background: #9d2c2e;
+}
+
+.cancel-button {
+    border: 1px solid #607570;
+
+    color: #38534d;
+    background: #f8fbf8;
+}
+
+.word-entry.is-mastered::after {
+    position: absolute;
+    z-index: 4;
+
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+
+    color: rgba(92, 111, 106, .76);
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            transparent 0 14px,
+            rgba(193, 205, 202, .72) 15px 16px,
+            transparent 17px 29px
+        ),
+        rgba(255, 250, 240, .28);
+
+    content: "🕸";
+
+    font-size: 44px;
+
+    pointer-events: none;
+}
+
+.word-entry.is-mastered .word-flip {
+    opacity: .48;
+}
+
+
+/* =========================================================
+   PAGE TURN
+========================================================= */
+
+.page-turn {
+    position: absolute;
+    z-index: 5;
+
+    top: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 86px;
+
+    padding: 5px;
+
+    border: 0;
+    border-radius: 4px;
+
+    color: #f7ead7;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(73, 46, 27, .96),
+            rgba(119, 78, 47, .96)
+        );
+
+    box-shadow:
+        0 6px 14px rgba(46, 27, 12, .35);
+
+    transform:
+        translateY(-50%);
+}
+
+.page-turn-left {
+    left: -3px;
+}
+
+.page-turn-right {
+    right: -3px;
+}
+
+.page-turn span {
+    font-size: 32px;
+}
+
+.page-turn small {
+    margin-top: 3px;
+
+    font-family: Arial, sans-serif;
+    font-size: 7px;
+
+    letter-spacing: .08em;
+}
+
+.flip-guide {
+    margin: 12px 0 4px;
+
+    color: #aeb5b5;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   PAGE TURN ANIMATION
+========================================================= */
+
+.page-turn-next {
+    animation:
+        pageNext .48s cubic-bezier(.2, .8, .25, 1);
+}
+
+.page-turn-previous {
+    animation:
+        pagePrevious .48s cubic-bezier(.2, .8, .25, 1);
+}
+
+@keyframes pageNext {
+
+    0% {
+        opacity: .5;
+
+        transform:
+            perspective(1200px)
+            rotateY(-70deg);
+
+        transform-origin:
+            left center;
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            perspective(1200px)
+            rotateY(0);
+
+        transform-origin:
+            left center;
+    }
+}
+
+@keyframes pagePrevious {
+
+    0% {
+        opacity: .5;
+
+        transform:
+            perspective(1200px)
+            rotateY(70deg);
+
+        transform-origin:
+            right center;
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            perspective(1200px)
+            rotateY(0);
+
+        transform-origin:
+            right center;
+    }
+}
+
+
+/* =========================================================
+   MOBILE READER
+========================================================= */
+
+@media (max-width: 768px) {
+
+    #vocabulary {
+        position: fixed;
+        z-index: 50;
+
+        inset: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        height: 100dvh;
+
+        min-height: 0;
+
+        margin: 0;
+
+        padding:
+            env(safe-area-inset-top)
+            12px
+            env(safe-area-inset-bottom);
+
+        overflow: hidden;
+
+        background:
+            radial-gradient(
+                circle at 50% 0%,
+                #202a30 0,
+                #151b1f 40%,
+                #0c1012 100%
+            );
+    }
+
+    #vocabulary.hidden {
+        display: none;
+    }
+
+    #vocabulary .reader-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        flex: 0 0 auto;
+
+        width: 100%;
+        height: 44px;
+
+        margin: 0;
+
+        border-bottom:
+            1px solid rgba(212, 175, 99, .18);
+    }
+
+    .back-button {
+        padding: 6px 0;
+
+        font-size: 10px;
+        letter-spacing: .08em;
+    }
+
+    .progress {
+        font-size: 10px;
+        letter-spacing: .03em;
+    }
+
+    .book-heading {
+        flex: 0 0 auto;
+
+        margin:
+            10px
+            0
+            10px;
+    }
+
+    .book-heading .section-label {
+        font-size: 8px;
+
+        letter-spacing: .18em;
+    }
+
+    .book-heading h2 {
+        margin:
+            4px
+            0
+            0;
+
+        font-size: 17px;
+
+        line-height: 1.25;
+    }
+
+    .book-shell {
+        position: relative;
+
+        display: flex;
+
+        flex: 1 1 auto;
+
+        width: 100%;
+
+        min-height: 0;
+
+        margin: 0;
+
+        padding: 6px;
+
+        overflow: hidden;
+
+        border-radius: 7px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #5c412b,
+                #795536,
+                #5a3e29
+            );
+
+        box-shadow:
+            0 16px 30px rgba(0, 0, 0, .38);
+    }
+
+    .vocabulary-page {
+        position: relative;
+
+        width: 100%;
+        height: 100%;
+
+        min-height: 0;
+
+        padding: 0 5px;
+
+        overflow: hidden;
+
+        background:
+            #fffaf0;
+
+        box-shadow:
+            inset 0 0 30px rgba(103, 73, 35, .12),
+            0 12px 25px rgba(70, 46, 23, .2);
+    }
+
+    .vocabulary-page::before {
+        height: 5px;
+
+        margin:
+            0
+            -5px
+            3px;
+    }
+
+    .word-list {
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        height: calc(100% - 8px);
+
+        min-height: 0;
+
+        overflow: hidden;
+    }
+
+    .word-entry {
+        position: relative;
+
+        flex: 0 0 25%;
+
+        min-height: 0;
+        height: 25%;
+
+        overflow: hidden;
+    }
+
+    .word-entry::before {
+        top: 10px;
+        left: 5px;
+
+        font-size: 8px;
+    }
+
+    .word-flip {
+        width: 100%;
+        height: 100%;
+
+        min-height: 0;
+
+        padding:
+            11px
+            94px
+            10px
+            28px;
+
+        overflow: hidden;
+    }
+
+    .word-flip-inner {
+        width: 100%;
+        height: 100%;
+
+        min-height: 0;
+    }
+
+    .word-face {
+        width: 100%;
+        height: 100%;
+    }
+
+    .word {
+        display: inline;
+
+        font-size:
+            clamp(18px, 5vw, 23px);
+
+        line-height: 1.25;
+    }
+
+    .meaning {
+        font-size:
+            clamp(15px, 4vw, 19px);
+
+        line-height: 1.3;
+    }
+
+    .word-level {
+        margin-left: 4px;
+
+        padding:
+            3px
+            5px;
+
+        font-size: 6px;
+    }
+
+    .example {
+        margin-top: 6px;
+
+        font-size:
+            clamp(11px, 3.1vw, 14px);
+
+        line-height: 1.35;
+    }
+
+    .translation {
+        margin-top: 5px;
+
+        font-size:
+            clamp(10px, 2.9vw, 13px);
+
+        line-height: 1.35;
+    }
+
+    .word-flip-hint {
+        top: 50%;
+        right: 5px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 76px;
+        height: 30px;
+
+        margin: 0;
+
+        color: #ad9b82;
+
+        font-size: 9px;
+        letter-spacing: .04em;
+
+        line-height: 1.2;
+
+        transform:
+            translateY(-50%);
+    }
+
+    .speak-button {
+        top: 7px;
+        right: 5px;
+
+        width: 76px;
+        height: 34px;
+
+        gap: 4px;
+
+        border-radius: 7px;
+
+        font-size: 12px;
+    }
+
+    .master-button,
+    .cancel-button {
+        right: 5px;
+        bottom: 5px;
+
+        min-width: 76px;
+        min-height: 31px;
+
+        padding:
+            5px
+            7px;
+
+        border-radius: 7px;
+
+        font-size: 8px;
+    }
+
+    .word-entry.is-mastered::after {
+        font-size: 28px;
+    }
+
+    .page-turn {
+        width: 28px;
+        height: 56px;
+
+        padding: 0;
+
+        border-radius: 2px;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(73, 46, 27, .96),
+                rgba(119, 78, 47, .96)
+            );
+
+        box-shadow:
+            0 4px 9px rgba(46, 27, 12, .35);
+    }
+
+    .page-turn span {
+        font-size: 26px;
+    }
+
+    .page-turn small {
+        display: none;
+    }
+
+    .page-turn-left {
+        left: 3px;
+    }
+
+    .page-turn-right {
+        right: 3px;
+    }
+
+    .flip-guide {
+        flex: 0 0 auto;
+
+        margin:
+            6px
+            0
+            4px;
+
+        color: #aeb5b5;
+
+        font-size: 8px;
+    }
+
+}
