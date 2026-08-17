@@ -185,3 +185,426 @@ button:hover {
     font-size: 13px;
     line-height: 1.6;
 }
+.registered-word-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.delete-word-button {
+    padding: 7px 12px;
+    border: 1px solid #b9aa99;
+    background: transparent;
+    color: #6b5547;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.delete-word-button:hover {
+    background: #eee5d8;
+}
+.edit-word-button {
+    padding: 7px 12px;
+    border: 1px solid #b9aa99;
+    background: transparent;
+    color: #4f5f68;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.edit-word-button:hover {
+    background: #eee5d8;
+}
+#edit-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#edit-section.hidden {
+    display: none;
+}
+
+#edit-section input,
+#edit-section textarea,
+#edit-section select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #b9aa99;
+    background: #f7f1e7;
+    font: inherit;
+}
+
+#edit-section textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+#book-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #b9aa99;
+    background: #f7f1e7;
+    color: #252018;
+    font: inherit;
+    margin-top: 8px;
+}
+/* =========================================================
+   CINEMA BOOKSHELF — CENTER SNAP
+========================================================= */
+
+.bookshelf-frame {
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+
+.shelf-book {
+    scroll-snap-align: center;
+}
+/* =========================================================
+   BOOK COVER — CINEMA / ANTIQUE EDITION
+========================================================= */
+
+.shelf-book {
+    flex: 0 0 230px;
+    width: 230px;
+    height: 330px;
+
+    position: relative;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.4s cubic-bezier(.22,.61,.36,1),
+        filter 0.4s ease;
+}
+
+.shelf-book:hover {
+    transform: translateY(-12px);
+    filter: brightness(1.08);
+}
+
+.book-cover {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    overflow: hidden;
+
+    border-radius: 3px 5px 5px 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0.48) 0%,
+            rgba(0,0,0,0.08) 17%,
+            rgba(255,255,255,0.08) 50%,
+            rgba(0,0,0,0.28) 100%
+        ),
+        linear-gradient(
+            155deg,
+            #6d3034 0%,
+            #4b2428 48%,
+            #28181c 100%
+        );
+
+    box-shadow:
+        8px 14px 25px rgba(0,0,0,0.35),
+        inset 2px 0 0 rgba(255,255,255,0.08),
+        inset -4px 0 0 rgba(0,0,0,0.35);
+}
+
+/* 古書の内側の枠 */
+
+.book-cover-inner {
+    position: absolute;
+    inset: 14px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    border: 1px solid rgba(220,195,145,0.55);
+
+    color: #dec798;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+/* 星 */
+
+.book-symbol {
+    margin-bottom: 18px;
+
+    font-family: Georgia, serif;
+    font-size: 22px;
+
+    color: #e3c987;
+}
+
+/* 装飾線 */
+
+.book-cover-rule {
+    width: 70px;
+    height: 1px;
+
+    margin: 13px auto;
+
+    background: #d7bd82;
+
+    opacity: 0.7;
+}
+
+.book-cover-rule.short {
+    width: 42px;
+}
+
+/* タイトル */
+
+.book-cover-title {
+    max-width: 175px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 21px;
+    line-height: 1.35;
+    font-weight: normal;
+
+    text-align: center;
+
+    color: #ead8aa;
+}
+
+/* MOVIE ENGLISH */
+
+.book-cover-label {
+    margin-top: 8px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+    font-weight: 600;
+
+    letter-spacing: 0.24em;
+
+    color: rgba(234,216,170,0.75);
+}
+
+/* 本の右側に少し厚み */
+
+.book-cover::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 5px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(0,0,0,0.08),
+            rgba(0,0,0,0.4)
+        );
+}
+ /* =========================================================
+    CONTENT MANAGEMENT
+========================================================= */
+
+.child-content-item {
+    display: grid;
+    grid-template-columns:
+        130px
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 18px 0;
+
+    border-top:
+        1px solid
+        #c9bfb1;
+}
+
+
+.child-content-number {
+    color:
+        #756b60;
+
+    font-size:
+        12px;
+
+    letter-spacing:
+        0.12em;
+
+    font-weight:
+        700;
+}
+
+
+.child-content-title {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        22px;
+
+    color:
+        #252018;
+}
+
+
+.child-content-actions {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+}
+
+
+.edit-content-button,
+.delete-content-button {
+    margin-top:
+        0;
+
+    padding:
+        8px 14px;
+
+    border:
+        1px solid
+        #b9aa99;
+
+    background:
+        transparent;
+
+    color:
+        #4f5f68;
+
+    cursor:
+        pointer;
+
+    font-size:
+        12px;
+
+    letter-spacing:
+        0.04em;
+}
+
+
+.edit-content-button:hover {
+    background:
+        #eee5d8;
+}
+
+
+.delete-content-button {
+    color:
+        #8b5147;
+}
+
+
+.delete-content-button:hover {
+    background:
+        #eee5d8;
+}
+
+
+/* =========================================================
+   EDIT CONTENT
+========================================================= */
+
+#edit-content-section {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        10px;
+}
+
+
+#edit-content-section.hidden {
+    display:
+        none;
+}
+
+
+#edit-content-section input,
+#edit-content-section textarea {
+    width:
+        100%;
+
+    padding:
+        10px;
+
+    border:
+        1px solid
+        #b9aa99;
+
+    background:
+        #f7f1e7;
+
+    color:
+        #252018;
+
+    font:
+        inherit;
+}
+
+
+#edit-content-section textarea {
+    min-height:
+        100px;
+
+    resize:
+        vertical;
+}
+
+
+@media (max-width: 700px) {
+
+    .child-content-item {
+        grid-template-columns:
+            1fr;
+
+        gap:
+            8px;
+    }
+
+
+    .child-content-actions {
+        margin-top:
+            6px;
+    }
+
+}

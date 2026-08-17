@@ -1,0 +1,1180 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(94, 62, 35, 0.18),
+            transparent 42%
+        ),
+        #100d0a;
+
+    color: #e7d7b4;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   LIBRARY
+========================================================= */
+
+.library {
+    min-height: 100vh;
+
+    padding:
+        70px
+        50px
+        100px;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.015),
+            rgba(0,0,0,0.08)
+        );
+
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.library-header {
+    text-align: center;
+
+    max-width: 900px;
+
+    margin:
+        0 auto
+        70px;
+}
+
+.header-ornament {
+    font-size: 22px;
+
+    color: #b8944e;
+
+    margin-bottom: 20px;
+}
+
+.eyebrow {
+    margin: 0 0 14px;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 0.32em;
+
+    color: #a8906b;
+}
+
+.library-header h1 {
+    margin: 0;
+
+    font-size:
+        clamp(
+            36px,
+            5vw,
+            64px
+        );
+
+    font-weight: 400;
+
+    letter-spacing: 0.03em;
+
+    color: #e8d5ad;
+
+    text-shadow:
+        0 2px 10px rgba(0,0,0,0.8);
+}
+
+.subtitle {
+    margin:
+        18px
+        0
+        28px;
+
+    color: #8e806a;
+
+    font-size: 14px;
+
+    font-style: italic;
+
+    letter-spacing: 0.08em;
+}
+
+.header-line {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+}
+
+.header-line span {
+    width: 90px;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #765d37
+        );
+}
+
+.header-line span:last-child {
+    background:
+        linear-gradient(
+            90deg,
+            #765d37,
+            transparent
+        );
+}
+
+.header-line i {
+    color: #b8944e;
+
+    font-size: 8px;
+
+    font-style: normal;
+}
+
+
+/* =========================================================
+   BOOK ROOM
+========================================================= */
+
+.book-room {
+    position: relative;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   BOOKSHELF
+========================================================= */
+
+.bookshelf {
+    position: relative;
+
+    width: min(
+        1100px,
+        82vw
+    );
+
+    height: 390px;
+
+    perspective: 1400px;
+}
+
+
+/* dark back */
+
+.bookshelf-back {
+    position: absolute;
+
+    inset:
+        0
+        0
+        48px
+        0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #241711,
+            #3a2517 20%,
+            #291a12 50%,
+            #3a2517 80%,
+            #20130e
+        );
+
+    border:
+        1px solid
+        rgba(183, 145, 82, 0.35);
+
+    box-shadow:
+        inset 0 0 50px rgba(0,0,0,0.8),
+        0 20px 50px rgba(0,0,0,0.65);
+}
+
+
+/* subtle wooden frame */
+
+.bookshelf-back::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 12px;
+
+    border:
+        1px solid
+        rgba(189, 151, 91, 0.15);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LIGHT
+========================================================= */
+
+.shelf-light {
+    position: absolute;
+
+    width: 850px;
+
+    height: 240px;
+
+    top: 10px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(202, 165, 94, 0.13),
+            transparent 68%
+        );
+
+    pointer-events: none;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   BOOK TRACK
+========================================================= */
+
+.book-track {
+    position: absolute;
+
+    inset:
+        35px
+        35px
+        70px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    overflow: hidden;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   BOOK
+========================================================= */
+
+.book {
+    flex:
+        0 0 145px;
+
+    height: 285px;
+
+    position: relative;
+
+    cursor: pointer;
+
+    transform-origin:
+        bottom center;
+
+    transition:
+        transform 0.5s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        filter 0.5s ease;
+
+    filter:
+        brightness(0.68)
+        saturate(0.75);
+
+    user-select: none;
+}
+
+
+/* center */
+
+.book.is-selected {
+    transform:
+        translateY(-20px)
+        scale(1.08);
+
+    filter:
+        brightness(1)
+        saturate(1.05);
+
+    z-index: 30;
+}
+
+
+/* neighboring books */
+
+.book:hover {
+    transform:
+        translateY(-12px)
+        rotateY(-4deg);
+
+    filter:
+        brightness(0.9)
+        saturate(0.9);
+}
+
+.book.is-selected:hover {
+    transform:
+        translateY(-24px)
+        scale(1.08)
+        rotateY(-2deg);
+}
+
+
+/* =========================================================
+   BOOK COVER
+========================================================= */
+
+.book-cover {
+    position: absolute;
+
+    inset: 0;
+
+    border-radius:
+        3px
+        7px
+        5px
+        3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0.55),
+            transparent 12%,
+            rgba(255,255,255,0.07) 48%,
+            rgba(0,0,0,0.35)
+        ),
+        var(
+            --book-color,
+            #522c26
+        );
+
+    border:
+        1px solid
+        rgba(214, 174, 105, 0.35);
+
+    box-shadow:
+        -8px 0 12px rgba(0,0,0,0.35),
+        8px 10px 18px rgba(0,0,0,0.55);
+
+    overflow: hidden;
+}
+
+
+/* leather texture */
+
+.book-cover::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.35;
+
+    background:
+        repeating-linear-gradient(
+            115deg,
+            rgba(255,255,255,0.025) 0,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px,
+            transparent 5px
+        );
+
+    pointer-events: none;
+}
+
+
+/* inner gold border */
+
+.book-cover::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 10px;
+
+    border:
+        1px solid
+        rgba(198, 158, 83, 0.45);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BOOK CONTENT
+========================================================= */
+
+.book-inner {
+    position: absolute;
+
+    inset: 22px 17px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    z-index: 2;
+}
+
+.book-symbol {
+    color: #c4a15e;
+
+    font-size: 18px;
+
+    margin-bottom: 24px;
+}
+
+.book-title {
+    max-width: 100px;
+
+    color: #d7bd88;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    letter-spacing: 0.05em;
+
+    text-shadow:
+        0 1px 2px #000;
+}
+
+.book-rule {
+    width: 55px;
+
+    height: 1px;
+
+    margin:
+        18px
+        0;
+
+    background:
+        #a9874e;
+
+    opacity: 0.7;
+}
+
+.book-label {
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 7px;
+
+    letter-spacing: 0.22em;
+
+    color: #a98c59;
+}
+
+
+/* =========================================================
+   BOOK SPINE
+========================================================= */
+
+.book-spine {
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    bottom: 0;
+
+    width: 13px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0.6),
+            rgba(255,255,255,0.08),
+            rgba(0,0,0,0.35)
+        );
+
+    border-right:
+        1px solid
+        rgba(0,0,0,0.5);
+
+    z-index: 4;
+}
+
+
+/* =========================================================
+   SHELF BOARD
+========================================================= */
+
+.shelf-board {
+    position: absolute;
+
+    left: -25px;
+
+    right: -25px;
+
+    bottom: 0;
+
+    height: 58px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #24150e,
+            #5a371d 8%,
+            #6d4726 50%,
+            #523019 92%,
+            #21130c
+        );
+
+    border:
+        1px solid
+        rgba(194, 151, 83, 0.4);
+
+    box-shadow:
+        0 20px 25px rgba(0,0,0,0.75),
+        inset 0 4px 7px rgba(255,255,255,0.06);
+
+    z-index: 40;
+}
+
+.shelf-edge {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 8px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(214,173,100,0.5),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav-button {
+    position: relative;
+
+    width: 58px;
+
+    height: 58px;
+
+    flex-shrink: 0;
+
+    margin: 0 18px;
+
+    border:
+        1px solid
+        rgba(187, 150, 88, 0.4);
+
+    border-radius: 50%;
+
+    background:
+        rgba(31, 21, 15, 0.85);
+
+    color: #c8a86b;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 38px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s,
+        transform 0.3s,
+        border-color 0.3s;
+}
+
+.nav-button:hover {
+    background:
+        rgba(115, 76, 39, 0.35);
+
+    border-color:
+        #b89558;
+
+    transform:
+        scale(1.08);
+}
+
+
+/* =========================================================
+   SELECTED BOOK INFO
+========================================================= */
+
+.selected-book {
+    max-width: 800px;
+
+    margin:
+        65px auto
+        0;
+
+    text-align: center;
+}
+
+.selected-kicker {
+    margin: 0 0 12px;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 0.3em;
+
+    color: #8f7954;
+}
+
+.selected-book h2 {
+    margin: 0;
+
+    color: #d8c195;
+
+    font-size:
+        clamp(
+            20px,
+            3vw,
+            30px
+        );
+
+    font-weight: 400;
+}
+
+.selected-rule {
+    width: 100px;
+
+    height: 1px;
+
+    margin:
+        22px
+        auto;
+
+    background:
+        #876d42;
+}
+
+.selected-book p:last-of-type {
+    margin: 0;
+
+    color: #81735f;
+
+    font-size: 13px;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   OPEN BUTTON
+========================================================= */
+
+.open-button {
+    margin-top: 28px;
+
+    padding:
+        13px
+        30px;
+
+    border:
+        1px solid
+        rgba(192, 153, 87, 0.55);
+
+    background:
+        transparent;
+
+    color: #c9aa70;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 0.22em;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s,
+        color 0.3s;
+}
+
+.open-button:hover {
+    background:
+        #b28d50;
+
+    color: #17100b;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .library {
+        padding:
+            45px
+            15px
+            70px;
+    }
+
+    .book-room {
+        width: 100%;
+    }
+
+    .nav-button {
+        position: absolute;
+
+        z-index: 100;
+
+        margin: 0;
+
+        width: 44px;
+        height: 44px;
+
+        font-size: 28px;
+    }
+
+    .nav-prev {
+        left: 5px;
+    }
+
+    .nav-next {
+        right: 5px;
+    }
+
+    .bookshelf {
+        width: 92vw;
+
+        height: 330px;
+    }
+
+    .book-track {
+        gap: 12px;
+
+        inset:
+            25px
+            20px
+            65px;
+    }
+
+    .book {
+        flex-basis: 105px;
+
+        height: 235px;
+    }
+
+    .book-title {
+        font-size: 10px;
+    }
+}
+/* =========================================================
+   ANTIQUE LIBRARY — WOODEN BOOKSHELF
+========================================================= */
+
+.bookshelf-frame {
+    position: relative;
+    width: 100%;
+    padding: 55px 50px 70px;
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            90deg,
+            #17100c 0%,
+            #3a2418 8%,
+            #21140f 50%,
+            #3b2519 92%,
+            #130c09 100%
+        );
+
+    border: 12px solid #21130d;
+
+    box-shadow:
+        inset 0 0 0 2px rgba(196, 150, 78, 0.35),
+        inset 0 0 35px rgba(0, 0, 0, 0.85),
+        0 25px 50px rgba(0, 0, 0, 0.55);
+
+    overflow: visible;
+}
+
+
+/* 上部の木製モールディング */
+
+.bookshelf-frame::before {
+    content: "";
+    position: absolute;
+
+    left: -18px;
+    right: -18px;
+    top: -24px;
+
+    height: 25px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #5a3822 0%,
+            #2b1a11 45%,
+            #120b08 100%
+        );
+
+    border: 2px solid #76502c;
+
+    box-shadow:
+        inset 0 2px 2px rgba(255,255,255,0.12),
+        0 8px 15px rgba(0,0,0,0.55);
+}
+
+
+/* 下部の厚い棚板 */
+
+.bookshelf-frame::after {
+    content: "";
+
+    position: absolute;
+
+    left: -18px;
+    right: -18px;
+    bottom: -24px;
+
+    height: 28px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #4b2d1b 0%,
+            #2b190f 45%,
+            #120a07 100%
+        );
+
+    border: 2px solid #684628;
+
+    box-shadow:
+        inset 0 2px 2px rgba(255,255,255,0.1),
+        0 15px 20px rgba(0,0,0,0.65);
+}
+
+
+/* 本が置かれる内部 */
+
+.book-list {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: flex-end;
+
+    gap: 34px;
+
+    width: 100%;
+
+    min-height: 360px;
+
+    padding: 30px 20px 20px;
+
+    box-sizing: border-box;
+
+    overflow: visible;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,0.08),
+            rgba(0,0,0,0.45)
+        );
+
+    box-shadow:
+        inset 0 20px 35px rgba(0,0,0,0.35),
+        inset 0 -15px 20px rgba(0,0,0,0.45);
+}
+
+
+/* 本 */
+
+.shelf-book {
+    flex: 0 0 230px;
+
+    width: 230px;
+    height: 330px;
+
+    position: relative;
+
+    display: block;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    transform-origin: bottom center;
+
+    transition:
+        transform 0.45s cubic-bezier(.2,.8,.2,1),
+        filter 0.45s ease;
+}
+
+
+/* ホバー */
+
+.shelf-book:hover {
+    transform:
+        translateY(-14px)
+        rotate(-1deg)
+        scale(1.025);
+
+    filter:
+        brightness(1.12)
+        drop-shadow(0 18px 18px rgba(0,0,0,0.55));
+}
+
+
+/* 本の表紙 */
+
+.book-cover {
+    position: absolute;
+
+    inset: 0;
+
+    display: block;
+
+    border-radius:
+        2px 7px 7px 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1d0909 0%,
+            #63282b 12%,
+            #7b3335 48%,
+            #4a1c1f 82%,
+            #1c0b0c 100%
+        );
+
+    border:
+        1px solid rgba(193, 147, 76, 0.55);
+
+    box-shadow:
+        inset 8px 0 12px rgba(0,0,0,0.45),
+        inset -8px 0 12px rgba(0,0,0,0.3),
+        inset 0 0 0 5px rgba(30,10,10,0.3),
+        10px 14px 20px rgba(0,0,0,0.55);
+}
+
+
+/* 表紙の内側 */
+
+.book-cover::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 12px;
+
+    border:
+        1px solid rgba(204, 164, 94, 0.55);
+
+    box-shadow:
+        inset 0 0 0 3px rgba(40,15,15,0.3);
+
+    pointer-events: none;
+}
+
+
+/* 本の背表紙側の陰影 */
+
+.book-cover::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 18px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0.75),
+            rgba(0,0,0,0.25),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* 本の内容 */
+
+.book-cover-inner {
+    position: absolute;
+
+    inset: 28px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: #d8b777;
+
+    pointer-events: none;
+}
+
+
+/* 金色のタイトル */
+
+.book-cover-title {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 23px;
+
+    line-height: 1.25;
+
+    letter-spacing: 0.04em;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        0 1px 1px #000,
+        0 0 8px rgba(215,170,95,0.18);
+}
+
+
+/* 装飾線 */
+
+.book-cover-rule {
+    width: 90px;
+
+    height: 1px;
+
+    margin: 20px auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #c49a54,
+            transparent
+        );
+}
+
+
+/* 本棚の床面 */
+
+.book-list::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 22px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #5a3821,
+            #26150d
+        );
+
+    border-top:
+        2px solid rgba(190,145,75,0.45);
+
+    box-shadow:
+        0 -8px 15px rgba(0,0,0,0.45);
+
+    pointer-events: none;
+}

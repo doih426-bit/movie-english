@@ -1,41 +1,27 @@
 const SUPABASE_URL = "https://duroflqocxilxpnziypr.supabase.co";
-
 const SUPABASE_KEY =
     "sb_publishable_Qxq8Q7Ee3GFV309fpQGsfA_73i84qm_";
-
-
 const supabaseClient =
     supabase.createClient(
         SUPABASE_URL,
         SUPABASE_KEY
     );
-
-
 /* =========================================================
    HTML ESCAPE
 ========================================================= */
-
 function escapeHtml(value) {
-
-    return String(value)
+    return String(value ?? "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-
 }
-
-
 /* =========================================================
    DATABASE WORDS
 ========================================================= */
-
 let dbWords = [];
-
-
 async function loadWordsFromDatabase() {
-
     const {
         data,
         error
@@ -48,26 +34,19 @@ async function loadWordsFromDatabase() {
                 ascending: true
             }
         );
-
-
     if (error) {
-
         console.error(
             "Words could not be loaded:",
             error
         );
-
         return false;
     }
-
-
     dbWords =
-        data.map(row => ({
-
-            id: row.id,
-
-            book_id: row.book_id,
-
+        (data || []).map(row => ({
+            id:
+                row.id,
+            book_id:
+                row.book_id,
             word: [
                 row.word,
                 row.meaning,
@@ -78,377 +57,363 @@ async function loadWordsFromDatabase() {
                 row.example3,
                 row.example3_translation
             ],
-
             difficulty:
-                row.difficulty
-
+                row.difficulty || "easy"
         }));
-
-
     console.log(
         "Loaded words from Supabase:",
         dbWords
     );
-
-
     return true;
 }
-
-
 /* =========================================================
    AUTH ELEMENTS
 ========================================================= */
-
 const authScreen =
     document.querySelector("#auth-screen");
-
 const emailInput =
     document.querySelector("#email");
-
 const passwordInput =
     document.querySelector("#password");
-
 const loginButton =
     document.querySelector("#login-button");
-
 const signupButton =
     document.querySelector("#signup-button");
-
 const authMessage =
     document.querySelector("#auth-message");
-
 const guestButton =
     document.querySelector("#guest-button");
-
 const logoutButton =
     document.querySelector("#logout-button");
-
 const authSwitch =
     document.querySelector("#auth-switch");
-
 const authTitle =
     document.querySelector("#auth-title");
-
-
 let isGuest = false;
-
 let isSignupMode = false;
-
-
 /* =========================================================
    MOVIE / LIBRARY ELEMENTS
 ========================================================= */
-
-
-
-
 const backCollectionButton =
     document.querySelector(
         "#back-collection-button"
     );
-
-
 const previousButton =
     document.querySelector(
         "#previous-button"
     );
-
-
 const nextButton =
     document.querySelector(
         "#next-button"
     );
-
-
 const movieList =
     document.querySelector(
         ".movie-list"
     );
-
-
-
-
-
 const vocabulary =
     document.querySelector(
         "#vocabulary"
     );
-
-
 const wordList =
     document.querySelector(
         "#word-list"
     );
-
-
 const progress =
     document.querySelector(
         "#progress"
     );
-
-
 /* =========================================================
    BOOK STATE
 ========================================================= */
-
 let currentBookId = null;
-
 let currentBookTitle = "";
-
-
 /* =========================================================
    DIFFICULTY
 ========================================================= */
-
 const difficultyLabels = {
-
     easy:
         "EASY",
-
     medium:
         "MEDIUM",
-
     advanced:
         "ADVANCED"
-
 };
-
-
 const difficultyRank = {
-
     easy:
         0,
-
     medium:
         1,
-
     advanced:
         2
-
 };
-
-
 /* =========================================================
-   STUDY WORDS
+   STUDY STATE
 ========================================================= */
-
+const wordsPerPage = 4;
+let currentPage = 0;
 let studyWords = [];
-
-
+/*
+   Masteredはindexではなく
+   Supabaseのword_idを保存する。
+   これによって本を切り替えても
+   Mastered状態がズレない。
+*/
+const masteredWords =
+    new Set();
+/* =========================================================
+   BUILD STUDY WORDS
+========================================================= */
 function buildStudyWords() {
-
     studyWords =
         dbWords
             .map(
                 (item, index) => ({
-
                     id:
                         item.id,
-
                     book_id:
                         item.book_id,
-
                     word:
                         item.word,
-
                     index,
-
                     difficulty:
                         item.difficulty ||
                         "easy"
-
                 })
             )
             .sort(
                 (a, b) =>
-
                     difficultyRank[
                         a.difficulty
                     ] -
                     difficultyRank[
                         b.difficulty
                     ]
-
                     ||
-
                     a.index -
                     b.index
             );
-
-
     console.log(
         "Study words:",
         studyWords
     );
-
-
-    console.log(
-        "FIRST STUDY WORD DATA:",
-        JSON.stringify(
-            studyWords[0],
-            null,
-            2
-        )
-    );
 }
-
-
 /* =========================================================
-   SETTINGS
+   OPEN VOCABULARY BOOK
 ========================================================= */
-
-const wordsPerPage = 4;
-
-let currentPage = 0;
-
-
-/* =========================================================
-   MASTERED
-========================================================= */
-
-const masteredWords =
-    new Set();
-
-
+function openVocabularyBook(
+    bookId,
+    bookTitle
+) {
+    console.log(
+        "Opening book:",
+        bookId,
+        bookTitle
+    );
+    const numericBookId =
+        Number(bookId);
+    if (
+        !Number.isFinite(
+            numericBookId
+        )
+    ) {
+        console.error(
+            "Invalid book ID:",
+            bookId
+        );
+        return;
+    }
+    currentBookId =
+        numericBookId;
+    currentBookTitle =
+        bookTitle || "";
+    /*
+       選択した本の単語だけ取得
+    */
+    studyWords =
+        dbWords
+            .filter(
+                item =>
+                    Number(
+                        item.book_id
+                    ) ===
+                    currentBookId
+            )
+            .map(
+                (item, index) => ({
+                    id:
+                        item.id,
+                    book_id:
+                        item.book_id,
+                    word:
+                        item.word,
+                    index,
+                    difficulty:
+                        item.difficulty ||
+                        "easy"
+                })
+            )
+            .sort(
+                (a, b) =>
+                    difficultyRank[
+                        a.difficulty
+                    ] -
+                    difficultyRank[
+                        b.difficulty
+                    ]
+                    ||
+                    a.index -
+                    b.index
+            );
+    console.log(
+        "Selected book words:",
+        studyWords
+    );
+    if (
+        studyWords.length === 0
+    ) {
+        console.warn(
+            "No words found for book:",
+            currentBookId
+        );
+        return;
+    }
+    /*
+       タイトル更新
+    */
+    const bookTitleElement =
+        document.querySelector(
+            "#book-title"
+        );
+    if (
+        bookTitleElement
+    ) {
+        bookTitleElement.textContent =
+            currentBookTitle;
+    }
+    /*
+       Libraryを隠す
+    */
+    if (
+        movieList
+    ) {
+        movieList.classList.add(
+            "hidden"
+        );
+    }
+    /*
+       Vocabularyを表示
+    */
+    if (
+        vocabulary
+    ) {
+        vocabulary.classList.remove(
+            "hidden"
+        );
+    }
+    /*
+       最初のページ
+    */
+    currentPage = 0;
+    /*
+       描画
+    */
+    renderPage();
+    /*
+       ページ上部へ
+    */
+    window.scrollTo({
+        top: 0,
+        behavior:
+            "smooth"
+    });
+}
 /* =========================================================
    SIGN UP / LOGIN SWITCH
 ========================================================= */
-
 authSwitch.addEventListener(
     "click",
     event => {
-
         if (
             event.target.id ===
             "show-signup-button"
         ) {
-
             isSignupMode =
                 true;
-
-
             authTitle.textContent =
                 "CREATE ACCOUNT";
-
-
             loginButton.classList.add(
                 "hidden"
             );
-
-
             signupButton.classList.remove(
                 "hidden"
             );
-
-
             authSwitch.innerHTML = `
-
                 Already have an account?
-
                 <button
                     id="show-login-button"
                     type="button"
                 >
                     Log in
                 </button>
-
             `;
-
-
             authMessage.textContent =
                 "";
-
         }
-
-
         if (
             event.target.id ===
             "show-login-button"
         ) {
-
             isSignupMode =
                 false;
-
-
             authTitle.textContent =
                 "CINEMA LANGUAGE";
-
-
             signupButton.classList.add(
                 "hidden"
             );
-
-
             loginButton.classList.remove(
                 "hidden"
             );
-
-
             authSwitch.innerHTML = `
-
                 Don't have an account?
-
                 <button
                     id="show-signup-button"
                     type="button"
                 >
                     Sign up
                 </button>
-
             `;
-
-
             authMessage.textContent =
                 "";
-
         }
-
     }
 );
-
-
 /* =========================================================
    SIGN UP
 ========================================================= */
-
 signupButton.addEventListener(
     "click",
     async () => {
-
         const email =
             emailInput.value.trim();
-
         const password =
             passwordInput.value;
-
-
         if (
             !email ||
             !password
         ) {
-
             authMessage.textContent =
                 "EmailとPasswordを入力してください。";
-
             return;
         }
-
-
         if (
             password.length < 6
         ) {
-
             authMessage.textContent =
                 "Passwordは6文字以上で入力してください。";
-
             return;
         }
-
-
         authMessage.textContent =
             "アカウントを作成しています...";
-
-
         const {
             data,
             error
@@ -457,83 +422,53 @@ signupButton.addEventListener(
                 email,
                 password
             });
-
-
         if (error) {
-
             console.error(
                 "Signup error:",
                 error
             );
-
             authMessage.textContent =
                 error.message;
-
             return;
         }
-
-
         console.log(
             "Created user:",
             data.user
         );
-
-
         isGuest =
             false;
-
-
         authScreen.classList.add(
             "hidden"
         );
-
-
         logoutButton.classList.remove(
             "hidden"
         );
-
-
         authMessage.textContent =
             "";
-
-
         await loadMasteredWords();
-
+        await loadContentsForLibrary();
     }
 );
-
-
 /* =========================================================
    LOGIN
 ========================================================= */
-
 loginButton.addEventListener(
     "click",
     async () => {
-
         const email =
             emailInput.value.trim();
-
         const password =
             passwordInput.value;
-
-
         if (
             !email ||
             !password
         ) {
-
             authMessage.textContent =
                 "EmailとPasswordを入力してください。";
-
             return;
         }
-
-
         authMessage.textContent =
             "ログイン中...";
-
-
         const {
             data,
             error
@@ -543,568 +478,629 @@ loginButton.addEventListener(
                     email,
                     password
                 });
-
-
         if (error) {
-
             console.error(
                 "Login error:",
                 error
             );
-
             authMessage.textContent =
                 "ログインに失敗しました。EmailまたはPasswordを確認してください。";
-
             return;
         }
-
-
         console.log(
             "Logged in user:",
             data.user
         );
-
-
         isGuest =
             false;
-
-
         authScreen.classList.add(
             "hidden"
         );
-
-
         logoutButton.classList.remove(
             "hidden"
         );
-
-
+        authMessage.textContent =
+            "";
         await loadMasteredWords();
-
+        await loadContentsForLibrary();
     }
 );
-
-
 /* =========================================================
    GUEST
 ========================================================= */
-
 guestButton.addEventListener(
     "click",
     () => {
-
         isGuest =
             true;
-
-
         authScreen.classList.add(
             "hidden"
         );
-
-
         logoutButton.classList.add(
             "hidden"
         );
-
-
         console.log(
-            "Using Movie English as guest."
+            "Using Cinema Language as guest."
         );
-
-
+        masteredWords.clear();
         currentPage =
             0;
-
-
-        renderPage();
-
+        loadContentsForLibrary();
     }
 );
-
-
 /* =========================================================
    LOGOUT
 ========================================================= */
-
 logoutButton.addEventListener(
     "click",
     async () => {
-
         const {
             error
         } =
             await supabaseClient.auth.signOut();
-
-
         if (error) {
-
             console.error(
                 "Logout error:",
                 error
             );
-
             alert(
                 "ログアウトに失敗しました。"
             );
-
             return;
         }
-
-
         isGuest =
             false;
-
-
         authScreen.classList.remove(
             "hidden"
         );
-
-
         logoutButton.classList.add(
             "hidden"
         );
-
-
         emailInput.value =
             "";
-
         passwordInput.value =
             "";
-
         authMessage.textContent =
             "";
-
-
         masteredWords.clear();
-
-
+        currentBookId =
+            null;
+        currentBookTitle =
+            "";
+        studyWords =
+            [];
         currentPage =
             0;
-
-
-        renderPage();
-
-
+        if (
+            vocabulary
+        ) {
+            vocabulary.classList.add(
+                "hidden"
+            );
+        }
+        if (
+            movieList
+        ) {
+            movieList.classList.remove(
+                "hidden"
+            );
+        }
         console.log(
             "Logged out."
         );
-
     }
 );
-
-
 /* =========================================================
-   LOAD BOOKS
+   LOAD CONTENTS
 ========================================================= */
-
-async function loadContentsForCinemaStudies() {
-
+async function loadContentsForLibrary() {
     const {
         data,
         error
-    } = await supabaseClient
-        .from("contents")
-        .select(`
-            id,
-            collection_id,
-            title,
-            description
-        `)
-        .eq(
-            "collection_id",
-            1
-        )
-        .order(
-            "id",
-            {
-                ascending: true
-            }
-        );
-
-
+    } =
+        await supabaseClient
+            .from("contents")
+            .select(`
+                id,
+                collection_id,
+                title,
+                description
+            `)
+            .eq(
+                "collection_id",
+                1
+            )
+            .order(
+                "id",
+                {
+                    ascending: true
+                }
+            );
     if (error) {
-
         console.error(
             "Contents load error:",
             error
         );
-
         return;
     }
-
-
     console.log(
         "Cinema Studies contents:",
         data
     );
-
-
-    const contentList =
+       const contentList =
         document.querySelector(
             "#content-list"
         );
 
-
     if (!contentList) {
-
         console.error(
             "Content list not found."
         );
+        return;
+    }
 
+    contentList.innerHTML = "";
+
+    for (
+        const content
+        of data || []
+    ) {
+
+        const wrapper =
+            document.createElement(
+                "section"
+            );
+
+        wrapper.className =
+            "content-item library-content";
+
+        wrapper.dataset.contentId =
+            content.id;
+
+
+        /*
+           CONTENT HEADER
+        */
+
+        const header =
+            document.createElement(
+                "header"
+            );
+
+        header.className =
+            "content-header";
+
+
+        const displayTitle =
+            content.title.replace(
+                "から学ぶ英単語・表現",
+                ""
+            );
+
+
+        header.innerHTML = `
+            <div class="content-plaque">
+
+                <span class="content-kicker">
+                    LEARN FROM
+                    ${escapeHtml(displayTitle)}
+                </span>
+
+            </div>
+        `;
+         /*
+   BOOK ROOM
+*/
+
+const bookRoom =
+    document.createElement(
+        "section"
+    );
+
+bookRoom.className =
+    "book-room";
+
+
+/*
+   PREVIOUS BUTTON
+*/
+
+const previousButton =
+    document.createElement(
+        "button"
+    );
+
+previousButton.className =
+    "nav-button nav-prev";
+
+previousButton.type =
+    "button";
+
+previousButton.setAttribute(
+    "aria-label",
+    "Previous book"
+);
+
+previousButton.textContent =
+    "‹";
+
+
+/*
+   SHELF LIGHT
+*/
+
+const shelfLight =
+    document.createElement(
+        "div"
+    );
+
+shelfLight.className =
+    "shelf-light";
+
+
+/*
+   BOOKSHELF
+*/
+
+const bookshelf =
+    document.createElement(
+        "div"
+    );
+
+bookshelf.className =
+    "bookshelf";
+
+
+/*
+   BACK
+*/
+
+const bookshelfBack =
+    document.createElement(
+        "div"
+    );
+
+bookshelfBack.className =
+    "bookshelf-back";
+
+
+/*
+   BOOK TRACK
+*/
+
+const bookList =
+    document.createElement(
+        "div"
+    );
+
+bookList.className =
+    "book-track";
+
+bookList.id =
+    `book-track-${content.id}`;
+
+bookList.dataset.loaded =
+    "false";
+
+
+/*
+   SHELF BOARD
+*/
+
+const shelfBoard =
+    document.createElement(
+        "div"
+    );
+
+shelfBoard.className =
+    "shelf-board";
+
+
+const shelfEdge =
+    document.createElement(
+        "div"
+    );
+
+shelfEdge.className =
+    "shelf-edge";
+
+
+shelfBoard.appendChild(
+    shelfEdge
+);
+
+
+/*
+   ASSEMBLE BOOKSHELF
+*/
+
+bookshelf.appendChild(
+    bookshelfBack
+);
+
+bookshelf.appendChild(
+    bookList
+);
+
+bookshelf.appendChild(
+    shelfBoard
+);
+
+
+/*
+   NEXT BUTTON
+*/
+
+const nextButton =
+    document.createElement(
+        "button"
+    );
+
+nextButton.className =
+    "nav-button nav-next";
+
+nextButton.type =
+    "button";
+
+nextButton.setAttribute(
+    "aria-label",
+    "Next book"
+);
+
+nextButton.textContent =
+    "›";
+
+
+/*
+   ASSEMBLE BOOK ROOM
+*/
+
+bookRoom.appendChild(
+    previousButton
+);
+
+bookRoom.appendChild(
+    shelfLight
+);
+
+bookRoom.appendChild(
+    bookshelf
+);
+
+bookRoom.appendChild(
+    nextButton
+);
+
+
+/*
+   CONTENT STRUCTURE
+*/
+
+wrapper.appendChild(
+    header
+);
+
+wrapper.appendChild(
+    bookRoom
+);
+
+contentList.appendChild(
+    wrapper
+);
+
+
+        /*
+           LOAD BOOKS
+        */
+
+        await loadBooksForContentFrontend(
+            content.id,
+            bookList
+        );
+targetBookList.classList.add(
+    "books-ready"
+);
+
+
+/* =========================================================
+   BOOK NAVIGATION
+========================================================= */
+
+const bookElements =
+    [
+        ...targetBookList.querySelectorAll(
+            ".shelf-book"
+        )
+    ];
+
+let currentBookIndex = 0;
+
+
+/*
+   BRAND NEW DAY を初期選択
+*/
+
+const brandNewDayIndex =
+    bookElements.findIndex(
+        book =>
+            book.textContent.includes(
+                "BRAND NEW DAY - NEW Trailer 4K"
+            )
+    );
+
+if (brandNewDayIndex >= 0) {
+    currentBookIndex =
+        brandNewDayIndex;
+}
+
+
+/*
+   UPDATE BOOK POSITION
+*/
+
+function updateBookPosition(
+    smooth = true
+) {
+
+    const target =
+        bookElements[
+            currentBookIndex
+        ];
+
+    if (!target) {
         return;
     }
 
 
-    contentList.innerHTML = "";
+    bookElements.forEach(
+        (book, index) => {
 
-
-    data.forEach(
-        content => {
-
-            /* =========================================
-               CONTENT WRAPPER
-            ========================================= */
-
-            const wrapper =
-                document.createElement(
-                    "div"
-                );
-
-
-            wrapper.className =
-                "content-item";
-
-
-            /* =========================================
-               CONTENT BUTTON
-            ========================================= */
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "movie-card shelf-book collection-book";
-
-
-            button.type =
-                "button";
-
-
-            button.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-
-            button.innerHTML = `
-
-                <span
-                    class="movie-image"
-                    aria-hidden="true"
-                >
-                    🕷️
-                </span>
-
-
-                <span class="book-info">
-
-                    <strong>
-                        ${escapeHtml(
-                            content.title
-                        )}
-                    </strong>
-
-
-                    <span>
-                        ${escapeHtml(
-                            content.description ||
-                            "Movie vocabulary collection"
-                        )}
-                    </span>
-
-                </span>
-
-
-                <span class="open-book">
-                    Open ↓
-                </span>
-
-            `;
-
-
-            /* =========================================
-               THIS CONTENT'S BOOK LIST
-            ========================================= */
-
-            const bookList =
-                document.createElement(
-                    "div"
-                );
-
-
-            bookList.className =
-                "book-list hidden";
-
-
-            /* =========================================
-               APPEND
-            ========================================= */
-
-            wrapper.appendChild(
-                button
-            );
-
-
-            wrapper.appendChild(
-                bookList
-            );
-
-
-            /* =========================================
-               OPEN / CLOSE
-            ========================================= */
-
-            button.addEventListener(
-                "click",
-                async event => {
-
-                    event.preventDefault();
-
-
-                    const isOpen =
-                        button.getAttribute(
-                            "aria-expanded"
-                        ) === "true";
-
-
-                    /* CLOSE */
-
-                    if (isOpen) {
-
-                        button.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-
-                        bookList.classList.add(
-                            "hidden"
-                        );
-
-
-                        return;
-                    }
-
-
-                    /* OPEN */
-
-                    button.setAttribute(
-                        "aria-expanded",
-                        "true"
-                    );
-
-
-                    await loadBooksForContentFrontend(
-                        content.id,
-                        bookList
-                    );
-
-
-                    bookList.classList.remove(
-                        "hidden"
-                    );
-
-                }
-            );
-
-
-            /* =========================================
-               ADD TO CINEMA STUDIES
-            ========================================= */
-
-            contentList.appendChild(
-                wrapper
+            book.classList.toggle(
+                "is-selected",
+                index === currentBookIndex
             );
 
         }
     );
 
-        "Cinema Studies contents:",
-        data
-    );
+
+    const trackRect =
+        targetBookList.getBoundingClientRect();
+
+    const targetRect =
+        target.getBoundingClientRect();
 
 
-    const contentList =
-        document.querySelector(
-            "#content-list"
+    const offset =
+        (
+            trackRect.left +
+            trackRect.width / 2
+        )
+        -
+        (
+            targetRect.left +
+            targetRect.width / 2
         );
 
 
-    if (!contentList) {
+    targetBookList.style.transition =
+        smooth
+            ? "transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)"
+            : "none";
 
-        console.error(
-            "Content list not found."
-        );
 
-        return;
+    targetBookList.style.transform =
+        `translateX(${offset}px)`;
+}
 
+
+/*
+   PREVIOUS
+*/
+
+previousButton.addEventListener(
+    "click",
+    () => {
+
+        currentBookIndex =
+            Math.max(
+                0,
+                currentBookIndex - 1
+            );
+
+        updateBookPosition();
     }
+);
 
 
-    contentList.innerHTML = "";
+/*
+   NEXT
+*/
 
+nextButton.addEventListener(
+    "click",
+    () => {
 
-data.forEach(
-    content => {
-
-        const wrapper =
-            document.createElement(
-                "div"
+        currentBookIndex =
+            Math.min(
+                bookElements.length - 1,
+                currentBookIndex + 1
             );
 
-
-        wrapper.className =
-            "content-item";
-
-
-        const button =
-            document.createElement(
-                "button"
-            );
+        updateBookPosition();
+    }
+);
 
 
-        button.className =
-            "movie-card shelf-book collection-book";
+/*
+   CLICK BOOK
+*/
 
+bookElements.forEach(
+    (book, index) => {
 
-        button.type =
-            "button";
-
-
-        button.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-
-        button.innerHTML = `
-
-            <span
-                class="movie-image"
-                aria-hidden="true"
-            >
-                🕷️
-            </span>
-
-
-            <span class="book-info">
-
-                <strong>
-                    ${escapeHtml(
-                        content.title
-                    )}
-                </strong>
-
-
-                <span>
-                    ${escapeHtml(
-                        content.description ||
-                        "Movie vocabulary collection"
-                    )}
-                </span>
-
-            </span>
-
-
-            <span class="open-book">
-                Open ↓
-            </span>
-
-        `;
-
-
-       
-
-
-        bookList.className =
-            "book-list hidden";
-
-
-        wrapper.appendChild(
-            button
-        );
-
-
-        wrapper.appendChild(
-            bookList
-        );
-
-
-        button.addEventListener(
+        book.addEventListener(
             "click",
-            async event => {
+            () => {
 
-                event.preventDefault();
+                currentBookIndex =
+                    index;
 
-
-                const isOpen =
-                    button.getAttribute(
-                        "aria-expanded"
-                    ) === "true";
-
-
-                if (isOpen) {
-
-                    button.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-
-                    bookList.classList.add(
-                        "hidden"
-                    );
-
-
-                    return;
-
-                }
-
-
-                button.setAttribute(
-                    "aria-expanded",
-                    "true"
-                );
-
-
-                await loadBooksForContentFrontend(
-                    content.id,
-                    bookList
-                );
-
-
-                bookList.classList.remove(
-                    "hidden"
-                );
+                updateBookPosition();
 
             }
         );
 
+    }
+);
 
-        contentList.appendChild(
-            wrapper
+
+/*
+   INITIAL POSITION
+*/
+
+requestAnimationFrame(
+    () => {
+
+        updateBookPosition(
+            false
         );
 
     }
 );
+
+        bookList.dataset.loaded =
+            "true";
+    }
+
+    wrapper.appendChild(
+        header
+    );
+
+    wrapper.appendChild(
+        shelf
+    );
+
+    contentList.appendChild(
+        wrapper
+    );
+
+    /*
+       LOAD BOOKS
+       ここは1回だけ
+    */
+    await loadBooksForContentFrontend(
+        content.id,
+        bookList
+    );
+
+    bookList.dataset.loaded =
+        "true";
+}
 async function loadBooksForContentFrontend(
     contentId,
     targetBookList
 ) {
-
     const {
         data,
         error
@@ -1127,262 +1123,313 @@ async function loadBooksForContentFrontend(
                     ascending: true
                 }
             );
-
-
     if (error) {
-
         console.error(
             "Frontend books load error:",
             error
         );
-
         return;
     }
-
-
     console.log(
-        "Frontend books:",
-        data
-    );
-
-
-    targetBookList.innerHTML = `
-
-        <div class="collection-divider">
-
-            <span>
-                SPIDER-MAN COLLECTION
-            </span>
-
-        </div>
-
-    `;
-
-
-    data.forEach(
-        book => {
-
-            const button =
-                document.createElement(
-                    "button"
+    "BOOKS FOR CONTENT:",
+    contentId,
+    data
+);
+    targetBookList.innerHTML = "";
+    /*
+       現在のユーザー
+    */
+    let user = null;
+    if (!isGuest) {
+        const {
+            data: {
+                session
+            },
+            error: sessionError
+        } =
+            await supabaseClient.auth
+                .getSession();
+        if (sessionError) {
+            console.error(
+                "Book progress session load error:",
+                sessionError
+            );
+        } else {
+            user =
+                session?.user || null;
+        }
+    }
+    /*
+       BOOK ID一覧
+    */
+    const bookIds =
+        (data || []).map(
+            book => book.id
+        );
+    /*
+       単語を一括取得
+    */
+    let allWords = [];
+    if (
+        bookIds.length > 0
+    ) {
+        const {
+            data: wordRows,
+            error: wordError
+        } =
+            await supabaseClient
+                .from("words")
+                .select(
+                    "id, book_id"
+                )
+                .in(
+                    "book_id",
+                    bookIds
                 );
-
-
-            button.className =
-                "movie-card shelf-book lesson-card";
-
-
-            button.type =
-                "button";
-
-
-            button.innerHTML = `
-
-                <span
-                    class="movie-image trailer-image"
-                    aria-hidden="true"
-                >
-                    🕸️
-                </span>
-
-
-                <span class="book-info">
-
-                    <strong>
+        if (wordError) {
+            console.error(
+                "Book words load error:",
+                wordError
+            );
+        } else {
+            allWords =
+                wordRows || [];
+        }
+    }
+    /*
+       WORD ID一覧
+    */
+    const allWordIds =
+        allWords.map(
+            word => word.id
+        );
+    /*
+       ユーザーのMastered情報を一括取得
+    */
+    let progressRows = [];
+    if (
+        user &&
+        allWordIds.length > 0
+    ) {
+        const {
+            data: progressData,
+            error: progressError
+        } =
+            await supabaseClient
+                .from(
+                    "user_word_progress"
+                )
+                .select(
+                    "word_id, mastered"
+                )
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .in(
+                    "word_id",
+                    allWordIds
+                );
+        if (progressError) {
+            console.error(
+                "Book progress load error:",
+                progressError
+            );
+        } else {
+            progressRows =
+                progressData || [];
+        }
+    }
+    /*
+       Mastered word ID Set
+    */
+    const masteredWordIdSet =
+        new Set(
+            progressRows
+                .filter(
+                    row =>
+                        row.mastered === true
+                )
+                .map(
+                    row =>
+                        row.word_id
+                )
+        );
+    /*
+       本ごとの単語IDを作成
+    */
+    const bookIdToWordIds = {};
+    for (
+        const bookId
+        of bookIds
+    ) {
+        bookIdToWordIds[bookId] =
+            [];
+    }
+    for (
+        const word
+        of allWords
+    ) {
+        if (
+            bookIdToWordIds[word.book_id]
+        ) {
+            bookIdToWordIds[
+                word.book_id
+            ].push(
+                word.id
+            );
+        }
+    }
+    /*
+       BOOKを描画
+    */
+    for (
+        const book
+        of data || []
+    ) {
+        const wordIds =
+            bookIdToWordIds[
+                book.id
+            ] || [];
+        const totalWords =
+            wordIds.length;
+        let masteredCount =
+            0;
+        if (
+            user &&
+            totalWords > 0
+        ) {
+            masteredCount =
+                wordIds.filter(
+                    id =>
+                        masteredWordIdSet.has(
+                            id
+                        )
+                ).length;
+        }
+        const progressPercent =
+            totalWords > 0
+                ? Math.round(
+                    (
+                        masteredCount /
+                        totalWords
+                    ) *
+                    100
+                )
+                : 0;
+        const button =
+            document.createElement(
+                "button"
+            );
+        button.className =
+            "shelf-book";
+        button.type =
+            "button";
+        button.innerHTML = `
+            <span
+                class="book-cover"
+                aria-hidden="true"
+            >
+                <span class="book-cover-inner">
+                    <span class="book-symbol">
+                        ✦
+                    </span>
+                    <span
+                        class="book-cover-rule"
+                    ></span>
+                    <span
+                        class="book-cover-title"
+                    >
                         ${escapeHtml(
                             book.title
                         )}
-                    </strong>
-
-
-                    <span class="progress-box">
-
-                        <span class="progress-label">
-                            LEARNING PROGRESS
-                        </span>
-
-
-                        <span class="progress-track">
-
-                            <span
-                                class="progress-fill"
-                            ></span>
-
-                        </span>
-
-
-                        <span class="progress-percent">
-                            0%
-                        </span>
-
                     </span>
-
+                    <span
+                        class="book-cover-rule short"
+                    ></span>
+                    <span
+                        class="book-cover-label"
+                    >
+                        MOVIE ENGLISH
+                    </span>
                 </span>
-
-
-                <span class="open-book">
-                    NEXT →
-                </span>
-
-            `;
-
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    openVocabularyBook(
-                        book.id,
+            </span>
+            <span class="book-details">
+                <strong>
+                    ${escapeHtml(
                         book.title
-                    );
-
-                }
-            );
-
-
-           targetBookList.appendChild(
+                    )}
+                </strong>
+                <span class="book-meta">
+                    ${escapeHtml(
+                        book.description ||
+                        "ENGLISH THROUGH CINEMA"
+                    )}
+                </span>
+                <span class="progress-box">
+                    <span class="progress-label">
+                        PROGRESS
+                    </span>
+                    <span class="progress-track">
+                        <span
+                            class="progress-fill"
+                            style="width: ${progressPercent}%"
+                        ></span>
+                    </span>
+                    <span class="progress-percent">
+                        ${progressPercent}%
+                    </span>
+                </span>
+            </span>
+            <span class="open-book">
+                OPEN
+            </span>
+        `;
+        button.addEventListener(
+            "click",
+            () => {
+                openVocabularyBook(
+                    book.id,
+                    book.title
+                );
+            }
+        );
+        targetBookList.appendChild(
+            button
+        );
+        console.log(
+    "BOOK CREATED:",
+    book.title,
     button
 );
-
-        }
+    }
+    targetBookList.classList.add(
+        "books-ready"
     );
-
-}
-
-
-/* =========================================================
-   OPEN VOCABULARY BOOK
+    /* =========================================================
+   INITIAL BOOK POSITION
+   BRAND NEW DAY を中央にする
 ========================================================= */
-
-function openVocabularyBook(
-    bookId,
-    bookTitle
-) {
-
-    console.log(
-        "Opening book:",
-        bookId,
-        bookTitle
-    );
-
-
-    currentBookId =
-        Number(bookId);
-
-
-    currentBookTitle =
-        bookTitle;
-
-
-    studyWords =
-        dbWords
-            .filter(
-                item =>
-                    Number(item.book_id) ===
-                    currentBookId
+const targetBook =
+    [...targetBookList.querySelectorAll(".shelf-book")]
+        .find(book =>
+            book.textContent.includes(
+                "BRAND NEW DAY - NEW Trailer 4K"
             )
-            .map(
-                (item, index) => ({
-
-                    id:
-                        item.id,
-
-                    book_id:
-                        item.book_id,
-
-                    word:
-                        item.word,
-
-                    index,
-
-                    difficulty:
-                        item.difficulty ||
-                        "easy"
-
-                })
-            )
-            .sort(
-                (a, b) =>
-
-                    difficultyRank[
-                        a.difficulty
-                    ] -
-                    difficultyRank[
-                        b.difficulty
-                    ]
-
-                    ||
-
-                    a.index -
-                    b.index
-            );
-
-
-    console.log(
-        "Selected book words:",
-        studyWords
-    );
-
-
-    const bookTitleElement =
-        document.querySelector(
-            "#book-title"
         );
 
 
-    if (
-        bookTitleElement
-    ) {
-
-        bookTitleElement.textContent =
-            currentBookTitle;
-
-    }
-
-
-    masteredWords.clear();
-
-
-    movieList.classList.add(
-        "hidden"
-    );
-
-
-  
-
-
-    vocabulary.classList.remove(
-        "hidden"
-    );
-
-
-    currentPage =
-        0;
-
-
-    renderPage();
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior:
-            "smooth"
-
-    });
-
 }
-
-
 /* =========================================================
-   LOAD USER PROGRESS
+   LOAD USER MASTERED WORDS
 ========================================================= */
-
 async function loadMasteredWords() {
-
+    masteredWords.clear();
+    if (isGuest) {
+        renderPage();
+        return;
+    }
     try {
-
         const {
             data: {
                 user
@@ -1391,28 +1438,16 @@ async function loadMasteredWords() {
         } =
             await supabaseClient.auth
                 .getUser();
-
-
         if (
             userError ||
             !user
         ) {
-
-            console.error(
-                "User is not logged in:",
-                userError
+            console.log(
+                "No logged-in user."
             );
-
+            renderPage();
             return;
         }
-
-
-        console.log(
-            "Loading progress for:",
-            user.id
-        );
-
-
         const {
             data,
             error
@@ -1421,125 +1456,83 @@ async function loadMasteredWords() {
                 .from(
                     "user_word_progress"
                 )
-                .select(`
-                    word_id,
-                    mastered
-                `)
+                .select(
+                    "word_id, mastered"
+                )
                 .eq(
                     "user_id",
                     user.id
                 );
-
-
         if (error) {
-
             console.error(
                 "Progress load error:",
                 error
             );
-
+            renderPage();
             return;
         }
-
-
-        console.log(
-            "Loaded user progress:",
-            data
-        );
-
-
-        masteredWords.clear();
-
-
-        data.forEach(
+        (data || []).forEach(
             row => {
-
                 if (
-                    row.mastered !== true
+                    row.mastered === true
                 ) {
-                    return;
-                }
-
-
-                const index =
-                    studyWords.findIndex(
-                        item =>
-                            item.id ===
-                            row.word_id
-                    );
-
-
-                if (
-                    index !== -1
-                ) {
-
                     masteredWords.add(
-                        index
+                        row.word_id
                     );
-
                 }
-
             }
         );
-
-
         console.log(
-            "Mastered word indexes:",
+            "Loaded mastered word IDs:",
             [
                 ...masteredWords
             ]
         );
-
-
         renderPage();
-
     } catch (error) {
-
         console.error(
             "Mastered data could not be loaded:",
             error
         );
-
     }
-
 }
-
-
 /* =========================================================
    SAVE USER PROGRESS
 ========================================================= */
-
 async function setMastered(
     index,
     mastered
 ) {
-
+    const word =
+        studyWords[index];
+    if (!word) {
+        console.error(
+            "Word not found:",
+            index
+        );
+        return false;
+    }
+    const wordId =
+        word.id;
+    /*
+       GUEST
+    */
     if (isGuest) {
-
         if (mastered) {
-
             masteredWords.add(
-                index
+                wordId
             );
-
         } else {
-
             masteredWords.delete(
-                index
+                wordId
             );
-
         }
-
         return true;
     }
-
-
-    const wordId =
-        studyWords[index].id;
-
-
+    /*
+       LOGIN USER
+    */
     try {
-
         const {
             data: {
                 user
@@ -1548,28 +1541,22 @@ async function setMastered(
         } =
             await supabaseClient.auth
                 .getUser();
-
-
         if (
             userError ||
             !user
         ) {
-
             console.error(
                 "User is not logged in:",
                 userError
             );
-
-
             alert(
                 "ログインしてください。"
             );
-
-
             return false;
         }
-
-
+        /*
+           既存データを確認
+        */
         const {
             data: existingProgress,
             error: progressError
@@ -1578,7 +1565,9 @@ async function setMastered(
                 .from(
                     "user_word_progress"
                 )
-                .select("id")
+                .select(
+                    "id"
+                )
                 .eq(
                     "user_id",
                     user.id
@@ -1588,29 +1577,22 @@ async function setMastered(
                     wordId
                 )
                 .maybeSingle();
-
-
         if (progressError) {
-
             console.error(
                 "Progress lookup error:",
                 progressError
             );
-
-
             alert(
                 "学習記録の確認に失敗しました。"
             );
-
-
             return false;
         }
-
-
+        /*
+           UPDATE
+        */
         if (
             existingProgress
         ) {
-
             const {
                 error: updateError
             } =
@@ -1626,28 +1608,23 @@ async function setMastered(
                         "id",
                         existingProgress.id
                     );
-
-
             if (
                 updateError
             ) {
-
                 console.error(
                     "Progress update error:",
                     updateError
                 );
-
-
                 alert(
                     "Masteredの保存に失敗しました。"
                 );
-
-
                 return false;
             }
-
-        } else {
-
+        }
+        /*
+           INSERT
+        */
+        else {
             const {
                 error: insertError
             } =
@@ -1656,129 +1633,86 @@ async function setMastered(
                         "user_word_progress"
                     )
                     .insert({
-
                         user_id:
                             user.id,
-
                         word_id:
                             wordId,
-
                         mastered:
                             mastered
-
                     });
-
-
             if (
                 insertError
             ) {
-
                 console.error(
                     "Progress insert error:",
                     insertError
                 );
-
-
                 alert(
                     "Masteredの保存に失敗しました。"
                 );
-
-
                 return false;
             }
-
         }
-
-
+        /*
+           Local state
+        */
         if (mastered) {
-
             masteredWords.add(
-                index
+                wordId
             );
-
         } else {
-
             masteredWords.delete(
-                index
+                wordId
             );
-
         }
-
-
         console.log(
             "Saved progress:",
             {
-
                 user_id:
                     user.id,
-
                 word_id:
                     wordId,
-
                 mastered:
                     mastered
-
             }
         );
-
-
         return true;
-
     } catch (error) {
-
         console.error(
             "Mastered data could not be saved:",
             error
         );
-
-
         alert(
             "Masteredの保存中にエラーが発生しました。"
         );
-
-
         return false;
     }
-
 }
-
-
 /* =========================================================
    PAGE RENDER
 ========================================================= */
-
 function renderPage(
     turnDirection = 0
 ) {
-
+    if (!wordList) {
+        return;
+    }
     console.log(
         "RENDER:",
         studyWords.length,
         studyWords
     );
-
-
-    console.log(
-        "FIRST STUDY WORD:",
-        JSON.stringify(
-            studyWords[0],
-            null,
-            2
-        )
-    );
-
-
-    const masteredCount =
-        masteredWords.size;
-
-
+    /*
+       ページ数
+    */
     const totalPages =
         Math.ceil(
             studyWords.length /
             wordsPerPage
         );
-
-
+    /*
+       現在ページを安全な範囲に
+    */
     currentPage =
         Math.min(
             Math.max(
@@ -1790,11 +1724,22 @@ function renderPage(
                 0
             )
         );
-
-
+    /*
+       Mastered数
+       indexではなくword_idで判定
+    */
+    const masteredCount =
+        studyWords.filter(
+            item =>
+                masteredWords.has(
+                    item.id
+                )
+        ).length;
+    /*
+       全体進捗
+    */
     const masteryPercentage =
         studyWords.length > 0
-
             ? Math.round(
                 (
                     masteredCount /
@@ -1802,100 +1747,77 @@ function renderPage(
                 ) *
                 100
             )
-
             : 0;
-
-
+    /*
+       Library progressが存在する場合
+    */
     const libraryProgress =
         document.querySelector(
             "#library-progress"
         );
-
-
     const libraryProgressBar =
         document.querySelector(
             "#library-progress-bar"
         );
-
-
     if (
         libraryProgress
     ) {
-
         libraryProgress.textContent =
             `${masteryPercentage}%`;
-
     }
-
-
     if (
         libraryProgressBar
     ) {
-
         libraryProgressBar.style.width =
             `${masteryPercentage}%`;
-
     }
-
-
+    /*
+       ページ内単語
+    */
     const start =
         currentPage *
         wordsPerPage;
-
-
     const pageWords =
         studyWords.slice(
             start,
             start + wordsPerPage
         );
-
-
+    /*
+       HTML生成
+    */
     wordList.innerHTML =
         pageWords
             .map(
                 ({
                     word: wordData,
+                    id,
                     index,
                     difficulty
                 }) => {
-
                     const [
-
                         word,
-
                         meaning,
-
                         example1,
-
                         translation1,
-
                         example2,
-
                         translation2,
-
                         example3,
-
                         translation3
-
                     ] = wordData;
-
-
                     const isMastered =
                         masteredWords.has(
-                            index
+                            id
                         );
-
-
                     return `
-
 <li
-    class="word-entry${isMastered
-        ? " is-mastered"
-        : ""
+    class="word-entry${
+        isMastered
+            ? " is-mastered"
+            : ""
     }"
     data-word-index="${index}"
+    data-word-id="${id}"
 >
-
     <button
         class="word-flip"
         type="button"
@@ -1904,122 +1826,84 @@ function renderPage(
         )} の意味を表示"
         aria-pressed="false"
     >
-
         <span class="word-flip-inner">
-
-
             <span class="word-face word-front">
-
                 <span class="word">
-                    ${escapeHtml(word)}
+                    ${escapeHtml(
+                        word
+                    )}
                 </span>
-
-
                 <span
-                    class="word-level level-${difficulty}"
-                >
-                    ${difficultyLabels[
+                    class="word-level level-${escapeHtml(
                         difficulty
-                    ]}
+                    )}"
+                >
+                    ${
+                        difficultyLabels[
+                            difficulty
+                        ] ||
+                        "EASY"
+                    }
                 </span>
-
-
                 <div class="examples">
-
                     <div class="example-item">
-
                         <span class="example">
                             ${escapeHtml(
                                 example1
                             )}
                         </span>
-
                     </div>
-
-
                     <div class="example-item">
-
                         <span class="example">
                             ${escapeHtml(
                                 example2
                             )}
                         </span>
-
                     </div>
-
-
                     <div class="example-item">
-
                         <span class="example">
                             ${escapeHtml(
                                 example3
                             )}
                         </span>
-
                     </div>
-
                 </div>
-
             </span>
-
-
             <span class="word-face word-back">
-
                 <span class="meaning">
                     ${escapeHtml(
                         meaning
                     )}
                 </span>
-
-
                 <div class="translations">
-
                     <div class="translation-item">
-
                         <span class="translation">
                             ${escapeHtml(
                                 translation1
                             )}
                         </span>
-
                     </div>
-
-
                     <div class="translation-item">
-
                         <span class="translation">
                             ${escapeHtml(
                                 translation2
                             )}
                         </span>
-
                     </div>
-
-
                     <div class="translation-item">
-
                         <span class="translation">
                             ${escapeHtml(
                                 translation3
                             )}
                         </span>
-
                     </div>
-
                 </div>
-
             </span>
-
         </span>
-
     </button>
-
-
     <span class="word-flip-hint">
         TAP TO FLIP
     </span>
-
-
     <button
         class="speak-button"
         type="button"
@@ -2033,136 +1917,109 @@ function renderPage(
     >
         🔊
     </button>
-
-
     ${
         isMastered
-
             ? `
-
 <button
     class="cancel-button"
     type="button"
 >
     Cancel
 </button>
-
 `
-
             : `
-
 <button
     class="master-button"
     type="button"
 >
     🕷 Mastered
 </button>
-
 `
     }
-
 </li>
-
 `;
-
                 }
             )
             .join("");
-
-
+    /*
+       ページ表示
+    */
     if (
         progress
     ) {
-
         progress.textContent =
             totalPages > 0
-
                 ? `${currentPage + 1} / ${totalPages} ページ`
-
                 : "0 / 0 ページ";
-
     }
-
-
-    previousButton.disabled =
-        currentPage === 0;
-
-
-    nextButton.disabled =
-        totalPages === 0 ||
-        currentPage ===
-        totalPages - 1;
-
-
+    /*
+       Previous
+    */
+    if (
+        previousButton
+    ) {
+        previousButton.disabled =
+            currentPage === 0;
+    }
+    /*
+       Next
+    */
+    if (
+        nextButton
+    ) {
+        nextButton.disabled =
+            totalPages === 0 ||
+            currentPage ===
+            totalPages - 1;
+    }
+    /*
+       Page animation
+    */
     wordList.classList.remove(
         "page-turn-next",
         "page-turn-previous"
     );
-
-
     if (
         turnDirection
     ) {
-
         void wordList.offsetWidth;
-
-
         wordList.classList.add(
-
             turnDirection > 0
-
                 ? "page-turn-next"
-
                 : "page-turn-previous"
-
         );
-
     }
-
 }
-
-
-/* =========================================================
-   COLLECTION
-========================================================= */
-
-
 /* =========================================================
    BACK TO COLLECTION
 ========================================================= */
-
 function goBackToCollection() {
-
-    vocabulary.classList.add(
-        "hidden"
-    );
-
-
-    movieList.classList.remove(
-        "hidden"
-    );
-
-
+    if (
+        vocabulary
+    ) {
+        vocabulary.classList.add(
+            "hidden"
+        );
+    }
+    if (
+        movieList
+    ) {
+        movieList.classList.remove(
+            "hidden"
+        );
+    }
     window.scrollTo({
-
         top: 0,
-
         behavior:
             "smooth"
-
     });
-
 }
-
-
 /* =========================================================
    PAGE NAVIGATION
 ========================================================= */
-
 function movePage(
     amount
 ) {
-
     const lastPage =
         Math.max(
             Math.ceil(
@@ -2171,8 +2028,6 @@ function movePage(
             ) - 1,
             0
         );
-
-
     const nextPage =
         Math.min(
             Math.max(
@@ -2182,563 +2037,362 @@ function movePage(
             ),
             lastPage
         );
-
-
     if (
         nextPage ===
         currentPage
     ) {
-
         return;
     }
-
-
     currentPage =
         nextPage;
-
-
     renderPage(
         amount
     );
-
 }
-
-
 /* =========================================================
    SPEECH
 ========================================================= */
-
 function speak(
     text
 ) {
-
     if (
         !(
             "speechSynthesis"
             in window
         )
     ) {
-
         alert(
             "このブラウザでは音声再生に対応していません。"
         );
-
         return;
     }
-
-
     window.speechSynthesis.cancel();
-
-
     const utterance =
         new SpeechSynthesisUtterance(
             text
         );
-
-
     utterance.lang =
         "en-US";
-
-
     utterance.rate =
         0.82;
-
-
     window.speechSynthesis.speak(
         utterance
     );
-
 }
-
-
-/* =========================================================
-   COLLECTION BUTTON
-========================================================= */
-
-
-
-
 /* =========================================================
    BACK BUTTON
 ========================================================= */
-
 backCollectionButton.addEventListener(
     "click",
     event => {
-
         event.preventDefault();
-
         event.stopPropagation();
-
-
         goBackToCollection();
-
     }
 );
-
-
 /* =========================================================
    PREVIOUS
 ========================================================= */
-
 previousButton.addEventListener(
     "click",
     event => {
-
         event.preventDefault();
-
         event.stopPropagation();
-
-
         movePage(
             -1
         );
-
     }
 );
-
-
 /* =========================================================
    NEXT
 ========================================================= */
-
 nextButton.addEventListener(
     "click",
     event => {
-
         event.preventDefault();
-
         event.stopPropagation();
-
-
         movePage(
             1
         );
-
     }
 );
-
-
 /* =========================================================
    WORD LIST
 ========================================================= */
-
 wordList.addEventListener(
     "click",
     async event => {
-
-        /* SOUND */
-
+        /*
+           SOUND
+        */
         const speakButton =
             event.target.closest(
                 ".speak-button"
             );
-
-
         if (
             speakButton
         ) {
-
             event.stopPropagation();
-
-
             speak(
                 speakButton.dataset.speech
             );
-
-
             return;
         }
-
-
-        /* CANCEL */
-
+        /*
+           CANCEL
+        */
         const cancelButton =
             event.target.closest(
                 ".cancel-button"
             );
-
-
         if (
             cancelButton
         ) {
-
             event.stopPropagation();
-
-
             const entry =
                 cancelButton.closest(
                     ".word-entry"
                 );
-
-
             if (!entry) {
                 return;
             }
-
-
             const index =
                 Number(
                     entry.dataset.wordIndex
                 );
-
-
             const success =
                 await setMastered(
                     index,
                     false
                 );
-
-
             if (
                 success
             ) {
-
                 renderPage();
-
             }
-
-
             return;
-
         }
-
-
-        /* MASTERED */
-
+        /*
+           MASTERED
+        */
         const masterButton =
             event.target.closest(
                 ".master-button"
             );
-
-
         if (
             masterButton
         ) {
-
             event.stopPropagation();
-
-
             const entry =
                 masterButton.closest(
                     ".word-entry"
                 );
-
-
             if (!entry) {
                 return;
             }
-
-
             const index =
                 Number(
                     entry.dataset.wordIndex
                 );
-
-
             const success =
                 await setMastered(
                     index,
                     true
                 );
-
-
             if (
                 success
             ) {
-
                 renderPage();
-
             }
-
-
             return;
-
         }
-
-
-        /* FLIP */
-
+        /*
+           FLIP
+        */
         const card =
             event.target.closest(
                 ".word-flip"
             );
-
-
         if (!card) {
             return;
         }
-
-
         const entry =
             card.closest(
                 ".word-entry"
             );
-
-
+        /*
+           Mastered済みのカードは
+           フリップしない
+        */
         if (
             entry &&
             entry.classList.contains(
                 "is-mastered"
             )
         ) {
-
             return;
         }
-
-
         const isFlipped =
             card.classList.toggle(
                 "is-flipped"
             );
-
-
         card.setAttribute(
             "aria-pressed",
             String(
                 isFlipped
             )
         );
-
-
         const flipHint =
             entry
                 ? entry.querySelector(
                     ".word-flip-hint"
                 )
                 : null;
-
-
         if (
             flipHint
         ) {
-
             flipHint.textContent =
                 isFlipped
-
                     ? "TAP TO RETURN"
-
                     : "TAP TO FLIP";
-
         }
-
-
         const wordElement =
             card.querySelector(
                 ".word"
             );
-
-
         if (
             wordElement
         ) {
-
             card.setAttribute(
                 "aria-label",
-
                 isFlipped
-
                     ? "英語面に戻す"
-
                     : `${wordElement.textContent.trim()} の意味を表示`
-
             );
-
         }
-
     }
 );
-
-
 /* =========================================================
    KEYBOARD
 ========================================================= */
-
 document.addEventListener(
     "keydown",
     event => {
-
         if (
             vocabulary.classList.contains(
                 "hidden"
             )
         ) {
-
             return;
         }
-
-
         if (
             event.key ===
             "ArrowLeft"
         ) {
-
             event.preventDefault();
-
             movePage(
                 -1
             );
-
         }
-
-
         if (
             event.key ===
             "ArrowRight"
         ) {
-
             event.preventDefault();
-
             movePage(
                 1
             );
-
         }
-
     }
 );
-
-
 /* =========================================================
    MOBILE SWIPE
 ========================================================= */
-
 let touchStartX = 0;
-
 let touchStartY = 0;
-
 let touchStartTime = 0;
-
-
 vocabulary.addEventListener(
     "touchstart",
     event => {
-
         if (
             event.touches.length !== 1
         ) {
-
             return;
         }
-
-
         touchStartX =
             event.touches[0].clientX;
-
-
         touchStartY =
             event.touches[0].clientY;
-
-
         touchStartTime =
             Date.now();
-
     },
     {
         passive: true
     }
 );
-
-
 vocabulary.addEventListener(
     "touchend",
     event => {
-
         if (
             !touchStartX &&
             !touchStartY
         ) {
-
             return;
         }
-
-
         const touchEndX =
             event.changedTouches[0]
                 .clientX;
-
-
         const touchEndY =
             event.changedTouches[0]
                 .clientY;
-
-
         const deltaX =
             touchEndX -
             touchStartX;
-
-
         const deltaY =
             touchEndY -
             touchStartY;
-
-
         const elapsed =
             Date.now() -
             touchStartTime;
-
-
         touchStartX = 0;
-
         touchStartY = 0;
-
         touchStartTime = 0;
-
-
         if (
             elapsed > 700
         ) {
-
             return;
         }
-
-
         if (
             Math.abs(deltaX) < 60
         ) {
-
             return;
         }
-
-
         if (
             Math.abs(deltaX) <=
             Math.abs(deltaY) * 1.3
         ) {
-
             return;
         }
-
-
         if (
             deltaX < 0
         ) {
-
             movePage(
                 1
             );
-
         } else {
-
             movePage(
                 -1
             );
-
         }
-
     },
     {
         passive: true
     }
 );
-
-
 /* =========================================================
    AUTH INITIALIZATION
 ========================================================= */
-
 async function initializeAuth() {
-
     const {
         data: {
             session
@@ -2746,101 +2400,155 @@ async function initializeAuth() {
     } =
         await supabaseClient.auth
             .getSession();
-
-
     if (
         session
     ) {
-
         console.log(
             "Existing session:",
             session.user
         );
-
-
         isGuest =
             false;
-
-
         authScreen.classList.add(
             "hidden"
         );
-
-
         logoutButton.classList.remove(
             "hidden"
         );
-
-
         await loadMasteredWords();
-
     } else {
-
         console.log(
             "No logged-in user."
         );
-
-
         isGuest =
             false;
-
-
         authScreen.classList.remove(
             "hidden"
         );
-
-
         logoutButton.classList.add(
             "hidden"
         );
-
     }
-
 }
-
-
 /* =========================================================
    INITIAL DATABASE LOAD
 ========================================================= */
-
 async function initializeDatabase() {
-
     const success =
         await loadWordsFromDatabase();
-
-
     if (!success) {
-
-        return;
+        return false;
     }
-
-
     /*
-       全単語を一度読み込む。
-       実際に本を開いたときに
-       book_idで対象単語だけに絞る。
+       全単語を一度読み込む
     */
-
     buildStudyWords();
-
-
     console.log(
         "Database initialization complete."
     );
-
+    return true;
 }
-
-
 /* =========================================================
-   START
+   START APP
+========================================================= */
+(async function startApp() {
+    const databaseReady =
+        await initializeDatabase();
+    if (!databaseReady) {
+        console.error(
+            "Database initialization failed."
+        );
+        return;
+    }
+    await initializeAuth();
+    await loadContentsForLibrary();
+})();
+/* =========================================================
+   BOOKSHELF — DRAG SCROLL
 ========================================================= */
 
-(async function startApp() {
+document.addEventListener(
+    "mousedown",
+    event => {
+        const shelf =
+            event.target.closest(
+                ".bookshelf-frame"
+            );
 
-    await initializeDatabase();
+        if (!shelf) {
+            return;
+        }
 
-    await initializeAuth();
+        shelf.dataset.dragging =
+            "true";
 
-    await loadContentsForCinemaStudies();
+        shelf.dataset.startX =
+            event.clientX;
 
-})();
+        shelf.dataset.scrollLeft =
+            shelf.scrollLeft;
+
+        shelf.classList.add(
+            "is-dragging"
+        );
+    }
+);
+
+document.addEventListener(
+    "mousemove",
+    event => {
+        const shelves =
+            document.querySelectorAll(
+                ".bookshelf-frame"
+            );
+
+        shelves.forEach(
+            shelf => {
+                if (
+                    shelf.dataset.dragging !==
+                    "true"
+                ) {
+                    return;
+                }
+
+                const startX =
+                    Number(
+                        shelf.dataset.startX
+                    );
+
+                const startScroll =
+                    Number(
+                        shelf.dataset.scrollLeft
+                    );
+
+                const distance =
+                    event.clientX -
+                    startX;
+
+                shelf.scrollLeft =
+                    startScroll -
+                    distance;
+            }
+        );
+    }
+);
+
+document.addEventListener(
+    "mouseup",
+    () => {
+        document
+            .querySelectorAll(
+                ".bookshelf-frame"
+            )
+            .forEach(
+                shelf => {
+                    shelf.dataset.dragging =
+                        "false";
+
+                    shelf.classList.remove(
+                        "is-dragging"
+                    );
+                }
+            );
+    }
+);

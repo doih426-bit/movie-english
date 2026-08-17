@@ -1,121 +1,688 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
-
     <title>Movie English — Admin</title>
-
     <link
         rel="stylesheet"
         href="admin.css"
     >
 </head>
-
 <body>
-
-    <main class="admin-container">
-
+<main class="admin-container">
+    <!-- =========================
+         LOGIN
+    ========================== -->
+    <section
+        id="login-section"
+        class="admin-card"
+    >
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">
+                    MOVIE ENGLISH
+                </p>
+                <h2>
+                    Admin Login
+                </h2>
+                <p class="subtitle">
+                    Sign in to manage your learning library.
+                </p>
+            </div>
+        </div>
+        <label for="login-email">
+            Email
+        </label>
+        <input
+            type="email"
+            id="login-email"
+            autocomplete="email"
+            placeholder="admin@example.com"
+        >
+        <label for="login-password">
+            Password
+        </label>
+        <input
+            type="password"
+            id="login-password"
+            autocomplete="current-password"
+            placeholder="Password"
+        >
+        <button
+            id="login-button"
+            type="button"
+        >
+            Sign In
+        </button>
+        <!-- =========================
+             FORGOT PASSWORD
+        ========================== -->
+        <button
+            id="forgot-password-button"
+            type="button"
+            class="secondary-button"
+        >
+            Forgot password?
+        </button>
+        <p
+            id="login-status"
+            class="status-message"
+        ></p>
+    </section>
+    <!-- =========================
+         PASSWORD RESET REQUEST
+    ========================== -->
+    <section
+        id="forgot-password-section"
+        class="admin-card hidden"
+    >
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">
+                    MOVIE ENGLISH
+                </p>
+                <h2>
+                    Reset Password
+                </h2>
+                <p class="subtitle">
+                    Enter your admin email address and we will send you a password reset link.
+                </p>
+            </div>
+        </div>
+        <label for="reset-email">
+            Email
+        </label>
+        <input
+            type="email"
+            id="reset-email"
+            autocomplete="email"
+            placeholder="admin@example.com"
+        >
+        <button
+            id="send-reset-button"
+            type="button"
+        >
+            Send Reset Link
+        </button>
+        <button
+            id="back-to-login-button"
+            type="button"
+            class="secondary-button"
+        >
+            Back to Login
+        </button>
+        <p
+            id="reset-status"
+            class="status-message"
+        ></p>
+    </section>
+    <!-- =========================
+         UPDATE PASSWORD
+    ========================== -->
+    <section
+        id="update-password-section"
+        class="admin-card hidden"
+    >
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">
+                    MOVIE ENGLISH
+                </p>
+                <h2>
+                    Set New Password
+                </h2>
+                <p class="subtitle">
+                    Enter a new password for your admin account.
+                </p>
+            </div>
+        </div>
+        <label for="new-password">
+            New Password
+        </label>
+        <input
+            type="password"
+            id="new-password"
+            autocomplete="new-password"
+            placeholder="New Password"
+        >
+        <label for="confirm-password">
+            Confirm Password
+        </label>
+        <input
+            type="password"
+            id="confirm-password"
+            autocomplete="new-password"
+            placeholder="Confirm Password"
+        >
+        <button
+            id="update-password-button"
+            type="button"
+        >
+            Update Password
+        </button>
+        <p
+            id="update-password-status"
+            class="status-message"
+        ></p>
+    </section>
+    <!-- =========================
+         ADMIN CONTENT
+    ========================== -->
+    <div
+        id="admin-content"
+        class="hidden"
+    >
+        <!-- =========================
+             HEADER
+        ========================== -->
         <header class="admin-header">
-
             <p class="eyebrow">
                 MOVIE ENGLISH
             </p>
-
             <h1>
                 Content Admin
             </h1>
-
             <p class="subtitle">
-                Add vocabulary to your library
+                Manage your learning library
+            </p>
+            <button
+                id="logout-button"
+                type="button"
+            >
+                Sign Out
+            </button>
+        </header>
+        <!-- =========================
+             CINEMA STUDIES
+        ========================== -->
+        <section class="admin-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">
+                        LEARNING COLLECTION
+                    </p>
+                    <h2>
+                        CINEMA STUDIES
+                    </h2>
+                </div>
+            </div>
+            <div id="content-list"></div>
+            <!-- =========================
+                 CHILD CONTENTS
+            ========================== -->
+            <section
+                id="child-content-section"
+                class="hidden"
+            >
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">
+                            CONTENTS
+                        </p>
+                        <h2 id="selected-parent-title">
+                            Contents
+                        </h2>
+                    </div>
+                </div>
+                <div id="child-content-list"></div>
+
+<button
+    id="add-child-content-button"
+    type="button"
+>
+    ＋ Add Content
+</button>
+
+<!-- =========================
+     EDIT CONTENT
+========================== -->
+<section
+    id="edit-content-section"
+    class="admin-card hidden"
+>
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                EDIT
             </p>
 
-        </header>
+            <h2>
+                Edit Content
+            </h2>
 
+        </div>
 
+    </div>
+
+    <input
+        type="hidden"
+        id="edit-content-id"
+    >
+
+    <label for="edit-content-title">
+        Content Title
+    </label>
+
+    <input
+        type="text"
+        id="edit-content-title"
+        placeholder="Content Title"
+    >
+
+    <label for="edit-content-description">
+        Description
+    </label>
+
+    <textarea
+        id="edit-content-description"
+        placeholder="Description"
+    ></textarea>
+    <label for="edit-content-color">
+    Content Color
+</label>
+
+<select id="edit-content-color">
+
+    <option value="navy">
+        Navy
+    </option>
+
+    <option value="burgundy">
+        Burgundy
+    </option>
+
+    <option value="forest">
+        Forest
+    </option>
+
+    <option value="brown">
+        Brown
+    </option>
+
+    <option value="black">
+        Black
+    </option>
+
+    <option value="olive">
+        Olive
+    </option>
+
+    <option value="purple">
+        Purple
+    </option>
+
+    <option value="teal">
+        Teal
+    </option>
+
+    <option value="red">
+        Red
+    </option>
+
+    <option value="blue">
+        Blue
+    </option>
+
+</select>
+
+    <div class="edit-actions">
+
+        <button
+            type="button"
+            id="cancel-edit-content-button"
+        >
+            Cancel
+        </button>
+
+        <button
+            type="button"
+            id="update-content-button"
+        >
+            Save Changes
+        </button>
+
+    </div>
+
+    <p
+        id="edit-content-status"
+        class="status-message"
+    ></p>
+
+</section>
+            </section>
+        </section>
+        <!-- =========================
+             VOCABULARY BOOKS
+        ========================== -->
+        <section
+            id="book-management-section"
+            class="admin-card hidden"
+        >
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">
+                        VOCABULARY BOOKS
+                    </p>
+                    <h2 id="selected-content-title">
+                        Vocabulary Books
+                    </h2>
+                </div>
+            </div>
+           <div id="content-book-list"></div>
+
+<button
+    id="add-book-button"
+    type="button"
+>
+    ＋ Add Vocabulary Book
+</button>
+        </section>
+        <!-- =========================
+             BOOK SELECT
+        ========================== -->
         <section class="admin-card">
-
+            <label for="book-select">
+                Vocabulary Book
+            </label>
+            <select id="book-select">
+                <option value="">
+                    Select a vocabulary book
+                </option>
+            </select>
+            <p class="help-text">
+                登録する単語帳を選択してください。
+            </p>
+        </section>
+        <!-- =========================
+             VOCABULARY INPUT
+        ========================== -->
+        <section class="admin-card">
             <label for="bulk-input">
                 Vocabulary Data
             </label>
-
             <p class="help-text">
                 1行に1単語。各項目は
                 <strong>|</strong>
                 で区切ってください。
             </p>
-
             <textarea
                 id="bulk-input"
                 placeholder="actually | 実際に、本当に | Who do you think is actually watching these? | （実際に誰がこれを見ていると思う？） | I actually enjoyed the movie. | （私は実際、その映画を楽しんだ） | She actually knows him. | （彼女は実際に彼のことを知っている） | easy"
             ></textarea>
-
             <button
                 id="preview-button"
                 type="button"
             >
                 Preview
             </button>
-
         </section>
-
-
+        <!-- =========================
+             PREVIEW
+        ========================== -->
         <section
             id="preview-section"
             class="admin-card hidden"
         >
-
             <div class="section-heading">
-
                 <div>
                     <p class="eyebrow">
                         PREVIEW
                     </p>
-
                     <h2>
                         Vocabulary
                     </h2>
                 </div>
-
                 <span id="preview-count">
                     0 items
                 </span>
-
             </div>
-
-
             <div id="preview-list"></div>
-
-
             <button
                 id="save-button"
                 type="button"
             >
                 Add to Supabase
             </button>
-
             <p
                 id="status-message"
                 class="status-message"
             ></p>
-
         </section>
+        <!-- =========================
+             REGISTERED WORDS
+        ========================== -->
+        <section class="admin-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">
+                        LIBRARY
+                    </p>
+                    <h2>
+                        Registered Words
+                    </h2>
+                </div>
+                <span id="word-count">
+                    0 items
+                </span>
+            </div>
+            <div id="word-list"></div>
+        </section>
+        <!-- =========================
+     EDIT BOOK
+========================== -->
+<section
+    id="edit-book-section"
+    class="admin-card hidden"
+>
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">
+                EDIT
+            </p>
+            <h2>
+                Edit Vocabulary Book
+            </h2>
+        </div>
+    </div>
 
-    </main>
+    <input
+        type="hidden"
+        id="edit-book-id"
+    >
 
+    <label for="edit-book-title">
+        Book Title
+    </label>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-    ></script>
+    <input
+        type="text"
+        id="edit-book-title"
+        placeholder="Vocabulary Book Title"
+    >
 
-    <script
-        src="admin.js"
-    ></script>
+    <label for="edit-book-color">
+        Book Color
+    </label>
 
+    <select id="edit-book-color">
+        <option value="navy">
+            Navy
+        </option>
+
+        <option value="burgundy">
+            Burgundy
+        </option>
+
+        <option value="forest">
+            Forest
+        </option>
+
+        <option value="brown">
+            Brown
+        </option>
+
+        <option value="black">
+            Black
+        </option>
+
+        <option value="olive">
+            Olive
+        </option>
+
+        <option value="purple">
+            Purple
+        </option>
+
+        <option value="teal">
+            Teal
+        </option>
+
+        <option value="red">
+            Red
+        </option>
+
+        <option value="blue">
+            Blue
+        </option>
+    </select>
+
+    <div class="edit-actions">
+
+        <button
+            type="button"
+            id="cancel-edit-book-button"
+        >
+            Cancel
+        </button>
+
+        <button
+            type="button"
+            id="update-book-button"
+        >
+            Save Changes
+        </button>
+
+    </div>
+
+    <p
+        id="edit-book-status"
+        class="status-message"
+    ></p>
+</section>
+        <!-- =========================
+             EDIT WORD
+        ========================== -->
+        <section
+            id="edit-section"
+            class="admin-card hidden"
+        >
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">
+                        EDIT
+                    </p>
+                    <h2>
+                        Edit Vocabulary
+                    </h2>
+                </div>
+            </div>
+            <input
+                type="hidden"
+                id="edit-id"
+            >
+            <label for="edit-word">
+                Word
+            </label>
+            <input
+                type="text"
+                id="edit-word"
+            >
+            <label for="edit-meaning">
+                Meaning
+            </label>
+            <input
+                type="text"
+                id="edit-meaning"
+            >
+            <label for="edit-example">
+                Example 1
+            </label>
+            <textarea
+                id="edit-example"
+            ></textarea>
+            <label for="edit-example-translation">
+                Japanese Translation 1
+            </label>
+            <textarea
+                id="edit-example-translation"
+            ></textarea>
+            <label for="edit-example2">
+                Example 2
+            </label>
+            <textarea
+                id="edit-example2"
+            ></textarea>
+            <label for="edit-example2-translation">
+                Japanese Translation 2
+            </label>
+            <textarea
+                id="edit-example2-translation"
+            ></textarea>
+            <label for="edit-example3">
+                Example 3
+            </label>
+            <textarea
+                id="edit-example3"
+            ></textarea>
+            <label for="edit-example3-translation">
+                Japanese Translation 3
+            </label>
+            <textarea
+                id="edit-example3-translation"
+            ></textarea>
+            <label for="edit-difficulty">
+                Difficulty
+            </label>
+            <select id="edit-difficulty">
+                <option value="easy">
+                    Easy
+                </option>
+                <option value="medium">
+                    Medium
+                </option>
+                <option value="advanced">
+                    Advanced
+                </option>
+            </select>
+            <div class="edit-actions">
+                <button
+                    type="button"
+                    id="cancel-edit-button"
+                >
+                    Cancel
+                </button>
+                <button
+                    type="button"
+                    id="update-word-button"
+                >
+                    Save Changes
+                </button>
+            </div>
+        </section>
+    </div>
+</main>
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+<script
+    src="admin.js"
+></script>
 </body>
-
 </html>

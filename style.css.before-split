@@ -1,0 +1,2655 @@
+/* =========================================================
+   BASE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    position: relative;
+
+    color: #f1ede4;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #202a30 0,
+            #151b1f 35%,
+            #0c1012 100%
+        );
+
+    font-family:
+        Georgia,
+        "Hiragino Mincho ProN",
+        "Yu Mincho",
+        serif;
+
+    overscroll-behavior-x: none;
+}
+
+button {
+    cursor: pointer;
+    font: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    position: relative;
+
+    padding: 42px 20px 38px;
+
+    color: #fff9ef;
+    text-align: center;
+
+    border-bottom: 1px solid rgba(212, 175, 99, .18);
+
+    background:
+        radial-gradient(
+            circle at 50% -30%,
+            #344652 0,
+            #1b252c 35%,
+            #101518 72%,
+            #0b0f11 100%
+        );
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .35);
+}
+
+.site-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: min(100%, 820px);
+    margin: 0 auto;
+}
+
+.site-header-top h1 {
+    margin: 8px 0 10px;
+
+    color: #f5f0e6;
+
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: normal;
+
+    letter-spacing: .04em;
+
+    text-shadow:
+        0 2px 18px rgba(255, 255, 255, .07);
+}
+
+.site-header-top > div > p:last-child {
+    margin: 0;
+
+    color: #aeb5b5;
+
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+
+    letter-spacing: .03em;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.logout-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 15px;
+
+    border: 1px solid rgba(212, 175, 99, .35);
+    border-radius: 3px;
+
+    color: #d9d6cf;
+    background: transparent;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: .08em;
+
+    transition:
+        border-color .2s ease,
+        color .2s ease,
+        background .2s ease,
+        transform .2s ease;
+}
+
+.logout-button::before {
+    content: "↪";
+
+    font-size: 16px;
+    line-height: 1;
+}
+
+.logout-button:hover {
+    border-color: #d4af63;
+
+    color: #f5f0e6;
+
+    background: rgba(212, 175, 99, .06);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.eyebrow,
+.section-label,
+.card-label {
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+
+    letter-spacing: .16em;
+}
+
+.eyebrow {
+    color: #d4af63;
+}
+
+.section-label {
+    color: #d4af63;
+
+    font-size: 10px;
+
+    letter-spacing: .22em;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+    width: min(100% - 32px, 820px);
+
+    margin: 48px auto 70px;
+}
+
+main h2 {
+    margin: 7px 0 24px;
+
+    color: #f1ede4;
+
+    font-size: 27px;
+    font-weight: normal;
+
+    letter-spacing: .02em;
+}
+
+
+/* =========================================================
+   MOVIE CARD BASE
+========================================================= */
+
+.movie-card {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 22px;
+
+    border: 0;
+    border-radius: 12px;
+
+    color: inherit;
+    background: #fffaf0;
+
+    box-shadow:
+        0 10px 25px rgba(69, 51, 28, .15);
+
+    text-align: left;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 24px rgba(37, 32, 24, .10);
+}
+
+
+/* =========================================================
+   MOVIE IMAGE
+========================================================= */
+
+.movie-image {
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    width: 76px;
+    height: 96px;
+
+    border-radius: 4px;
+
+    background: #9d2c2e;
+
+    box-shadow:
+        4px 4px 0 #592123;
+
+    font-size: 43px;
+}
+
+
+/* =========================================================
+   BOOK INFO
+========================================================= */
+
+.book-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 7px;
+
+    padding: 0 22px;
+}
+
+.book-info strong {
+    font-size: 24px;
+}
+
+.book-info span {
+    color: #766b5d;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   COLLECTION BOOK
+   SPIDER-MAN COLLECTION
+========================================================= */
+
+.collection-book {
+    position: relative;
+
+    min-height: 180px;
+
+    padding: 28px 34px;
+
+    border: 1px solid rgba(150, 118, 65, .42);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 252, 244, .96),
+            rgba(232, 224, 210, .96)
+        );
+
+    box-shadow:
+        0 14px 30px rgba(37, 32, 24, .12),
+        inset 0 1px 0 rgba(255, 255, 255, .8);
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+.collection-book::before {
+    position: absolute;
+
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+
+    width: 4px;
+
+    background: #9b7a43;
+
+    content: "";
+}
+
+.collection-book:hover {
+    border-color: rgba(155, 122, 67, .7);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 18px 34px rgba(37, 32, 24, .14),
+        inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+
+
+/* =========================================================
+   SPIDER-MAN LOGO
+   赤い蜘蛛を主役にする
+========================================================= */
+
+.collection-book .movie-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 92px;
+    height: 92px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #3b0d12 0%,
+            #240b12 70%,
+            #17263b 100%
+        );
+
+    border: 1px solid rgba(170, 48, 55, .8);
+    border-radius: 2px;
+
+    color: #c8323d;
+
+    font-size: 42px;
+
+    text-shadow:
+        0 0 10px rgba(200, 50, 61, .35);
+
+    box-shadow:
+        inset 0 0 0 5px rgba(170, 48, 55, .12),
+        0 5px 15px rgba(80, 20, 25, .15);
+}
+
+.collection-book .book-info {
+    padding-left: 8px;
+}
+
+.collection-book .book-info strong {
+    color: #1d2d42;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(20px, 2vw, 27px);
+    font-weight: normal;
+
+    line-height: 1.35;
+
+    letter-spacing: .01em;
+}
+
+.collection-book .book-info > span {
+    margin-top: 9px;
+
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+
+    letter-spacing: .14em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   OPEN / CLOSE BUTTON
+========================================================= */
+
+.collection-book .open-book {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    flex: 0 0 auto;
+
+    min-width: 82px;
+    height: 28px;
+
+    overflow: hidden;
+
+    color: #1d2d42;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: .15em;
+
+    white-space: nowrap;
+}
+
+
+/* ラベル共通 */
+
+.collection-book .open-label,
+.collection-book .close-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    white-space: nowrap;
+
+    transition:
+        opacity .28s ease,
+        transform .38s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* Open */
+
+.collection-book .open-label {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* Close */
+
+.collection-book .close-label {
+    position: absolute;
+
+    right: 0;
+
+    opacity: 0;
+
+    transform:
+        translateY(8px);
+
+    pointer-events: none;
+}
+
+
+/* 開いた状態 */
+
+.collection-book[aria-expanded="true"] .open-label {
+    opacity: 0;
+
+    transform:
+        translateY(-8px);
+
+    pointer-events: none;
+}
+
+.collection-book[aria-expanded="true"] .close-label {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   COLLECTION LIST
+========================================================= */
+
+.book-list {
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 24px 24px 28px;
+
+    border: 1px solid rgba(89, 76, 54, .16);
+    border-top: 2px solid rgba(155, 122, 67, .45);
+
+    background: rgba(31, 43, 57, .055);
+
+    transform-origin: top center;
+}
+
+
+/*
+   IMPORTANT:
+
+   book-list 自体には常時 animation を付けない。
+   Open時に一度だけ .collection-opening を付ける。
+   これで「二重にモーションがかかる」問題を防ぐ。
+*/
+
+.book-list.collection-opening {
+    animation:
+        collectionOpen .42s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.book-list.collection-closing {
+    animation:
+        collectionClose .32s cubic-bezier(.4, 0, .2, 1) both;
+}
+
+
+/* =========================================================
+   COLLECTION OPEN
+========================================================= */
+
+@keyframes collectionOpen {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-8px)
+            scaleY(.985);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scaleY(1);
+    }
+}
+
+
+/* =========================================================
+   COLLECTION CLOSE
+========================================================= */
+
+/*
+   初期画面へ戻るような大きな移動はしない。
+   その場で静かにフェードして少しだけ縮む。
+*/
+
+@keyframes collectionClose {
+
+    from {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scaleY(1);
+    }
+
+    to {
+        opacity: 0;
+
+        transform:
+            translateY(-3px)
+            scaleY(.99);
+    }
+}
+
+
+/* =========================================================
+   COLLECTION DIVIDER
+========================================================= */
+
+.collection-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin: 0 4px 18px;
+}
+
+.collection-divider::before,
+.collection-divider::after {
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        rgba(128, 108, 77, .3);
+
+    content: "";
+}
+
+.collection-divider span {
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: .2em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LESSON CARD
+========================================================= */
+
+.lesson-card {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: calc(100% - 20px);
+
+    min-height: 105px;
+
+    margin: 0 10px;
+
+    padding: 17px 22px;
+
+    border: 1px solid rgba(105, 86, 54, .25);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8f4eb,
+            #ebe3d4
+        );
+
+    box-shadow:
+        0 5px 14px rgba(37, 32, 24, .06);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.lesson-card:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(37, 32, 24, .08);
+}
+
+.lesson-card::before {
+    position: absolute;
+
+    top: 9px;
+    bottom: 9px;
+    left: 0;
+
+    width: 3px;
+
+    background: #9b7a43;
+
+    content: "";
+}
+
+
+/* =========================================================
+   LESSON IMAGE
+========================================================= */
+
+.lesson-card .movie-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 62px;
+
+    width: 62px;
+    height: 62px;
+
+    border: 1px solid rgba(155, 122, 67, .6);
+    border-radius: 2px;
+
+    background: #182c45;
+
+    font-size: 27px;
+}
+
+
+/* =========================================================
+   LESSON INFO
+========================================================= */
+
+.lesson-card .book-info {
+    min-width: 0;
+
+    flex: 1;
+
+    padding: 0 14px;
+}
+
+.lesson-card .book-info > strong {
+    display: block;
+
+    width: 100%;
+
+    color: #26374c;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    line-height: 1.25;
+
+    letter-spacing: .01em;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   LEARNING PROGRESS
+========================================================= */
+
+.lesson-card .progress-box {
+    display: grid;
+
+    grid-template-columns:
+        auto
+        minmax(90px, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 9px;
+
+    width: min(390px, 100%);
+
+    margin-top: 9px;
+}
+
+.lesson-card .progress-label {
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+
+    letter-spacing: .13em;
+
+    white-space: nowrap;
+}
+
+.lesson-card .progress-track {
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 0;
+
+    background:
+        rgba(71, 63, 50, .12);
+}
+
+.lesson-card .progress-fill {
+    display: block;
+
+    width: 0%;
+    height: 100%;
+
+    background: #9b7a43;
+
+    transition:
+        width .3s ease;
+}
+
+.lesson-card .progress-percent {
+    color: #554a3b;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+
+    letter-spacing: .08em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LESSON OPEN
+========================================================= */
+
+.lesson-card .open-book {
+    flex: 0 0 auto;
+
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+
+    letter-spacing: .16em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   YOUTUBE / WATCH THE TRAILER
+========================================================= */
+
+.youtube-preview {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 150px 1fr;
+
+    gap: 14px;
+
+    align-items: center;
+
+    width: calc(100% - 100px);
+
+    max-width: 760px;
+
+    margin:
+        14px 50px 0;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(89, 76, 54, .18);
+    border-radius: 3px;
+
+    color: #26374c;
+
+    background:
+        rgba(248, 244, 235, .8);
+
+    box-shadow:
+        0 4px 12px rgba(37, 32, 24, .05);
+
+    font-family: Arial, sans-serif;
+
+    text-decoration: none;
+
+    transform:
+        scale(.88);
+
+    transform-origin:
+        top center;
+
+    opacity: .92;
+}
+
+.youtube-preview img {
+    display: block;
+
+    width: 150px;
+    height: 84px;
+
+    object-fit: cover;
+}
+
+.youtube-play {
+    position: absolute;
+
+    top: 27px;
+    left: 58px;
+
+    display: grid;
+    place-items: center;
+
+    width: 38px;
+    height: 30px;
+
+    border-radius: 8px;
+
+    color: white;
+
+    background: #d42128;
+
+    font-size: 15px;
+}
+
+.youtube-caption {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 10px 14px;
+}
+
+.youtube-caption strong {
+    color: #26374c;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 13px;
+}
+
+.youtube-caption span {
+    color: #806c4d;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   READER
+========================================================= */
+
+.book-heading {
+    text-align: center;
+}
+
+.book-heading h2 {
+    margin-bottom: 24px;
+
+    color: #f4efe5;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-weight: normal;
+
+    letter-spacing: .015em;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, .18);
+}
+
+.book-heading .section-label {
+    color: #c9b58e;
+}
+
+.reader-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 34px;
+
+    border-bottom:
+        1px solid rgba(128, 108, 77, .25);
+}
+
+.back-button {
+    padding: 0;
+
+    border: 0;
+
+    color: #c9b58e !important;
+    background: transparent;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: .08em;
+
+    transition:
+        color .2s ease;
+}
+
+.back-button:hover {
+    color: #f4efe5 !important;
+}
+
+.progress {
+    margin: 0;
+
+    color: #9fa6a6;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BOOK SHELL
+========================================================= */
+
+.book-shell {
+    position: relative;
+
+    padding: 8px 13px 13px;
+
+    border-radius: 8px;
+
+    background: #6b4d32;
+
+    box-shadow:
+        0 18px 30px rgba(70, 46, 23, .25);
+}
+
+.vocabulary-page {
+    overflow: hidden;
+
+    background: #fffaf0;
+
+    box-shadow:
+        inset 0 0 35px rgba(103, 73, 35, .12),
+        0 18px 30px rgba(70, 46, 23, .25);
+
+    touch-action: pan-y;
+}
+
+.vocabulary-page::before {
+    display: block;
+
+    height: 6px;
+
+    margin: -8px -13px 8px;
+
+    opacity: .8;
+
+    background:
+        repeating-linear-gradient(
+            60deg,
+            transparent 0 12px,
+            rgba(120, 34, 37, .42) 13px 14px,
+            transparent 15px 27px
+        ),
+        repeating-linear-gradient(
+            -60deg,
+            transparent 0 12px,
+            rgba(120, 34, 37, .32) 13px 14px,
+            transparent 15px 27px
+        );
+
+    content: "";
+}
+
+
+/* =========================================================
+   WORD LIST
+========================================================= */
+
+.word-list {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    counter-reset: vocabulary;
+}
+
+.word-entry {
+    position: relative;
+
+    min-height: 125px;
+
+    border-bottom:
+        1px solid #ded2bf;
+
+    counter-increment: vocabulary;
+}
+
+.word-entry:last-child {
+    border-bottom: 0;
+}
+
+.word-entry::before {
+    position: absolute;
+    z-index: 2;
+
+    top: 18px;
+    left: 12px;
+
+    color: #b09570;
+
+    content:
+        counter(vocabulary, decimal-leading-zero);
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+
+    letter-spacing: .08em;
+}
+
+.word-flip {
+    display: block;
+
+    width: 100%;
+    min-height: 124px;
+
+    padding: 18px 125px 18px 55px;
+
+    border: 0;
+
+    color: inherit;
+    background: transparent;
+
+    font: inherit;
+
+    text-align: left;
+}
+
+.word-flip-inner {
+    position: relative;
+
+    display: block;
+
+    min-height: 85px;
+
+    transform-style: preserve-3d;
+
+    transition:
+        transform .5s cubic-bezier(.2, .75, .25, 1);
+}
+
+.word-flip.is-flipped .word-flip-inner {
+    transform:
+        rotateX(180deg);
+}
+
+.word-face {
+    display: block;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.word-back {
+    position: absolute;
+
+    inset: 0;
+
+    transform:
+        rotateX(180deg);
+}
+
+.word {
+    color: #292218;
+
+    font-size: clamp(24px, 3.9vw, 31px);
+    font-weight: bold;
+
+    line-height: 1.3;
+}
+
+.meaning {
+    color: #9a7041;
+
+    font-size: clamp(19px, 3vw, 23px);
+    font-weight: bold;
+}
+
+.word-level {
+    display: inline-block;
+
+    margin-left: 8px;
+    padding: 4px 7px;
+
+    border-radius: 2px;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: bold;
+
+    letter-spacing: .08em;
+
+    vertical-align: middle;
+}
+
+.level-easy {
+    color: #346550;
+    background: #dcece0;
+}
+
+.level-medium {
+    color: #886225;
+    background: #f1e4be;
+}
+
+.level-advanced {
+    color: #883d3f;
+    background: #f0d9d7;
+}
+
+.example {
+    display: block;
+
+    margin-top: 11px;
+
+    color: #403729;
+
+    font-size: clamp(16px, 2.6vw, 18px);
+    font-style: italic;
+
+    line-height: 1.55;
+}
+
+.translation {
+    display: block;
+
+    margin-top: 9px;
+
+    color: #796e5f;
+
+    font-size: clamp(15px, 2.5vw, 17px);
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   FLIP HINT
+========================================================= */
+
+.word-flip-hint {
+    position: absolute;
+    z-index: 3;
+
+    top: 63px;
+    right: 46px;
+
+    display: block;
+
+    width: 82px;
+
+    color: #ad9b82;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    letter-spacing: .08em;
+
+    line-height: 1.2;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+.word-flip-front-hint {
+    display: inline-flex;
+}
+
+.word-flip-return-hint {
+    display: none;
+}
+
+.word-entry > .word-flip-front-hint {
+    display: inline-flex;
+}
+
+.word-entry:has(.word-flip.is-flipped)
+> .word-flip-front-hint {
+    display: none;
+}
+
+.word-entry:has(.word-flip.is-flipped)
+> .word-flip-return-hint {
+    display: inline-flex;
+}
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+.speak-button {
+    position: absolute;
+    z-index: 3;
+
+    top: 14px;
+    right: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    width: 84px;
+    height: 42px;
+
+    border: 1px solid #c9b48a;
+    border-radius: 8px;
+
+    color: #604424;
+    background: #fffaf0;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.speak-button::after {
+    content: "Sound";
+}
+
+
+/* =========================================================
+   MASTERED
+========================================================= */
+
+.master-button,
+.cancel-button {
+    position: absolute;
+    z-index: 3;
+
+    right: 15px;
+    bottom: 12px;
+
+    min-width: 84px;
+    min-height: 38px;
+
+    padding: 7px 11px;
+
+    border-radius: 8px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.master-button {
+    border: 0;
+
+    color: #fff7eb;
+
+    background: #9d2c2e;
+}
+
+.cancel-button {
+    border: 1px solid #607570;
+
+    color: #38534d;
+    background: #f8fbf8;
+}
+
+.word-entry.is-mastered::after {
+    position: absolute;
+    z-index: 4;
+
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+
+    color: rgba(92, 111, 106, .76);
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            transparent 0 14px,
+            rgba(193, 205, 202, .72) 15px 16px,
+            transparent 17px 29px
+        ),
+        rgba(255, 250, 240, .28);
+
+    content: "🕸";
+
+    font-size: 44px;
+
+    pointer-events: none;
+}
+
+.word-entry.is-mastered .word-flip {
+    opacity: .48;
+}
+
+
+/* =========================================================
+   PAGE TURN
+========================================================= */
+
+.page-turn {
+    position: absolute;
+    z-index: 5;
+
+    top: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+
+    width: 66px;
+    height: 106px;
+
+    padding: 0 7px;
+
+    border: 0;
+
+    color: #f8ead0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #573920,
+            #855936
+        );
+
+    box-shadow:
+        0 7px 12px rgba(46, 27, 12, .38);
+
+    font-family: Arial, sans-serif;
+
+    transform:
+        translateY(-50%);
+
+    user-select: none;
+}
+
+.page-turn span {
+    font-family: Georgia, serif;
+    font-size: 44px;
+}
+
+.page-turn small {
+    font-size: 8px;
+    font-weight: bold;
+}
+
+.page-turn-left {
+    left: -37px;
+}
+
+.page-turn-right {
+    right: -37px;
+}
+
+.page-turn:disabled {
+    opacity: .3;
+
+    cursor: default;
+}
+
+.flip-guide {
+    margin: 18px 0;
+
+    color: #766b5d;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   PAGE TURN ANIMATION
+========================================================= */
+
+.page-turn-next {
+    animation:
+        pageNext .48s cubic-bezier(.2, .8, .25, 1);
+}
+
+.page-turn-previous {
+    animation:
+        pagePrevious .48s cubic-bezier(.2, .8, .25, 1);
+}
+
+@keyframes pageNext {
+
+    0% {
+        opacity: .5;
+
+        transform:
+            perspective(1200px)
+            rotateY(-70deg);
+
+        transform-origin:
+            left center;
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            perspective(1200px)
+            rotateY(0);
+
+        transform-origin:
+            left center;
+    }
+}
+
+@keyframes pagePrevious {
+
+    0% {
+        opacity: .5;
+
+        transform:
+            perspective(1200px)
+            rotateY(70deg);
+
+        transform-origin:
+            right center;
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            perspective(1200px)
+            rotateY(0);
+
+        transform-origin:
+            right center;
+    }
+}
+
+
+/* =========================================================
+   AUTH SCREEN
+========================================================= */
+
+#auth-screen {
+    position: fixed;
+    z-index: 1000;
+
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    color: #fff9ef;
+
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            #344652 0,
+            #1b252c 32%,
+            #101518 68%,
+            #080b0d 100%
+        );
+}
+
+#auth-screen::before {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(224, 185, 104, .08),
+            transparent 55%
+        );
+
+    content: "";
+
+    pointer-events: none;
+}
+
+.auth-card {
+    position: relative;
+    z-index: 1;
+
+    width: min(100%, 430px);
+
+    padding: 52px 48px 44px;
+
+    border: 1px solid rgba(224, 185, 104, .32);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 250, 240, .08),
+            rgba(255, 250, 240, .025)
+        );
+
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, .38),
+        inset 0 1px rgba(255, 255, 255, .08);
+
+    backdrop-filter: blur(8px);
+}
+
+.auth-card::before {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    width: 70px;
+    height: 2px;
+
+    background: #e0b968;
+
+    content: "";
+
+    transform:
+        translateX(-50%);
+}
+
+.auth-eyebrow {
+    margin: 0 0 13px;
+
+    color: #e0b968;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: .25em;
+
+    text-align: center;
+}
+
+#auth-screen h2 {
+    margin: 0;
+
+    color: #f5f0e6;
+
+    font-family:
+        Georgia,
+        "Hiragino Mincho ProN",
+        "Yu Mincho",
+        serif;
+
+    font-size: clamp(34px, 8vw, 42px);
+    font-weight: normal;
+
+    letter-spacing: .02em;
+
+    text-align: center;
+}
+
+.auth-subtitle {
+    margin: 12px 0 34px;
+
+    color: #d9d6cf;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    text-align: center;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 11px;
+}
+
+#auth-screen input {
+    width: 100%;
+
+    padding: 14px 15px;
+
+    border: 1px solid rgba(224, 185, 104, .28);
+    border-radius: 3px;
+
+    outline: none;
+
+    color: #30291f;
+    background: #f8f1e4;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+#auth-screen input::placeholder {
+    color: #958b7d;
+}
+
+#auth-screen input:focus {
+    border-color: #e0b968;
+
+    box-shadow:
+        0 0 0 2px rgba(224, 185, 104, .13);
+}
+
+#login-button {
+    width: 100%;
+
+    margin-top: 5px;
+
+    padding: 14px;
+
+    border: 1px solid #b68d42;
+    border-radius: 3px;
+
+    color: #fff9ef;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a77c32,
+            #c29a4d,
+            #956b28
+        );
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, .22);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+}
+
+#login-button:hover {
+    transform:
+        translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 8px 17px rgba(0, 0, 0, .3);
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 27px 0 20px;
+
+    color: #7e8989;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+
+    letter-spacing: .18em;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        rgba(224, 185, 104, .18);
+
+    content: "";
+}
+
+#guest-button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid rgba(224, 185, 104, .35);
+    border-radius: 3px;
+
+    color: #d8c9a8;
+
+    background: transparent;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+
+    letter-spacing: .05em;
+
+    transition:
+        color .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+#guest-button:hover {
+    color: #fff9ef;
+
+    border-color:
+        rgba(224, 185, 104, .7);
+
+    background:
+        rgba(224, 185, 104, .07);
+}
+
+#auth-message {
+    min-height: 18px;
+
+    margin: 15px 0 0;
+
+    color: #e8c98c;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   MOBILE
+   PC版の世界観をそのままスマホへ
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    header {
+        padding: 30px 18px 28px;
+    }
+
+    .site-header-top {
+        width: 100%;
+        gap: 14px;
+    }
+
+    .site-header-top h1 {
+        margin: 5px 0 8px;
+
+        font-size: 27px;
+        letter-spacing: .035em;
+    }
+
+    .site-header-top > div > p:last-child {
+        font-size: 10px;
+        letter-spacing: .04em;
+    }
+
+    .logout-button {
+        flex-shrink: 0;
+
+        padding: 8px 11px;
+
+        font-size: 8px;
+        letter-spacing: .08em;
+    }
+
+
+    /* =====================================================
+       MAIN
+    ===================================================== */
+
+    main {
+        width: calc(100% - 28px);
+
+        margin: 32px auto 50px;
+    }
+
+    main h2 {
+        margin: 6px 0 20px;
+
+        font-size: 22px;
+        letter-spacing: .01em;
+    }
+
+
+    /* =====================================================
+       COLLECTION BOOK
+    ===================================================== */
+
+    .collection-book {
+        display: flex;
+        align-items: center;
+
+        min-height: 145px;
+
+        padding: 22px 18px;
+    }
+
+    .collection-book .movie-image {
+        width: 68px;
+        height: 78px;
+
+        flex-shrink: 0;
+
+        font-size: 31px;
+    }
+
+    .collection-book .book-info {
+        min-width: 0;
+
+        padding:
+            0
+            10px
+            0
+            15px;
+    }
+
+    .collection-book .book-info strong {
+        font-size: 18px;
+
+        line-height: 1.35;
+    }
+
+    .collection-book .book-info > span {
+        margin-top: 7px;
+
+        font-size: 8px;
+        letter-spacing: .12em;
+
+        line-height: 1.4;
+    }
+
+    .collection-book .open-book {
+        min-width: 54px;
+
+        font-size: 8px;
+        letter-spacing: .12em;
+    }
+
+
+    /* =====================================================
+       COLLECTION LIST
+    ===================================================== */
+
+    .book-list {
+        margin-top: 14px;
+
+        padding:
+            18px
+            10px
+            22px;
+
+        border-top-width: 1px;
+    }
+
+    .collection-divider {
+        gap: 9px;
+
+        margin:
+            0 3px 14px;
+    }
+
+    .collection-divider span {
+        font-size: 8px;
+        letter-spacing: .16em;
+    }
+
+
+    /* =====================================================
+       LESSON CARD
+    ===================================================== */
+
+    .lesson-card {
+        width: 100%;
+
+        min-height: 105px;
+
+        margin: 0;
+
+        padding: 14px 12px;
+    }
+
+    .lesson-card .movie-image {
+        width: 48px;
+        height: 58px;
+
+        flex: 0 0 48px;
+
+        font-size: 21px;
+    }
+
+    .lesson-card .book-info {
+        min-width: 0;
+
+        padding:
+            0
+            9px
+            0
+            11px;
+    }
+
+    .lesson-card .book-info > strong {
+        font-size: 14px;
+
+        line-height: 1.3;
+    }
+
+    .lesson-card .progress-box {
+        grid-template-columns:
+            1fr
+            auto;
+
+        gap: 6px;
+
+        margin-top: 7px;
+    }
+
+    .lesson-card .progress-label {
+        grid-column: 1 / -1;
+
+        font-size: 7px;
+    }
+
+    .lesson-card .progress-track {
+        min-width: 0;
+
+        height: 4px;
+    }
+
+    .lesson-card .progress-percent {
+        font-size: 8px;
+    }
+
+    .lesson-card .open-book {
+        flex-shrink: 0;
+
+        font-size: 7px;
+        letter-spacing: .12em;
+    }
+
+
+    /* =====================================================
+       YOUTUBE PREVIEW
+    ===================================================== */
+
+    .youtube-preview {
+        grid-template-columns: 96px 1fr;
+
+        gap: 8px;
+
+        width: calc(100% - 20px);
+
+        margin:
+            12px 10px 0;
+
+        transform: none;
+    }
+
+    .youtube-preview img {
+        width: 96px;
+        height: 58px;
+    }
+
+    .youtube-play {
+        top: 17px;
+        left: 34px;
+
+        width: 29px;
+        height: 23px;
+
+        font-size: 10px;
+    }
+
+    .youtube-caption {
+        gap: 3px;
+
+        padding:
+            8px
+            8px
+            8px
+            3px;
+    }
+
+    .youtube-caption strong {
+        font-size: 10px;
+
+        line-height: 1.3;
+    }
+
+    .youtube-caption span {
+        font-size: 8px;
+
+        line-height: 1.3;
+    }
+
+
+    /* =====================================================
+       READER
+       PC版の本をそのままスマホいっぱいに
+    ===================================================== */
+
+    #vocabulary {
+        position: fixed;
+        z-index: 50;
+
+        inset: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        height: 100dvh;
+
+        min-height: 0;
+
+        margin: 0;
+
+        padding:
+            env(safe-area-inset-top)
+            12px
+            env(safe-area-inset-bottom);
+
+        overflow: hidden;
+
+        background:
+            radial-gradient(
+                circle at 50% 0%,
+                #202a30 0,
+                #151b1f 40%,
+                #0c1012 100%
+            );
+    }
+
+    #vocabulary.hidden {
+        display: none;
+    }
+
+
+    /* =====================================================
+       READER TOP BAR
+    ===================================================== */
+
+    #vocabulary .reader-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        flex: 0 0 auto;
+
+        width: 100%;
+        height: 44px;
+
+        margin: 0;
+
+        border-bottom:
+            1px solid rgba(212, 175, 99, .18);
+    }
+
+    .back-button {
+        padding: 6px 0;
+
+        font-size: 10px;
+        letter-spacing: .08em;
+    }
+
+    .progress {
+        font-size: 10px;
+        letter-spacing: .03em;
+    }
+
+
+    /* =====================================================
+       READER TITLE
+    ===================================================== */
+
+    .book-heading {
+        flex: 0 0 auto;
+
+        margin:
+            10px
+            0
+            10px;
+    }
+
+    .book-heading .section-label {
+        font-size: 8px;
+
+        letter-spacing: .18em;
+    }
+
+    .book-heading h2 {
+        margin:
+            4px
+            0
+            0;
+
+        font-size: 17px;
+
+        line-height: 1.25;
+    }
+
+
+    /* =====================================================
+       BOOK SHELL
+    ===================================================== */
+
+    .book-shell {
+        position: relative;
+
+        display: flex;
+
+        flex: 1 1 auto;
+
+        width: 100%;
+
+        min-height: 0;
+
+        margin: 0;
+
+        padding: 6px;
+
+        overflow: hidden;
+
+        border-radius: 7px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #5c412b,
+                #795536,
+                #5a3e29
+            );
+
+        box-shadow:
+            0 16px 30px rgba(0, 0, 0, .38);
+    }
+
+    .vocabulary-page {
+        position: relative;
+
+        width: 100%;
+        height: 100%;
+
+        min-height: 0;
+
+        padding: 0 5px;
+
+        overflow: hidden;
+
+        background:
+            #fffaf0;
+
+        box-shadow:
+            inset 0 0 30px rgba(103, 73, 35, .12),
+            0 12px 25px rgba(70, 46, 23, .2);
+    }
+
+    .vocabulary-page::before {
+        height: 5px;
+
+        margin:
+            0
+            -5px
+            3px;
+    }
+
+
+    /* =====================================================
+       WORD LIST
+       4単語を無理に圧縮しすぎない
+    ===================================================== */
+
+    .word-list {
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        height: calc(100% - 8px);
+
+        min-height: 0;
+
+        overflow: hidden;
+    }
+
+    .word-entry {
+        position: relative;
+
+        flex: 0 0 25%;
+
+        min-height: 0;
+        height: 25%;
+
+        overflow: hidden;
+    }
+
+    .word-entry::before {
+        top: 10px;
+        left: 5px;
+
+        font-size: 8px;
+    }
+
+
+    /* =====================================================
+       WORD FLIP
+    ===================================================== */
+
+    .word-flip {
+        width: 100%;
+        height: 100%;
+
+        min-height: 0;
+
+        padding:
+            11px
+            94px
+            10px
+            28px;
+
+        overflow: hidden;
+    }
+
+    .word-flip-inner {
+        width: 100%;
+        height: 100%;
+
+        min-height: 0;
+    }
+
+    .word-face {
+        width: 100%;
+        height: 100%;
+    }
+
+    .word {
+        display: inline;
+
+        font-size:
+            clamp(18px, 5vw, 23px);
+
+        line-height: 1.25;
+    }
+
+    .meaning {
+        font-size:
+            clamp(15px, 4vw, 19px);
+
+        line-height: 1.3;
+    }
+
+    .word-level {
+        margin-left: 4px;
+
+        padding:
+            3px
+            5px;
+
+        font-size: 6px;
+    }
+
+    .example {
+        margin-top: 6px;
+
+        font-size:
+            clamp(11px, 3.1vw, 14px);
+
+        line-height: 1.35;
+    }
+
+    .translation {
+        margin-top: 5px;
+
+        font-size:
+            clamp(10px, 2.9vw, 13px);
+
+        line-height: 1.35;
+    }
+
+
+    /* =====================================================
+       FLIP HINT
+    ===================================================== */
+
+    .word-flip-hint {
+        top: 50%;
+        right: 5px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 76px;
+        height: 30px;
+
+        margin: 0;
+
+        color: #ad9b82;
+
+        font-size: 9px;
+        letter-spacing: .04em;
+
+        line-height: 1.2;
+
+        transform:
+            translateY(-50%);
+    }
+
+
+    /* =====================================================
+       SOUND
+    ===================================================== */
+
+    .speak-button {
+        top: 7px;
+        right: 5px;
+
+        width: 76px;
+        height: 34px;
+
+        gap: 4px;
+
+        border-radius: 7px;
+
+        font-size: 12px;
+    }
+
+
+    /* =====================================================
+       MASTERED
+    ===================================================== */
+
+    .master-button,
+    .cancel-button {
+        right: 5px;
+        bottom: 5px;
+
+        min-width: 76px;
+        min-height: 31px;
+
+        padding:
+            5px
+            7px;
+
+        border-radius: 7px;
+
+        font-size: 8px;
+    }
+
+    .word-entry.is-mastered::after {
+        font-size: 28px;
+    }
+
+
+    /* =====================================================
+       PAGE TURN
+    ===================================================== */
+
+    .page-turn {
+        width: 28px;
+        height: 56px;
+
+        padding: 0;
+
+        border-radius: 2px;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(73, 46, 27, .96),
+                rgba(119, 78, 47, .96)
+            );
+
+        box-shadow:
+            0 4px 9px rgba(46, 27, 12, .35);
+    }
+
+    .page-turn span {
+        font-size: 26px;
+    }
+
+    .page-turn small {
+        display: none;
+    }
+
+    .page-turn-left {
+        left: 3px;
+    }
+
+    .page-turn-right {
+        right: 3px;
+    }
+
+    .flip-guide {
+        flex: 0 0 auto;
+
+        margin:
+            6px
+            0
+            4px;
+
+        color: #aeb5b5;
+
+        font-size: 8px;
+    }
+
+
+    /* =====================================================
+       AUTH
+       ログイン画面もPC版の雰囲気を維持
+    ===================================================== */
+
+    #auth-screen {
+        padding:
+            20px
+            18px;
+    }
+
+    .auth-card {
+        width: 100%;
+
+        padding:
+            44px
+            24px
+            36px;
+    }
+
+    #auth-screen h2 {
+        font-size: 31px;
+    }
+
+    .auth-subtitle {
+        margin:
+            12px
+            0
+            28px;
+
+        font-size: 10px;
+
+        line-height: 1.65;
+    }
+
+    #auth-screen input {
+        padding: 13px 14px;
+
+        font-size: 13px;
+    }
+
+    #login-button {
+        padding: 13px;
+
+        font-size: 11px;
+    }
+
+    #guest-button {
+        padding: 11px;
+
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 540px) and (max-height: 700px) {
+
+    #vocabulary .reader-topbar {
+        height: 38px;
+    }
+
+    .book-heading {
+        margin:
+            7px
+            0
+            7px;
+    }
+
+    .book-heading h2 {
+        font-size: 15px;
+    }
+
+    .word {
+        font-size: 16px;
+    }
+
+    .meaning {
+        font-size: 13px;
+    }
+
+    .example,
+    .translation {
+        font-size: 10px;
+
+        line-height: 1.2;
+    }
+
+    .flip-guide {
+        display: none;
+    }
+
+    .word-flip-hint {
+        width: 74px;
+
+        font-size: 8px;
+    }
+
+    .speak-button {
+        width: 72px;
+        height: 32px;
+
+        font-size: 11px;
+    }
+
+    .master-button,
+    .cancel-button {
+        width: 72px;
+        min-width: 72px;
+
+        font-size: 8px;
+    }
+}

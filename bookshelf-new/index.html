@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cinema Language — Antique Library</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="library">
+
+    <header class="library-header">
+        <div class="header-ornament">✦</div>
+
+        <p class="eyebrow">THE CINEMA LANGUAGE LIBRARY</p>
+
+        <h1>Movie Vocabulary</h1>
+
+        <p class="subtitle">
+            English learned through cinema
+        </p>
+
+        <div class="header-line">
+            <span></span>
+            <i>◆</i>
+            <span></span>
+        </div>
+    </header>
+
+
+    <section class="book-room">
+
+        <button
+            class="nav-button nav-prev"
+            type="button"
+            aria-label="Previous book"
+        >
+            ‹
+        </button>
+
+        <div class="shelf-light"></div>
+
+        <div class="bookshelf">
+
+            <div class="bookshelf-back"></div>
+
+            <div
+                class="book-track"
+                id="book-track"
+            ></div>
+
+            <div class="shelf-board">
+                <div class="shelf-edge"></div>
+            </div>
+
+        </div>
+
+        <button
+            class="nav-button nav-next"
+            type="button"
+            aria-label="Next book"
+        >
+            ›
+        </button>
+
+    </section>
+
+
+    <section class="selected-book">
+
+        <p class="selected-kicker">
+            CURRENT VOLUME
+        </p>
+
+        <h2 id="selected-title">
+            BRAND NEW DAY - NEW Trailer 4K
+        </h2>
+
+        <div class="selected-rule"></div>
+
+        <p id="selected-description">
+            English through cinema
+        </p>
+
+        <button
+            class="open-button"
+            id="open-book"
+            type="button"
+        >
+            OPEN VOLUME
+        </button>
+
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

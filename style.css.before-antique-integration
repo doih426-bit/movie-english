@@ -1,0 +1,477 @@
+/* =========================================================
+   MOVIE ENGLISH — CLEAN CSS
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================
+   LIBRARY
+   ========================================================= */
+
+#content-list {
+    width: 100%;
+}
+
+.library-content {
+    width: 100%;
+    margin: 0 0 80px;
+}
+
+.content-header {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.content-plaque {
+    text-align: center;
+}
+
+.content-kicker {
+    display: inline-block;
+}
+
+/* =========================================================
+   BOOKSHELF
+   ========================================================= */
+
+.bookshelf-frame {
+    width: 100%;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.book-list {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    width: max-content;
+}
+
+/* =========================================================
+   BOOK
+   ========================================================= */
+
+.shelf-book {
+    flex: 0 0 230px;
+    width: 230px;
+    height: 330px;
+
+    position: relative;
+
+    display: block;
+
+    margin: 0;
+    padding: 0;
+
+    border: 2px solid red;
+    background: red;
+
+    cursor: pointer;
+}
+
+/* =========================================================
+   BOOK COVER
+   ========================================================= */
+
+.book-cover {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    background: #63282b;
+}
+
+.book-cover-inner {
+    position: absolute;
+    inset: 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-symbol {
+    font-size: 24px;
+}
+
+.book-cover-rule {
+    width: 70px;
+    height: 1px;
+    margin: 15px 0;
+    background: white;
+}
+
+.book-cover-rule.short {
+    width: 45px;
+}
+
+.book-cover-title {
+    max-width: 180px;
+    text-align: center;
+}
+
+.book-cover-label {
+    font-size: 10px;
+}
+
+/* =========================================================
+   BOOK DETAILS
+   ========================================================= */
+
+.book-details {
+    display: none;
+}
+
+.open-book {
+    display: none;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .shelf-book {
+        flex-basis: 180px;
+        width: 180px;
+        height: 260px;
+    }
+
+    .book-cover-title {
+        max-width: 140px;
+        font-size: 15px;
+    }
+}
+
+/* =========================================================
+   NEW CINEMA BOOKSHELF
+   FINAL OVERRIDE
+========================================================= */
+
+.library-content {
+    width: 100%;
+    margin: 0 0 90px;
+}
+
+.content-header {
+    width: 100%;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.content-plaque {
+    display: inline-block;
+}
+
+.content-kicker {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    color: #d8c49a;
+}
+
+/* bookshelf */
+
+.bookshelf-frame {
+    width: 100%;
+    padding: 35px 30px 45px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+}
+
+.book-list {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 28px;
+    width: max-content;
+    min-height: 350px;
+}
+
+/* book */
+
+.shelf-book {
+    flex: 0 0 230px;
+    width: 230px;
+    height: 330px;
+
+    position: relative;
+    display: block;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    border-radius: 3px;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.35s ease,
+        filter 0.35s ease;
+}
+
+.shelf-book:hover {
+    transform: translateY(-12px);
+    filter: brightness(1.08);
+}
+
+/* cover */
+
+.book-cover {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    border-radius: 3px 5px 5px 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0.45),
+            rgba(0,0,0,0) 18%,
+            rgba(255,255,255,0.08) 52%,
+            rgba(0,0,0,0.3)
+        ),
+        linear-gradient(
+            160deg,
+            #63282b,
+            #32191b 65%,
+            #171114
+        );
+
+    box-shadow:
+        8px 12px 18px rgba(0,0,0,0.35),
+        inset 2px 0 0 rgba(255,255,255,0.08),
+        inset -3px 0 0 rgba(0,0,0,0.35);
+
+    overflow: hidden;
+}
+
+.book-cover-inner {
+    position: absolute;
+    inset: 14px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(216,196,154,0.45);
+
+    padding: 22px;
+
+    box-sizing: border-box;
+
+    color: #d8c49a;
+}
+
+.book-symbol {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.book-cover-rule {
+    width: 75px;
+    height: 1px;
+    margin: 14px auto;
+
+    background: #d8c49a;
+    opacity: 0.65;
+}
+
+.book-cover-rule.short {
+    width: 45px;
+}
+
+.book-cover-title {
+    max-width: 175px;
+
+    font-family: Georgia, serif;
+
+    font-size: 22px;
+    line-height: 1.35;
+
+    text-align: center;
+
+    color: #ead9b0;
+}
+
+.book-cover-label {
+    margin-top: 8px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+    letter-spacing: 0.22em;
+
+    color: rgba(234,217,176,0.75);
+}
+
+/* information under / behind book */
+
+.book-details,
+.open-book {
+    display: none;
+}
+
+/* bookshelf floor */
+
+.bookshelf-frame::after {
+    content: "";
+
+    position: absolute;
+
+    left: 30px;
+    right: 30px;
+    bottom: 10px;
+
+    height: 10px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #5b4630,
+            #2d2118
+        );
+
+    border-radius: 2px;
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,0.4);
+}
+
+/* mobile */
+
+@media (max-width: 700px) {
+
+    .bookshelf-frame {
+        padding: 25px 20px 40px;
+    }
+
+    .book-list {
+        gap: 20px;
+        min-height: 280px;
+    }
+
+    .shelf-book {
+        flex-basis: 180px;
+        width: 180px;
+        height: 260px;
+    }
+
+    .book-cover-title {
+        font-size: 17px;
+    }
+
+    .book-cover-inner {
+        inset: 10px;
+        padding: 14px;
+    }
+}
+/* =========================================================
+   BOOKSHELF — CENTER FIRST BOOK
+========================================================= */
+
+.bookshelf-frame {
+    width: 100%;
+    overflow: hidden;
+    padding: 40px 0;
+}
+
+.book-list {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    width: max-content;
+    margin-left: 50%;
+    transform: translateX(-115px);
+}
+
+.shelf-book {
+    flex: 0 0 230px;
+    width: 230px;
+    height: 330px;
+}
+/* =========================================================
+   CINEMA BOOKSHELF — HORIZONTAL VIEW
+========================================================= */
+
+.bookshelf-frame {
+    width: 100%;
+    overflow: hidden;
+    padding: 45px 0 60px;
+}
+
+.book-list {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 32px;
+
+    width: max-content;
+
+    padding: 0 50vw;
+    margin: 0;
+
+    transform: none;
+
+    overflow: visible;
+}
+
+.shelf-book {
+    flex: 0 0 230px;
+    width: 230px;
+    height: 330px;
+
+    position: relative;
+}
+/* =========================================================
+   CINEMA BOOKSHELF — HORIZONTAL SCROLL
+========================================================= */
+
+.bookshelf-frame {
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    cursor: grab;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.bookshelf-frame::-webkit-scrollbar {
+    display: none;
+}
+
+.bookshelf-frame.is-dragging {
+    cursor: grabbing;
+}
+
+.book-list {
+    width: max-content;
+    min-width: max-content;
+}

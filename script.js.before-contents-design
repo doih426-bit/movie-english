@@ -457,49 +457,30 @@ function openVocabularyBook(
        Libraryを隠す
     */
 
+    if (
+        movieList
+    ) {
+
+        movieList.classList.add(
+            "hidden"
+        );
+
+    }
+
+
     /*
-   Contentsを隠す
-*/
+       Vocabularyを表示
+    */
 
-if (
-    contentsPage
-) {
+    if (
+        vocabulary
+    ) {
 
-    contentsPage.classList.add(
-        "hidden"
-    );
+        vocabulary.classList.remove(
+            "hidden"
+        );
 
-}
-
-
-/*
-   Libraryを隠す
-*/
-
-if (
-    movieList
-) {
-
-    movieList.classList.add(
-        "hidden"
-    );
-
-}
-
-
-/*
-   Vocabularyを表示
-*/
-
-if (
-    vocabulary
-) {
-
-    vocabulary.classList.remove(
-        "hidden"
-    );
-
-}
+    }
 
 
     currentPage = 0;
@@ -991,595 +972,149 @@ if (
    LOAD CONTENTS
    本棚は1つだけ表示
 ========================================================= */
-/* =========================================================
-   LOAD CONTENTS FOR LIBRARY
-   CINEMA STUDIES
-   └── LEARN FROM SPIDER-MAN
-   └── LEARN FROM AVENGERS
-   └── LEARN FROM HARRY POTTER
-========================================================= */
-
 async function loadContentsForLibrary() {
-
     const contentList =
         document.querySelector(
             "#content-list"
         );
-
     if (!contentList) {
-
         console.error(
             "Content list not found."
         );
-
         return;
     }
-
-
     contentList.innerHTML =
         "";
-
-
-    /* =====================================================
-       LOAD CINEMA STUDIES
-    ===================================================== */
-
-    const {
-        data: parentContents,
-        error: parentError
-    } =
-        await supabaseClient
-            .from("contents")
-            .select(`
-                id,
-                title,
-                description,
-                collection_id,
-                parent_content_id,
-                color
-            `)
-            .eq(
-                "collection_id",
-                1
-            )
-            .is(
-                "parent_content_id",
-                null
-            )
-            .eq(
-                "title",
-                "CINEMA STUDIES"
-            )
-            .maybeSingle();
-
-
-    if (parentError) {
-
-        console.error(
-            "Library parent content load error:",
-            parentError
+    /*
+       1つだけ大きな本棚を作る
+    */
+    const wrapper =
+        document.createElement(
+            "section"
         );
-
-        contentList.innerHTML = `
-            <p>
-                Failed to load CINEMA STUDIES.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    if (!parentContents) {
-
-        contentList.innerHTML = `
-            <p>
-                CINEMA STUDIES not found.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    /* =====================================================
-       LOAD CHILD CONTENTS
-       CINEMA STUDIES
-       └── LEARN FROM ...
-    ===================================================== */
-
+    wrapper.className =
+        "content-item library-content";
+    /*
+       BOOK ROOM
+    */
+    const bookRoom =
+        document.createElement(
+            "section"
+        );
+    bookRoom.className =
+        "book-room";
+    /*
+       PREVIOUS
+    */
+    const previousBookButton =
+        document.createElement(
+            "button"
+        );
+    previousBookButton.className =
+        "nav-button nav-prev";
+    previousBookButton.type =
+        "button";
+    previousBookButton.setAttribute(
+        "aria-label",
+        "Previous book"
+    );
+    previousBookButton.textContent =
+        "‹";
+    /*
+       BOOKSHELF
+    */
+    const bookshelfFrame =
+        document.createElement(
+            "div"
+        );
+    bookshelfFrame.className =
+        "bookshelf-frame";
+    /*
+       TRACK
+    */
+    const bookTrack =
+        document.createElement(
+            "div"
+        );
+    bookTrack.className =
+        "book-track";
+    bookshelfFrame.appendChild(
+        bookTrack
+    );
+    /*
+       NEXT
+    */
+    const nextBookButton =
+        document.createElement(
+            "button"
+        );
+    nextBookButton.className =
+        "nav-button nav-next";
+    nextBookButton.type =
+        "button";
+    nextBookButton.setAttribute(
+        "aria-label",
+        "Next book"
+    );
+    nextBookButton.textContent =
+        "›";
+    /*
+       BOOK ROOM
+    */
+    bookRoom.appendChild(
+        previousBookButton
+    );
+    bookRoom.appendChild(
+        bookshelfFrame
+    );
+    bookRoom.appendChild(
+        nextBookButton
+    );
+    wrapper.appendChild(
+        bookRoom
+    );
+    contentList.appendChild(
+        wrapper
+    );
+    /*
+       すべての作品を
+       1つの本棚に入れる
+    */
     const {
-        data: childContents,
-        error: childError
+        data,
+        error
     } =
         await supabaseClient
-            .from("contents")
+            .from("books")
             .select(`
                 id,
                 title,
                 description,
-                collection_id,
-                parent_content_id,
-                color
+                content_id
             `)
-            .eq(
-                "collection_id",
-                1
-            )
-            .eq(
-                "parent_content_id",
-                parentContents.id
-            )
             .order(
                 "id",
                 {
                     ascending: true
                 }
             );
-
-
-    if (childError) {
-
+    if (error) {
         console.error(
-            "Library child contents load error:",
-            childError
+            "Frontend books load error:",
+            error
         );
-
-        contentList.innerHTML = `
-            <p>
-                Failed to load library contents.
-            </p>
-        `;
-
         return;
     }
-
-
-    /* =====================================================
-       LIBRARY WRAPPER
-    ===================================================== */
-
-    const wrapper =
-        document.createElement(
-            "section"
-        );
-
-    wrapper.className =
-        "content-item library-content";
-
-
-    /* =====================================================
-       LIBRARY HEADER
-    ===================================================== */
-
-    const libraryTitle =
-        document.createElement(
-            "div"
-        );
-
-    libraryTitle.className =
-        "library-content-title";
-
-    libraryTitle.innerHTML = `
-        <div class="small-label">
-            CINEMA LANGUAGE LIBRARY
-        </div>
-
-        <h2>
-            ${escapeHtml(
-                parentContents.title
-            )}
-        </h2>
-
-        <p>
-            ${escapeHtml(
-                parentContents.description ||
-                "Learn English through cinema"
-            )}
-        </p>
-    `;
-
-
-    wrapper.appendChild(
-        libraryTitle
-    );
-
-
-    /* =====================================================
-       BOOK ROOM
-    ===================================================== */
-
-    const bookRoom =
-        document.createElement(
-            "section"
-        );
-
-    bookRoom.className =
-        "book-room";
-
-
-    /* =====================================================
-       PREVIOUS
-    ===================================================== */
-
-    const previousBookButton =
-        document.createElement(
-            "button"
-        );
-
-    previousBookButton.className =
-        "nav-button nav-prev";
-
-    previousBookButton.type =
-        "button";
-
-    previousBookButton.setAttribute(
-        "aria-label",
-        "Previous content"
-    );
-
-    previousBookButton.textContent =
-        "‹";
-
-
-    /* =====================================================
-       BOOKSHELF
-    ===================================================== */
-
-    const bookshelfFrame =
-        document.createElement(
-            "div"
-        );
-
-    bookshelfFrame.className =
-        "bookshelf-frame";
-
-
-    const bookTrack =
-        document.createElement(
-            "div"
-        );
-
-    bookTrack.className =
-        "book-track";
-
-
-    bookshelfFrame.appendChild(
-        bookTrack
-    );
-
-
-    /* =====================================================
-       NEXT
-    ===================================================== */
-
-    const nextBookButton =
-        document.createElement(
-            "button"
-        );
-
-    nextBookButton.className =
-        "nav-button nav-next";
-
-    nextBookButton.type =
-        "button";
-
-    nextBookButton.setAttribute(
-        "aria-label",
-        "Next content"
-    );
-
-    nextBookButton.textContent =
-        "›";
-
-
-    /* =====================================================
-       BOOK ROOM
-    ===================================================== */
-
-    bookRoom.appendChild(
-        previousBookButton
-    );
-
-    bookRoom.appendChild(
-        bookshelfFrame
-    );
-
-    bookRoom.appendChild(
+    /*
+       本棚を構築
+    */
+    await createUnifiedBookshelf(
+        data || [],
+        bookTrack,
+        bookshelfFrame,
+        previousBookButton,
         nextBookButton
     );
-
-    wrapper.appendChild(
-        bookRoom
-    );
-
-
-    contentList.appendChild(
-        wrapper
-    );
-
-
-    /* =====================================================
-       NO CHILD CONTENTS
-    ===================================================== */
-
-    if (
-        !childContents ||
-        childContents.length === 0
-    ) {
-
-        bookTrack.innerHTML = `
-            <p>
-                No contents registered.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    /* =====================================================
-       CREATE BOOKSHELF
-       CONTENTS = BOOKSHELF BOOKS
-    ===================================================== */
-
-    const bookElements = [];
-
-
-    childContents.forEach(
-        (
-            content,
-            index
-        ) => {
-
-            const element =
-                document.createElement(
-                    "article"
-                );
-
-
-            element.className =
-                "book";
-
-
-            element.dataset.index =
-                index;
-
-
-            element.dataset.contentId =
-                content.id;
-
-
-            element.style.setProperty(
-    "--book-color",
-    getBookColor(
-        content
-    )
-);
-
-
-            element.innerHTML = `
-                <div class="book-cover">
-
-                    <div class="book-spine"></div>
-
-                    <div class="book-inner">
-
-                        <div class="book-symbol">
-                            ✦
-                        </div>
-
-                        <div class="book-title">
-                            ${escapeHtml(
-                                content.title
-                            )}
-                        </div>
-
-                        <div class="book-rule"></div>
-
-                        <div class="book-label">
-                            CINEMA × LANGUAGE
-                        </div>
-
-                    </div>
-
-                </div>
-            `;
-
-
-            /* =============================================
-               CLICK
-            ============================================= */
-
-            element.addEventListener(
-                "click",
-                () => {
-
-                    currentContentIndex =
-                        Number(
-                            element.dataset.index
-                        );
-
-
-                    updateBookshelf(
-                        true
-                    );
-
-
-                    openContentsPage(
-                        content.id,
-                        content.title
-                    );
-
-                }
-            );
-
-
-            bookTrack.appendChild(
-                element
-            );
-
-
-            bookElements.push(
-                element
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       CURRENT BOOK
-    ===================================================== */
-
-    let currentContentIndex = 0;
-
-
-    /* =====================================================
-       UPDATE BOOKSHELF
-    ===================================================== */
-
-    function updateBookshelf(
-        smooth = true
-    ) {
-
-        const elements =
-            [
-                ...bookTrack.querySelectorAll(
-                    ".book"
-                )
-            ];
-
-
-        elements.forEach(
-            (
-                book,
-                index
-            ) => {
-
-                book.classList.toggle(
-                    "is-selected",
-                    index ===
-                    currentContentIndex
-                );
-
-            }
-        );
-
-
-        const target =
-            elements[
-                currentContentIndex
-            ];
-
-
-        if (!target) {
-            return;
-        }
-
-
-        const frameRect =
-            bookshelfFrame.getBoundingClientRect();
-
-
-        const targetRect =
-            target.getBoundingClientRect();
-
-
-        const offset =
-            (
-                frameRect.left +
-                frameRect.width / 2
-            )
-            -
-            (
-                targetRect.left +
-                targetRect.width / 2
-            );
-
-
-        bookTrack.style.transition =
-            smooth
-                ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)"
-                : "none";
-
-
-        bookTrack.style.transform =
-            `translateX(${offset}px)`;
-
-    }
-
-
-    /* =====================================================
-       PREVIOUS
-    ===================================================== */
-
-    previousBookButton.addEventListener(
-        "click",
-        event => {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-
-            currentContentIndex =
-                Math.max(
-                    0,
-                    currentContentIndex - 1
-                );
-
-
-            updateBookshelf(
-                true
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       NEXT
-    ===================================================== */
-
-    nextBookButton.addEventListener(
-        "click",
-        event => {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-
-            currentContentIndex =
-                Math.min(
-                    childContents.length - 1,
-                    currentContentIndex + 1
-                );
-
-
-            updateBookshelf(
-                true
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       INITIAL POSITION
-    ===================================================== */
-
-    requestAnimationFrame(
-        () => {
-
-            updateBookshelf(
-                false
-            );
-
-        }
-    );
-
 }
 /* =========================================================
    UNIFIED BOOKSHELF
@@ -1616,11 +1151,11 @@ async function createUnifiedBookshelf(
         element.dataset.bookId =
             book.id;
         element.style.setProperty(
-    "--book-color",
-    getBookColor(
-        book
-    )
-);
+            "--book-color",
+            getBookColor(
+                book.id
+            )
+        );
         /*
            DB上のタイトルではなく
            LEARN FROM + 作品名
@@ -1846,8 +1381,7 @@ async function loadBooksForContentFrontend(
             id,
             title,
             description,
-            content_id,
-            color
+            content_id
         `)
         .eq(
             "content_id",
@@ -2035,7 +1569,9 @@ async function loadBooksForContentFrontend(
             book.id;
         element.style.setProperty(
             "--book-color",
-            book.color || getBookColor(book.id)
+            getBookColor(
+                book.id
+            )
         );
         element.innerHTML = `
             <div class="book-cover">
@@ -2419,43 +1955,43 @@ async function loadBooksForContentFrontend(
         }
     );
 }
-
-
-
+/* =========================================================
+   OPEN CONTENTS PAGE
+========================================================= */
 /* =========================================================
    OPEN CONTENTS PAGE
 ========================================================= */
 
 /* =========================================================
    OPEN CONTENTS PAGE
-   CONTENTSをクリック
-   ↓
-   そのCONTENTSに紐づくBOOKSを表示
 ========================================================= */
 
 async function openContentsPage(
-    contentId,
-    contentTitle
+    bookId,
+    bookTitle
 ) {
 
     console.log(
-        "Opening content:",
-        contentId,
-        contentTitle
+        "Opening contents page:",
+        bookId,
+        bookTitle
     );
 
+
     currentBookId =
-        Number(contentId);
+        Number(bookId);
 
     currentBookTitle =
-        contentTitle || "";
+        bookTitle || "";
 
 
     /* =====================================================
        HIDE LIBRARY
     ===================================================== */
 
-    if (movieList) {
+    if (
+        movieList
+    ) {
 
         movieList.classList.add(
             "hidden"
@@ -2468,7 +2004,9 @@ async function openContentsPage(
        HIDE VOCABULARY
     ===================================================== */
 
-    if (vocabulary) {
+    if (
+        vocabulary
+    ) {
 
         vocabulary.classList.add(
             "hidden"
@@ -2478,10 +2016,12 @@ async function openContentsPage(
 
 
     /* =====================================================
-       SHOW CONTENTS PAGE
+       SHOW CONTENTS
     ===================================================== */
 
-    if (contentsPage) {
+    if (
+        contentsPage
+    ) {
 
         contentsPage.classList.remove(
             "hidden"
@@ -2490,7 +2030,13 @@ async function openContentsPage(
     }
 
 
-    if (!contentsList) {
+    /* =====================================================
+       LOAD BOOK
+    ===================================================== */
+
+    if (
+        !contentsList
+    ) {
 
         return;
 
@@ -2501,15 +2047,9 @@ async function openContentsPage(
         "";
 
 
-    /* =====================================================
-       LOAD BOOKS UNDER THIS CONTENT
-       
-       contents.id = books.content_id
-    ===================================================== */
-
     const {
-        data: books,
-        error: booksError
+        data,
+        error
     } =
         await supabaseClient
             .from("books")
@@ -2517,31 +2057,27 @@ async function openContentsPage(
                 id,
                 title,
                 description,
-                content_id,
-                color
+                content_id
             `)
             .eq(
-                "content_id",
-                contentId
-            )
-            .order(
                 "id",
-                {
-                    ascending: true
-                }
-            );
+                currentBookId
+            )
+            .maybeSingle();
 
 
-    if (booksError) {
+    if (
+        error
+    ) {
 
         console.error(
-            "Books load error:",
-            booksError
+            "Contents load error:",
+            error
         );
 
         contentsList.innerHTML = `
             <p class="contents-error">
-                Failed to load books.
+                Failed to load contents.
             </p>
         `;
 
@@ -2550,19 +2086,72 @@ async function openContentsPage(
     }
 
 
-    console.log(
-        "Books for content:",
-        books
-    );
+    if (
+        !data
+    ) {
+
+        console.error(
+            "Book not found:",
+            currentBookId
+        );
+
+        contentsList.innerHTML = `
+            <p class="contents-error">
+                No contents found.
+            </p>
+        `;
+
+        return;
+
+    }
 
 
     /* =====================================================
-       HEADER
+       CONTENTS TITLE
+    ===================================================== */
+
+    if (
+        contentsBookTitle
+    ) {
+
+      contentsBookTitle.innerHTML = `
+    <span class="contents-book-name">
+        LEARN FROM SPIDER-MAN
+    </span>
+`;  
+
+    }
+
+
+    /* =====================================================
+       ABOUT
     ===================================================== */
 
     const aboutText =
-        contentTitle ||
-        "Learn English through the language of cinema.";
+        data.description ||
+        "Learn English through the language of the film.";
+
+
+    /* =====================================================
+       CONTENT ITEMS
+    ===================================================== */
+
+    const contentsItems = [
+
+        {
+
+            title:
+                "BRAND NEW DAY - New Trailer 4K",
+
+            youtubeUrl:
+                "https://www.youtube.com/watch?v=3gAlCLVpePk",
+
+            youtubeId:
+                "3gAlCLVpePk"
+
+        }
+
+    ];
 
 
     /* =====================================================
@@ -2571,204 +2160,156 @@ async function openContentsPage(
 
     contentsList.innerHTML = `
 
-        <header class="contents-header">
+        <section
+            class="contents-about"
+        >
 
-            <div class="small-label">
-                CINEMA × LANGUAGE
+            <div
+                class="contents-about-label"
+            >
+                ABOUT THIS VOLUME
             </div>
 
-            <h1>
+            <p
+                class="contents-about-text"
+            >
                 ${escapeHtml(
-                    contentTitle
+                    aboutText
                 )}
-            </h1>
-
-            <p class="subtitle">
-                Learn English through the language of cinema.
             </p>
-
-            <div class="ornament">
-
-                <span></span>
-
-                <b>✦</b>
-
-                <span></span>
-
-            </div>
-
-        </header>
-
-
-        <section class="contents-heading">
-
-            <h2>
-                CONTENTS
-            </h2>
-
-            <div class="heading-line"></div>
 
         </section>
 
 
-        <section class="contents-items">
+        <section
+            class="contents-items"
+        >
 
             ${
-                books && books.length > 0
+                contentsItems
+                    .map(
+                        (
+                            item,
+                            index
+                        ) => {
 
-                    ? books
-                        .map(
-                            (
-                                book,
-                                index
-                            ) => {
+                            const thumbnail =
+                                item.youtubeId
+                                    ? `https://img.youtube.com/vi/${item.youtubeId}/mqdefault.jpg`
+                                    : "";
 
-                                return `
 
-                                    <a
-                                        class="contents-item"
-                                        href="#"
-                                        data-book-id="${book.id}"
+                            return `
+
+                                <article
+                                    class="contents-video-item"
+                                >
+
+                                    <div
+                                        class="contents-video-number"
                                     >
 
-                                        <div class="chapter-number">
+                                        ${String(
+                                            index + 1
+                                        ).padStart(
+                                            2,
+                                            "0"
+                                        )}
 
-                                            ${String(
-                                                index + 1
-                                            ).padStart(
-                                                2,
-                                                "0"
+                                    </div>
+
+
+                                    <div
+                                        class="contents-video-main"
+                                    >
+
+                                        <button
+                                            class="contents-video-title"
+                                            type="button"
+                                            data-index="${index}"
+                                        >
+
+                                            ${escapeHtml(
+                                                item.title
                                             )}
 
-                                        </div>
+                                        </button>
+
+                                    </div>
 
 
-                                        <div class="chapter-info">
+                                    ${
+                                        thumbnail
+                                            ? `
 
-                                            <div class="chapter-title">
+                                               <a
+    class="contents-youtube"
+    href="${item.youtubeUrl}"
+    target="_blank"
+    rel="noopener noreferrer"
+>
 
-                                                ${escapeHtml(
-                                                    book.title
-                                                )}
+    <img
+        src="${thumbnail}"
+        alt="${escapeHtml(
+            item.title
+        )}"
+    >
 
-                                            </div>
+   
 
-                                            <div class="contents-progress">
+</a> 
 
-                                                <div class="contents-progress-header">
+                                            `
+                                            : ""
+                                    }
 
-                                                    <span>
-                                                        PROGRESS
-                                                    </span>
+                                </article>
 
-                                                    <span class="contents-progress-percent">
-                                                        0%
-                                                    </span>
+                            `;
 
-                                                </div>
-
-                                                <div class="contents-progress-track">
-
-                                                    <div
-                                                        class="contents-progress-fill"
-                                                        style="width: 0%"
-                                                    ></div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="chapter-meta">
-
-                                            <span>
-                                                CHAPTER
-                                            </span>
-
-                                        </div>
-
-                                    </a>
-
-                                `;
-
-                            }
-                        )
-                        .join("")
-
-                    : `
-                        <div class="contents-empty">
-
-                            <p>
-                                No books available yet.
-                            </p>
-
-                        </div>
-                    `
+                        }
+                    )
+                    .join("")
             }
 
         </section>
-
-
-        <footer class="contents-footer">
-
-            <div class="footer-rule"></div>
-
-            <div class="footer-content">
-
-                <span>
-                    MOVIE ENGLISH
-                </span>
-
-                <span>
-                    ${escapeHtml(
-                        contentTitle
-                    )}
-                </span>
-
-            </div>
-
-        </footer>
 
     `;
 
 
     /* =====================================================
-       BOOK → VOCABULARY
+       TITLE → VOCABULARY
     ===================================================== */
 
-    const bookItems =
+    const videoTitles =
         contentsList.querySelectorAll(
-            ".contents-item"
+            ".contents-video-title"
         );
 
 
-    bookItems.forEach(
-        bookElement => {
+    videoTitles.forEach(
+        button => {
 
-            bookElement.addEventListener(
+            button.addEventListener(
                 "click",
-                event => {
+                () => {
 
-                    event.preventDefault();
-
-
-                    const bookId =
+                    const index =
                         Number(
-                            bookElement.dataset.bookId
+                            button.dataset.index
                         );
 
 
-                    const selectedBook =
-                        books.find(
-                            book =>
-                                book.id ===
-                                bookId
-                        );
+                    const item =
+                        contentsItems[
+                            index
+                        ];
 
 
-                    if (!selectedBook) {
+                    if (
+                        !item
+                    ) {
 
                         return;
 
@@ -2776,8 +2317,8 @@ async function openContentsPage(
 
 
                     openVocabularyBook(
-                        selectedBook.id,
-                        selectedBook.title
+                        data.id,
+                        item.title
                     );
 
                 }
@@ -2795,31 +2336,12 @@ async function openContentsPage(
 
         top: 0,
 
-        behavior: "smooth"
-
-    });
-
-}
-    /* =====================================================
-       TITLE → VOCABULARY
-    ===================================================== */
-
-
-
-    /* =====================================================
-       SCROLL TOP
-    ===================================================== */
-
-    window.scrollTo({
-
-        top: 0,
-
         behavior:
             "smooth"
 
     });
 
-
+}
 /* =========================================================
    BACK FROM CONTENTS
 ========================================================= */
@@ -2870,69 +2392,10 @@ if (backToLibrary) {
 ========================================================= */
 
 function getBookColor(
-    book
+    bookId
 ) {
 
-const colors = {
-
-    navy:
-        "#24364b",
-
-    burgundy:
-        "#63332b",
-
-    forest:
-        "#34483a",
-
-    brown:
-        "#49382a",
-
-    black:
-        "#302d29",
-
-    olive:
-        "#4a4932",
-
-    purple:
-        "#51405f",
-
-    teal:
-        "#315c5b",
-
-    red:
-        "#713333",
-
-    blue:
-        "#304f70"
-
-};
-
-
-    /*
-       DBに保存されている
-       colorを優先する
-    */
-
-    if (
-        book &&
-        book.color &&
-        colors[book.color]
-    ) {
-
-        return colors[
-            book.color
-        ];
-
-    }
-
-
-    /*
-       colorが未設定の場合は
-       従来のbook.idによる
-       自動カラーを使用
-    */
-
-    const fallbackColors = [
+    const colors = [
 
         "#63332b",
 
@@ -2949,25 +2412,10 @@ const colors = {
     ];
 
 
-    const bookId =
-        Number(
-            book?.id
-        );
-
-
-    if (
-        Number.isFinite(bookId)
-    ) {
-
-        return fallbackColors[
-            (bookId - 1) %
-            fallbackColors.length
-        ];
-
-    }
-
-
-    return "#3d3530";
+    return colors[
+        (Number(bookId) - 1) %
+        colors.length
+    ] || "#3d3530";
 
 }
 
@@ -3634,18 +3082,37 @@ function renderPage(
 
     </button>
 
+
+    ${
+        isMastered
+
+            ? `
+
 <button
-    class="master-button${isMastered ? " is-active" : ""}"
+    class="cancel-button"
     type="button"
-    aria-label="${isMastered ? "Mastered" : "Mark as mastered"}"
-    title="${isMastered ? "Mastered" : "Mark as mastered"}"
 >
 
-    <span class="master-check">
-        ✓
-    </span>
+    Cancel
 
 </button>
+
+`
+
+            : `
+
+<button
+    class="master-button"
+    type="button"
+>
+
+    🕷 Mastered
+
+</button>
+
+`
+
+    }
 
 </li>
 
@@ -3739,40 +3206,15 @@ function goBackToCollection() {
     }
 
 
-    function goBackToCollection() {
-
     if (
-        vocabulary
+        movieList
     ) {
 
-        vocabulary.classList.add(
+        movieList.classList.remove(
             "hidden"
         );
 
     }
-
-
-    if (
-        contentsPage
-    ) {
-
-        contentsPage.classList.remove(
-            "hidden"
-        );
-
-    }
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior:
-            "smooth"
-
-    });
-
-}
 
 
     window.scrollTo({
@@ -4012,72 +3454,120 @@ if (
 
             }
 
-/*
-   MASTERED
-*/
 
-const masterButton =
-    event.target.closest(
-        ".master-button"
-    );
+            /*
+               CANCEL
+            */
 
-
-if (
-    masterButton
-) {
-
-    event.stopPropagation();
+            const cancelButton =
+                event.target.closest(
+                    ".cancel-button"
+                );
 
 
-    const entry =
-        masterButton.closest(
-            ".word-entry"
-        );
+            if (
+                cancelButton
+            ) {
+
+                event.stopPropagation();
 
 
-    if (!entry) {
-
-        return;
-
-    }
-
-
-    const index =
-        Number(
-            entry.dataset.wordIndex
-        );
-
-    const id =
-        Number(
-            entry.dataset.wordId
-        );
+                const entry =
+                    cancelButton.closest(
+                        ".word-entry"
+                    );
 
 
-    const isMastered =
-        masteredWords.has(
-            id
-        );
+                if (!entry) {
+
+                    return;
+
+                }
 
 
-    const success =
-        await setMastered(
-            index,
-            !isMastered
-        );
+                const index =
+                    Number(
+                        entry.dataset.wordIndex
+                    );
 
 
-    if (
-        success
-    ) {
-
-        renderPage();
-
-    }
+                const success =
+                    await setMastered(
+                        index,
+                        false
+                    );
 
 
-    return;
+                if (
+                    success
+                ) {
 
-}
+                    renderPage();
+
+                }
+
+
+                return;
+
+            }
+
+
+            /*
+               MASTERED
+            */
+
+            const masterButton =
+                event.target.closest(
+                    ".master-button"
+                );
+
+
+            if (
+                masterButton
+            ) {
+
+                event.stopPropagation();
+
+
+                const entry =
+                    masterButton.closest(
+                        ".word-entry"
+                    );
+
+
+                if (!entry) {
+
+                    return;
+
+                }
+
+
+                const index =
+                    Number(
+                        entry.dataset.wordIndex
+                    );
+
+
+                const success =
+                    await setMastered(
+                        index,
+                        true
+                    );
+
+
+                if (
+                    success
+                ) {
+
+                    renderPage();
+
+                }
+
+
+                return;
+
+            }
+
 
             /*
                FLIP
@@ -4113,57 +3603,42 @@ if (
 
             }
 
-const hasRevealed =
-    card.dataset.hasRevealed === "true";
+
+            const isFlipped =
+                card.classList.toggle(
+                    "is-flipped"
+                );
 
 
-const isFlipped =
-    card.classList.toggle(
-        "is-flipped"
-    );
+            card.setAttribute(
+                "aria-pressed",
+                String(
+                    isFlipped
+                )
+            );
 
 
-card.setAttribute(
-    "aria-pressed",
-    String(
-        isFlipped
-    )
-);
+            const flipHint =
+                entry
+                    ? entry.querySelector(
+                        ".word-flip-hint"
+                    )
+                    : null;
 
 
-const flipHint =
-    entry
-        ? entry.querySelector(
-            ".word-flip-hint"
-        )
-        : null;
+            if (
+                flipHint
+            ) {
 
+                flipHint.textContent =
 
-if (
-    flipHint
-) {
+                    isFlipped
 
-    if (
-        isFlipped
-    ) {
+                        ? "TAP TO RETURN"
 
-        flipHint.textContent =
-            "TAP TO RETURN";
+                        : "TAP TO FLIP";
 
-
-        card.dataset.hasRevealed =
-            "true";
-
-    } else {
-
-        flipHint.textContent =
-            hasRevealed
-                ? "TAP TO REVEAL"
-                : "TAP TO FLIP";
-
-    }
-
-}
+            }
 
 
             const wordElement =

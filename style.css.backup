@@ -877,15 +877,15 @@ input {
         bottom center;
 
     transition:
-    transform 0.7s
-    cubic-bezier(
-        0.4,
-        0,
-        0.2,
-        1
-    ),
+        transform 0.5s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
 
-    filter 0.7s ease;
+        filter 0.5s ease;
 
     filter:
         brightness(0.68)
@@ -1577,9 +1577,21 @@ input {
 
     transform-style: preserve-3d;
 
-    
+    transition:
+        transform 0.55s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
 }
 
+.word-flip.is-flipped
+.word-flip-inner {
+    transform:
+        rotateY(180deg);
+}
 
 .word-face {
     position: absolute;
@@ -1614,46 +1626,11 @@ input {
         rgba(66,49,29,0.08);
 }
 
-/* =========================================================
-   MAGIC TEXT FLIP
-========================================================= */
-
-.word-flip-inner {
-    transform: none;
-    transition: none;
-}
-
-.word-front,
 .word-back {
-    transition:
-        opacity 0.75s ease,
-        filter 0.75s ease,
-        transform 0.75s ease;
+    transform:
+        rotateY(180deg);
 }
 
-.word-front {
-    opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
-}
-
-.word-back {
-    opacity: 0;
-    filter: blur(5px);
-    transform: scale(0.985);
-}
-
-.word-flip.is-flipped .word-front {
-    opacity: 0;
-    filter: blur(5px);
-    transform: scale(0.985);
-}
-
-.word-flip.is-flipped .word-back {
-    opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
-}
 .word {
     color: #30271d;
 
@@ -1744,8 +1721,7 @@ input {
 .word-flip-hint {
     position: absolute;
 
-    left: 75%;
-    right: auto;
+    left: 50%;
 
     bottom: 37px;
 
@@ -1815,141 +1791,63 @@ input {
 /* =========================================================
    MASTER BUTTON
 ========================================================= */
-/* =========================================================
-   MASTER BUTTON
-========================================================= */
 
-.master-button {
+.master-button,
+.cancel-button {
     position: absolute;
 
-    right: 12px;
-    top: 59px;
+    left: 50%;
 
-    width: 28px;
-    height: 28px;
+    bottom: 0;
 
-    min-width: 28px;
-    min-height: 28px;
+    transform:
+        translateX(-50%);
 
-    padding: 0;
-    margin: 0;
+    min-width: 115px;
+
+    padding:
+        7px
+        12px;
 
     border:
         1px solid
-        rgba(72, 51, 28, 0.28);
-
-    border-radius: 50%;
+        rgba(102,78,44,0.3);
 
     background:
-        radial-gradient(
-            circle at 50% 45%,
-            rgba(255, 246, 215, 0.32),
-            rgba(255, 246, 215, 0.08)
-        );
+        transparent;
 
-    color:
-        rgba(72, 51, 28, 0.28);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    box-sizing: border-box;
+    color: #665438;
 
     font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 0.08em;
 
     cursor: pointer;
 
     transition:
-        color 0.3s ease,
-        border-color 0.3s ease,
-        background 0.3s ease,
-        box-shadow 0.3s ease,
-        transform 0.25s ease;
+        background 0.2s ease,
+        color 0.2s ease;
 }
-
-
-/* =========================================================
-   CHECK MARK
-========================================================= */
-
-.master-check {
-    font-size: 15px;
-
-    line-height: 1;
-
-    font-weight: 600;
-
-    transform:
-        translateY(-0.5px);
-
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease;
-}
-
-
-/* =========================================================
-   HOVER
-========================================================= */
 
 .master-button:hover {
-
-    border-color:
-        rgba(72, 51, 28, 0.5);
-
     background:
-        radial-gradient(
-            circle at 50% 45%,
-            rgba(255, 246, 215, 0.5),
-            rgba(255, 246, 215, 0.16)
-        );
-
-    transform:
-        scale(1.06);
+        rgba(102,78,44,0.12);
 }
 
-
-/* =========================================================
-   MASTERED
-========================================================= */
-
-.master-button.is-active {
+.cancel-button {
+    color: #76514b;
 
     border-color:
-        rgba(72, 51, 28, 0.72);
-
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            rgba(255, 246, 215, 0.72),
-            rgba(255, 246, 215, 0.28)
-        );
-
-    color:
-        rgba(72, 51, 28, 0.88);
-
-    box-shadow:
-        0 0 0 1px
-        rgba(72, 51, 28, 0.08),
-
-        inset 0 1px 2px
-        rgba(72, 51, 28, 0.08);
+        rgba(118,81,75,0.35);
 }
 
-
-.master-button.is-active .master-check {
-
-    color:
-        rgba(72, 51, 28, 0.95);
-
-    transform:
-        translateY(-0.5px)
-        scale(1.05);
+.cancel-button:hover {
+    background:
+        rgba(118,81,75,0.1);
 }
 
 
@@ -2452,6 +2350,628 @@ input {
     display: inline-block;
 
     transform: translateX(-3px);
+}
+/* =========================================================
+   ANTIQUE BOOK — CONTENTS PAGE
+========================================================= */
+
+#contents-page {
+    min-height: 100vh;
+    padding: 70px 40px 100px;
+    position: relative;
+
+    background:
+        radial-gradient(
+            ellipse at 20% 15%,
+            rgba(255,255,255,0.35),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 80% 80%,
+            rgba(80,45,20,0.12),
+            transparent 40%
+        ),
+        #17120e;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+#back-to-library {
+    position: fixed;
+    top: 25px;
+    left: 30px;
+    z-index: 50;
+
+    border: 0;
+    background: transparent;
+
+    color: #d8c7a7;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 12px;
+    letter-spacing: 0.18em;
+
+    cursor: pointer;
+
+    opacity: 0.75;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+#back-to-library:hover {
+    opacity: 1;
+    transform: translateX(-4px);
+}
+
+
+/* =========================================================
+   PAPER
+========================================================= */
+
+.contents-paper {
+
+    position: relative;
+
+    width: min(
+        900px,
+        calc(100vw - 80px)
+    );
+
+    min-height: 900px;
+
+    margin: 20px auto 0;
+
+    padding:
+        100px
+        90px
+        110px;
+
+    box-sizing: border-box;
+
+    color: #33271c;
+
+    background:
+
+        /* paper light */
+        radial-gradient(
+            circle at 30% 20%,
+            rgba(255,255,255,0.65),
+            transparent 28%
+        ),
+
+        /* old stains */
+        radial-gradient(
+            circle at 85% 12%,
+            rgba(104,72,40,0.12),
+            transparent 14%
+        ),
+
+        radial-gradient(
+            circle at 12% 78%,
+            rgba(91,55,28,0.10),
+            transparent 18%
+        ),
+
+        radial-gradient(
+            circle at 75% 75%,
+            rgba(120,80,40,0.08),
+            transparent 20%
+        ),
+
+        /* paper */
+        #d8c7a5;
+
+    box-shadow:
+
+        0 40px 80px
+        rgba(0,0,0,0.55),
+
+        0 12px 25px
+        rgba(0,0,0,0.35),
+
+        inset 0 0 80px
+        rgba(70,42,20,0.22),
+
+        inset 0 0 10px
+        rgba(50,30,15,0.3);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   PAPER EDGE
+========================================================= */
+
+.contents-paper::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.5;
+
+    background:
+
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 4px,
+            rgba(70,45,25,0.025) 5px
+        );
+
+}
+
+
+/* =========================================================
+   OLD PAPER CORNERS
+========================================================= */
+
+.contents-paper::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 12px;
+
+    pointer-events: none;
+
+    border:
+
+        1px solid
+        rgba(70,45,25,0.20);
+
+    box-shadow:
+
+        inset 0 0 30px
+        rgba(60,35,15,0.12);
+
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.contents-top {
+
+    position: relative;
+
+    text-align: center;
+
+    z-index: 2;
+}
+
+
+.contents-small {
+
+    display: block;
+
+    margin-bottom: 18px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 11px;
+
+    letter-spacing: 0.45em;
+
+    color: #66513a;
+
+    opacity: 0.8;
+}
+
+
+#contents-title {
+
+    margin: 0;
+
+    font-family:
+        "Times New Roman",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(
+            46px,
+            7vw,
+            72px
+        );
+
+    font-weight: 400;
+
+    letter-spacing: 0.08em;
+
+    color: #34271c;
+
+    text-shadow:
+        1px 1px 0
+        rgba(255,255,255,0.25),
+
+        -0.5px -0.5px 0
+        rgba(50,30,15,0.18);
+}
+
+
+/* =========================================================
+   DECORATIVE RULE
+========================================================= */
+
+.contents-rule {
+
+    width: 100%;
+
+    height: 1px;
+
+    margin:
+        35px
+        auto
+        45px;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            rgba(70,45,25,0.55),
+            transparent
+        );
+}
+
+
+.contents-rule::before,
+.contents-rule::after {
+
+    content: "✦";
+
+    position: absolute;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #66513a;
+
+    font-size: 10px;
+}
+
+
+.contents-rule::before {
+    left: 15%;
+}
+
+
+.contents-rule::after {
+    right: 15%;
+}
+
+
+/* =========================================================
+   BOOK TITLE
+========================================================= */
+
+.contents-book-title {
+
+    text-align: center;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 22px;
+
+    font-style: italic;
+
+    letter-spacing: 0.08em;
+
+    color: #493726;
+
+    margin-bottom: 65px;
+
+    position: relative;
+}
+
+
+.contents-book-title::before {
+
+    content: "THE BOOK OF";
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    font-style: normal;
+
+    letter-spacing: 0.4em;
+
+    color: #806b50;
+
+}
+
+
+/* =========================================================
+   CONTENTS LIST
+========================================================= */
+
+.contents-list {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 650px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENTRY
+========================================================= */
+
+.contents-entry {
+
+    display: grid;
+
+    grid-template-columns:
+        55px
+        1fr
+        auto;
+
+    align-items: center;
+
+    gap: 20px;
+
+    min-height: 78px;
+
+   border-top:
+    1px solid
+    rgba(60, 45, 30, 0.18);
+
+border-bottom:
+    1px solid
+    rgba(60, 45, 30, 0.18); 
+
+    transition:
+        transform 0.3s ease,
+        padding 0.3s ease;
+}
+
+
+.contents-entry:hover {
+
+    transform:
+        translateX(8px);
+
+    padding-left: 8px;
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.contents-entry-number {
+
+    font-family:
+        "Times New Roman",
+        Georgia,
+        serif;
+
+    font-size: 18px;
+
+    color: #806b50;
+
+    letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.contents-entry-main {
+
+    min-width: 0;
+}
+
+
+.contents-entry-main h3 {
+
+    margin: 0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 18px;
+
+    font-weight: 400;
+
+    letter-spacing: 0.04em;
+
+    color: #34271c;
+}
+
+
+.contents-entry-main p {
+
+    margin:
+        7px
+        0
+        0;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    color: #6c5941;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================================
+   OPEN BUTTON
+========================================================= */
+
+.contents-open-button {
+
+    border: 1px solid
+        rgba(70,45,25,0.45);
+
+    background:
+        rgba(255,255,255,0.08);
+
+    padding:
+        9px
+        17px;
+
+    color: #493726;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 10px;
+
+    letter-spacing: 0.18em;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.contents-open-button:hover {
+
+    background: #493726;
+
+    color: #e0d1b4;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   PAPER AGE EFFECT
+========================================================= */
+
+.contents-paper .contents-list::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    right: -80px;
+    top: 80px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(90,55,25,0.12),
+            transparent 68%
+        );
+
+    filter:
+        blur(12px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    #contents-page {
+        padding:
+            55px
+            15px
+            60px;
+    }
+
+    .contents-paper {
+
+        width:
+            calc(100vw - 30px);
+
+        min-height:
+            760px;
+
+        padding:
+            70px
+            30px
+            80px;
+    }
+
+    #contents-title {
+        font-size: 42px;
+    }
+
+    .contents-entry {
+
+        grid-template-columns:
+            35px
+            1fr;
+
+        gap: 12px;
+
+        padding:
+            16px
+            0;
+    }
+
+    .contents-open-button {
+
+        grid-column:
+            2;
+
+        justify-self:
+            start;
+    }
+
 }
 /* =========================================================
    ANTIQUE CONTENTS PAGE

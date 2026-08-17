@@ -1,91 +1,157 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinema Language | Learn Languages Through Cinema</title>
-    <link rel="stylesheet" href="style.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Cinema Language | Learn Languages Through Cinema
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/contents.css"
+    >
+    <link
+    rel="stylesheet"
+    href="css/vocabulary.css"
+>
+
 </head>
+
+
 <body>
+
+
 <!-- =========================================================
      AUTH SCREEN
 ========================================================= -->
+
 <div id="auth-screen">
+
     <div class="auth-card">
-    <p class="auth-eyebrow">
-        CINEMA × LANGUAGE
-    </p>
-    <h2 id="auth-title">
-        CINEMA LANGUAGE
-    </h2>
-    <p class="auth-subtitle">
-        Learn languages through cinema
-    </p>
-    <div class="auth-form">
-        <input
-            type="email"
-            id="email"
-            placeholder="Email"
-            autocomplete="email"
-        >
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            autocomplete="current-password"
-        >
-        <button
-            id="login-button"
-            type="button"
-        >
-            Log in
-        </button>
-        <button
-            id="signup-button"
-            class="hidden"
-            type="button"
-        >
-            Create account
-        </button>
-    </div>
-    <div class="auth-switch" id="auth-switch">
-        Don't have an account?
-        <button
-            id="show-signup-button"
-            type="button"
-        >
-            Sign up
-        </button>
-    </div>
-    <div class="auth-divider">
-        <span>OR</span>
-    </div>
-    <button
-        id="guest-button"
-        type="button"
-    >
-        <span>Continue without login</span>
-        <small>(ログインせずに利用する)</small>
-    </button>
-    <p id="auth-message"></p>
-</div>
-</div>
-<!-- =========================================================
-     HEADER
-========================================================= -->
-<header>
-    <div class="site-header-top">
-        <div>
-            <p class="eyebrow">
-                CINEMA × LANGUAGE
-            </p>
-            <h1>
-                CINEMA LANGUAGE
-            </h1>
-            <p>
-                Learn languages through cinema
-            </p>
+
+        <p class="auth-eyebrow">
+            CINEMA × LANGUAGE
+        </p>
+
+        <h2 id="auth-title">
+            CINEMA LANGUAGE
+        </h2>
+
+        <p class="auth-subtitle">
+            Learn languages through cinema
+        </p>
+
+
+        <div class="auth-form">
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                autocomplete="email"
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                autocomplete="current-password"
+            >
+
+
+            <button
+                id="login-button"
+                type="button"
+            >
+                Log in
+            </button>
+
+
+            <button
+                id="signup-button"
+                class="hidden"
+                type="button"
+            >
+                Create account
+            </button>
+
         </div>
+
+
+        <div
+            class="auth-switch"
+            id="auth-switch"
+        >
+
+            Don't have an account?
+
+            <button
+                id="show-signup-button"
+                type="button"
+            >
+                Sign up
+            </button>
+
+        </div>
+
+
+        <div class="auth-divider">
+
+            <span>
+                OR
+            </span>
+
+        </div>
+
+
+        <button
+            id="guest-button"
+            type="button"
+        >
+
+            <span>
+                Continue without login
+            </span>
+
+            <small>
+                (ログインせずに利用する)
+            </small>
+
+        </button>
+
+
+        <p id="auth-message"></p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     SITE HEADER
+========================================================= -->
+
+<header class="site-header">
+
+    <div class="site-header-top">
+
+        
+
+
         <button
             id="logout-button"
             type="button"
@@ -93,230 +159,263 @@
         >
             Logout
         </button>
+
     </div>
+
 </header>
+
+
+
 <!-- =========================================================
      MAIN
 ========================================================= -->
+
 <main>
+
+
     <!-- =====================================================
-         LIBRARY
+         MOVIE LIBRARY
     ====================================================== -->
+
     <section
         class="movie-list"
         aria-labelledby="library-title"
     >
-        <p class="section-label">
-            YOUR LIBRARY
-        </p>
-        <h2 id="library-title">
-            学習コレクション
-        </h2>
-        <!-- =================================================
-             MAIN BOOKSHELF
-        ================================================== -->
-        <div class="bookshelf">
-            <p class="shelf-plaque">
-                CINEMA STUDIES
-            </p>
-            <!-- =============================================
-                 VOCABULARY COLLECTION
-            ============================================== -->
-            <button
-                class="movie-card shelf-book collection-book"
-                type="button"
-                id="collection-button"
-                aria-expanded="false"
-                aria-controls="book-list"
-            >
-                <span
-                    class="movie-image"
-                    aria-hidden="true"
-                >
-                    🕷️
-                </span>
-                <span class="book-info">
-                    <strong>
-                        Spider-manから学ぶ<br>
-                        英単語・表現
-                    </strong>
-                    <span>
-                        Movie vocabulary collection
-                    </span>
-                </span>
-                <span class="open-book"> Open ↓</span>
-               
-            </button>
+
+        <div class="library">
+
             <!-- =================================================
-                 COLLECTION EXPANSION
-                 Openを押すと、この部分が
-                 Vocabulary Collectionの下に展開される
+                 HEADER
             ================================================== -->
-            <div
-                id="book-list"
-                class="book-list hidden"
-            >
-                <div class="collection-divider">
-                    <span>
-                        SPIDER-MAN COLLECTION
-                    </span>
+
+            <header class="library-header">
+
+                <div class="header-ornament">
+                    ✦
                 </div>
-                <!-- =========================================
-                     SPIDER-MAN LESSON
-                ========================================== -->
-                <button
-                    class="movie-card shelf-book lesson-card"
-                    type="button"
-                    id="open-book-button"
-                    onclick="openBook()"
-                >
-                    <span
-                        class="movie-image trailer-image"
-                        aria-hidden="true"
-                    >
-                        🕸️
-                    </span>
-                    <span class="book-info">
-                        <strong>
-                            BRAND NEW DAY - New Trailer 4K
-                        </strong>
-                        <span class="progress-box">
-                            <span class="progress-label">
-                                LEARNING PROGRESS
-                            </span>
-                            <span class="progress-track">
-                                <span
-                                    id="library-progress-bar"
-                                    class="progress-fill"
-                                ></span>
-                            </span>
-                            <span
-                                id="library-progress"
-                                class="progress-percent"
-                            >
-                                0%
-                            </span>
-                        </span>
-                    </span>
-                    <span class="open-book">
-                        NEXT →
-                    </span>
-                </button>
-                <!-- =========================================
-                     YOUTUBE TRAILER
-                ========================================== -->
-                <a
-                    class="youtube-preview"
-                    href="https://www.youtube.com/watch?v=62bIsvRcPv0"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Brand New Day - New Trailer 4K をYouTubeで開く"
-                >
-                    <img
-                        src="https://i.ytimg.com/vi/62bIsvRcPv0/hqdefault.jpg"
-                        alt="Brand New Day - New Trailer 4K のYouTubeサムネイル"
-                        loading="lazy"
-                    >
-                    <span
-                        class="youtube-play"
-                        aria-hidden="true"
-                    >
-                        ▶
-                    </span>
-                    <span class="youtube-caption">
-                        <strong>
-                            Watch the trailer
-                        </strong>
-                        <span>
-                            BRAND NEW DAY - New Trailer 4K · YouTube
-                        </span>
-                    </span>
-                </a>
-            </div>
+
+                <p class="eyebrow">
+                    THE CINEMA LANGUAGE LIBRARY
+                </p>
+
+                <h2 id="library-title">
+                    CINEMA × LANGUAGE
+                </h2>
+
+                <p class="subtitle">
+                    Learn languages through cinema
+                </p>
+
+                <div class="header-line">
+
+                    <span></span>
+
+                    <i>
+                        ◆
+                    </i>
+
+                    <span></span>
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================================
+                 CONTENT LIST
+                 JSがここに本棚を生成
+            ================================================== -->
+
+            <div
+                id="content-list"
+                class="content-list"
+            ></div>
+
         </div>
+
     </section>
+
+<section id="contents-page" class="hidden">
+
+    <div class="contents-paper">
+
+        <button
+            id="back-to-library"
+            type="button"
+        >
+            ← BACK TO LIBRARY
+        </button>
+
+        <div
+            id="contents-list"
+            class="contents-list">
+        </div>
+
+    </div>
+
+</section>
+
     <!-- =====================================================
          VOCABULARY READER
-         ここは「単語帳」を実際に開いたときだけ表示
     ====================================================== -->
+
     <section
         id="vocabulary"
         class="vocabulary hidden"
         aria-labelledby="book-title"
     >
+
+
+        <!-- =================================================
+             READER TOP BAR
+        ================================================== -->
+
         <div class="reader-topbar">
+
+
             <button
                 class="back-button"
                 type="button"
                 id="back-collection-button"
             >
+
                 ← 単語帳一覧へ
+
             </button>
+
+
             <p
                 id="progress"
                 class="progress"
             >
-                1 / 8 ページ
+                1 / 1 ページ
             </p>
+
+
         </div>
+
+
+
+        <!-- =================================================
+             BOOK HEADING
+        ================================================== -->
+<div class="vocabulary-paper">
         <div class="book-heading">
+
             <p class="section-label">
                 SPIDER-MAN · VOCABULARY BOOK
             </p>
+
+
             <h2 id="book-title">
-                BRAND NEW DAY- New Trailer 4K
+                BRAND NEW DAY - New Trailer 4K
             </h2>
+
         </div>
+
         <!-- =================================================
              VOCABULARY BOOK
         ================================================== -->
-        <div class="book-shell vocabulary-page">
+
+        <div
+            class="book-shell vocabulary-page"
+        >
+
+
+            <!-- WORD LIST -->
+
             <ol
                 class="word-list"
                 id="word-list"
                 aria-label="単語リスト"
             ></ol>
+
+
+
             <!-- PREVIOUS -->
+
             <button
                 class="page-turn page-turn-left"
                 id="previous-button"
                 type="button"
                 aria-label="前のページ"
             >
+
                 <span>
                     ‹
                 </span>
+
                 <small>
                     PREV
                 </small>
+
             </button>
+
+
+
             <!-- NEXT -->
+
             <button
                 class="page-turn page-turn-right"
                 id="next-button"
                 type="button"
                 aria-label="次のページ"
             >
+
                 <small>
                     NEXT
                 </small>
+
                 <span>
                     ›
                 </span>
+
             </button>
+
+
         </div>
+</div>
+
+
+        <!-- =================================================
+             FLIP GUIDE
+        ================================================== -->
+
         <p class="flip-guide">
-            1ページに4語ずつ収録しています · 左右にスワイプしてページをめくれます
+
+            1ページに4語ずつ収録しています
+            ·
+            左右にスワイプしてページをめくれます
+
         </p>
+
+
     </section>
+
+
 </main>
+
+
+
 <!-- =========================================================
      SUPABASE
 ========================================================= -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<script
+    src="https://unpkg.com/@supabase/supabase-js@2"
+></script>
+
+
+
 <!-- =========================================================
      MAIN SCRIPT
 ========================================================= -->
-<script src="script.js"></script>
+
+<script
+    src="script.js"
+></script>
+
+
 </body>
+
 </html>
