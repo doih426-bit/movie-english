@@ -356,7 +356,8 @@ function openVocabularyBook(
 
     currentBookTitle =
         bookTitle || "";
-
+    
+    
 
     /*
        選択した本の単語だけ
@@ -2449,6 +2450,12 @@ async function openContentsPage(
 
     currentBookTitle =
         contentTitle || "";
+    
+    currentContentId =
+    Number(contentId);
+
+currentContentTitle =
+    contentTitle || "";
 
 
     /* =====================================================
@@ -2554,6 +2561,211 @@ async function openContentsPage(
         "Books for content:",
         books
     );
+    /* =====================================================
+   LOAD PROGRESS FOR CONTENTS
+===================================================== */
+
+const bookIds =
+    (books || []).map(
+        book => book.id
+    );
+
+let progressByBookId = {};
+
+if (
+    bookIds.length > 0
+) {
+
+    const {
+        data: wordRows,
+        error: wordError
+    } =
+        await supabaseClient
+            .from("words")
+            .select(`
+                id,
+                book_id
+            `)
+            .in(
+                "book_id",
+                bookIds
+            );
+
+
+    if (wordError) {
+
+        console.error(
+            "Contents word load error:",
+            wordError
+        );
+
+    } else {
+
+        /*
+           BOOKごとの単語IDを作る
+        */
+
+        const bookIdToWordIds = {};
+
+        for (
+            const bookId
+            of bookIds
+        ) {
+
+            bookIdToWordIds[bookId] =
+                [];
+
+        }
+
+
+        for (
+            const word
+            of wordRows || []
+        ) {
+
+            if (
+                bookIdToWordIds[word.book_id]
+            ) {
+
+                bookIdToWordIds[
+                    word.book_id
+                ].push(
+                    word.id
+                );
+
+            }
+
+        }
+
+
+        /*
+           全単語ID
+        */
+
+        const allWordIds =
+            (wordRows || []).map(
+                word => word.id
+            );
+
+
+        /*
+           Mastered取得
+        */
+
+        let masteredWordIds =
+    new Set();
+
+
+const {
+    data: {
+        user: currentUser
+    } = {}
+} =
+    await supabaseClient.auth.getUser();
+
+
+if (
+    currentUser &&
+    allWordIds.length > 0
+) {
+
+            const {
+                data: progressRows,
+                error: progressError
+            } =
+                await supabaseClient
+                    .from(
+                        "user_word_progress"
+                    )
+                    .select(
+                        "word_id, mastered"
+                    )
+                    .eq(
+    "user_id",
+    currentUser.id
+)
+                    .in(
+                        "word_id",
+                        allWordIds
+                    );
+
+
+            if (progressError) {
+
+                console.error(
+                    "Contents progress load error:",
+                    progressError
+                );
+
+            } else {
+
+                masteredWordIds =
+                    new Set(
+                        (progressRows || [])
+                            .filter(
+                                row =>
+                                    row.mastered === true
+                            )
+                            .map(
+                                row =>
+                                    row.word_id
+                            )
+                    );
+
+            }
+
+        }
+
+
+        /*
+           BOOKごとの進捗率
+        */
+
+        for (
+            const bookId
+            of bookIds
+        ) {
+
+            const wordIds =
+                bookIdToWordIds[
+                    bookId
+                ] || [];
+
+
+            const totalWords =
+                wordIds.length;
+
+
+            const masteredCount =
+                wordIds.filter(
+                    wordId =>
+                        masteredWordIds.has(
+                            wordId
+                        )
+                ).length;
+
+
+            const progressPercent =
+                totalWords > 0
+                    ? Math.round(
+                        (
+                            masteredCount /
+                            totalWords
+                        ) * 100
+                    )
+                    : 0;
+
+
+            progressByBookId[
+                bookId
+            ] =
+                progressPercent;
+
+        }
+
+    }
+
+}
 
 
     /* =====================================================
@@ -2661,9 +2873,9 @@ async function openContentsPage(
                                                         PROGRESS
                                                     </span>
 
-                                                    <span class="contents-progress-percent">
-                                                        0%
-                                                    </span>
+                                                   <span class="contents-progress-percent">
+    ${progressByBookId[book.id] || 0}%
+</span>
 
                                                 </div>
 
@@ -2671,7 +2883,7 @@ async function openContentsPage(
 
                                                     <div
                                                         class="contents-progress-fill"
-                                                        style="width: 0%"
+                                                       style="width: ${progressByBookId[book.id] || 0}%"
                                                     ></div>
 
                                                 </div>
@@ -2680,14 +2892,6 @@ async function openContentsPage(
 
                                         </div>
 
-
-                                        <div class="chapter-meta">
-
-                                            <span>
-                                                CHAPTER
-                                            </span>
-
-                                        </div>
 
                                     </a>
 
@@ -3436,12 +3640,11 @@ function renderPage(
         pageWords
 
             .map(
-                ({
-                    word: wordData,
-                    id,
-                    index,
-                    difficulty
-                }) => {
+    ({
+        word: wordData,
+        id,
+        difficulty
+    }, pageIndex) => {
 
                     const [
 
@@ -3471,7 +3674,7 @@ function renderPage(
             ? " is-mastered"
             : ""
     }"
-    data-word-index="${index}"
+    data-word-index="${start + pageIndex}"
     data-word-id="${id}"
 >
 
@@ -3726,20 +3929,15 @@ function renderPage(
    BACK TO COLLECTION
 ========================================================= */
 
+/* =========================================================
+   BACK TO COLLECTION
+========================================================= */
+
 function goBackToCollection() {
 
-    if (
-        vocabulary
-    ) {
-
-        vocabulary.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    function goBackToCollection() {
+    /*
+       HIDE VOCABULARY READER
+    */
 
     if (
         vocabulary
@@ -3751,6 +3949,10 @@ function goBackToCollection() {
 
     }
 
+
+    /*
+       SHOW CONTENTS PAGE
+    */
 
     if (
         contentsPage
@@ -3763,21 +3965,46 @@ function goBackToCollection() {
     }
 
 
-    window.scrollTo({
+    /*
+       RESTORE CONTENTS / BOOK LIST
+    */
 
-        top: 0,
+    if (
+        contentsList
+    ) {
 
-        behavior:
-            "smooth"
+        contentsList.classList.remove(
+            "hidden"
+        );
 
-    });
+    }
+
+
+    /*
+       RELOAD CONTENTS PAGE
+       直前のCONTENTS一覧を再構築
+    */
+
+    if (
+    currentContentId
+) {
+
+    openContentsPage(
+        currentContentId,
+        currentContentTitle
+    );
 
 }
 
 
+    /*
+       SCROLL TO TOP
+    */
+
     window.scrollTo({
 
-        top: 0,
+        top:
+            0,
 
         behavior:
             "smooth"
@@ -4054,28 +4281,82 @@ if (
 
 
     const isMastered =
-        masteredWords.has(
+    masteredWords.has(
+        id
+    );
+
+const nextMastered =
+    !isMastered;
+
+
+/*
+   UIを先に更新
+   DB通信を待たず、即座に線を反映
+*/
+
+if (
+    nextMastered
+) {
+
+    masteredWords.add(
+        id
+    );
+
+} else {
+
+    masteredWords.delete(
+        id
+    );
+
+}
+
+
+renderPage();
+
+
+/*
+   DBへ保存
+   UI更新後にバックグラウンドで実行
+*/
+
+const success =
+    await setMastered(
+        index,
+        nextMastered
+    );
+
+
+/*
+   保存失敗時だけ元に戻す
+*/
+
+if (
+    !success
+) {
+
+    if (
+        isMastered
+    ) {
+
+        masteredWords.add(
             id
         );
 
+    } else {
 
-    const success =
-        await setMastered(
-            index,
-            !isMastered
+        masteredWords.delete(
+            id
         );
-
-
-    if (
-        success
-    ) {
-
-        renderPage();
 
     }
 
 
-    return;
+    renderPage();
+
+}
+
+
+return;
 
 }
 

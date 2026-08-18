@@ -1335,6 +1335,7 @@ input {
 }
 
 .section-label {
+
     margin:
         0
         12px;
@@ -1345,9 +1346,11 @@ input {
         Arial,
         sans-serif;
 
-    font-size: 9px;
+    font-size: 10px;
 
-    letter-spacing: 0.25em;
+    font-weight: 400;
+
+    letter-spacing: 0.2em;
 }
 
 .book-heading h2 {
@@ -2993,4 +2996,16 @@ input {
     }
 
 }
+/* =========================================================
+   VOCABULARY BOOK TITLE
+========================================================= */
 
+#book-title.section-label {
+
+    font-size: 10px !important;
+
+    font-weight: 400 !important;
+
+    letter-spacing: 0.2em !important;
+
+}

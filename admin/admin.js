@@ -354,11 +354,6 @@ const editBookTitle =
         "#edit-book-title"
     );
 
-const editBookColor =
-    document.querySelector(
-        "#edit-book-color"
-    );
-
 const cancelEditBookButton =
     document.querySelector(
         "#cancel-edit-book-button"
@@ -2638,8 +2633,7 @@ contentBookList.addEventListener(
                         id,
                         title,
                         description,
-                        content_id,
-                        color
+                        content_id
                     `)
                     .eq(
                         "id",
@@ -2656,9 +2650,6 @@ contentBookList.addEventListener(
 
             editBookTitle.value =
                 data.title || "";
-
-            editBookColor.value =
-                data.color || "navy";
 
             editBookStatus.textContent =
                 "";
@@ -2697,9 +2688,6 @@ updateBookButton.addEventListener(
 
         const title =
             editBookTitle.value.trim();
-
-        const color =
-            editBookColor.value;
 
         if (!bookId) {
 
@@ -2742,9 +2730,6 @@ updateBookButton.addEventListener(
 
                         title:
                             title,
-
-                        color:
-                            color
 
                     })
                     .eq(
