@@ -949,8 +949,18 @@ body {
 
 
     .contents-heading {
-        gap: 12px;
-    }
+    gap: 12px;
+
+    transform:
+        translateY(-30px);
+}
+
+
+.contents-items {
+    transform:
+        translateY(-30px);
+}
+
 
 
     .contents-heading h2 {
