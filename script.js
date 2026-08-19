@@ -1148,44 +1148,6 @@ async function loadContentsForLibrary() {
     wrapper.className =
         "content-item library-content";
 
-
-    /* =====================================================
-       LIBRARY HEADER
-    ===================================================== */
-
-    const libraryTitle =
-        document.createElement(
-            "div"
-        );
-
-    libraryTitle.className =
-        "library-content-title";
-
-    libraryTitle.innerHTML = `
-        <div class="small-label">
-            CINEMA LANGUAGE LIBRARY
-        </div>
-
-        <h2>
-            ${escapeHtml(
-                parentContents.title
-            )}
-        </h2>
-
-        <p>
-            ${escapeHtml(
-                parentContents.description ||
-                "Learn English through cinema"
-            )}
-        </p>
-    `;
-
-
-    wrapper.appendChild(
-        libraryTitle
-    );
-
-
     /* =====================================================
        BOOK ROOM
     ===================================================== */
