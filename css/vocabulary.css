@@ -664,9 +664,9 @@
     }
     #vocabulary .book-heading {
         padding:
-            40px
             25px
-            30px;
+            25px
+            20px;
     }
     #vocabulary .library-progress-wrapper {
         padding:
@@ -888,4 +888,38 @@
 #vocabulary .book-shell {
     width: 100% !important;
     max-width: none !important;
+}
+
+/* =========================================================
+   MOBILE TUNING
+========================================================= */
+@media (max-width: 700px) {
+
+    #vocabulary .book-heading {
+        padding:
+            10px
+            25px
+            8px;
+    }
+
+}
+
+/* =========================================================
+   MOBILE TEST
+========================================================= */
+@media (max-width: 700px) {
+
+    #vocabulary .vocabulary-paper .book-heading {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+    }
+
+}
+@media (max-width: 700px) {
+
+    #vocabulary #book-title {
+        margin-top: 7px !important;
+        margin-bottom: 7px !important;
+    }
+
 }
