@@ -923,3 +923,100 @@
     }
 
 }
+/* =========================================================
+   MOBILE WORD ENTRY HEIGHT
+========================================================= */
+
+@media (max-width: 700px) {
+
+    #vocabulary .word-entry {
+        min-height: 125px !important;
+    }
+
+}
+/* =========================================================
+   MOBILE WORD POSITION & SIZE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    #vocabulary .word-entry .word {
+        font-size: 22px !important;
+        transform: translateY(-8px) !important;
+    }
+
+    #vocabulary .word-entry .meaning {
+        font-size: 20px !important;
+        transform: translateY(-8px) !important;
+    }
+
+}
+/* =========================================================
+   MOBILE EXAMPLE POSITION
+========================================================= */
+
+@media (max-width: 700px) {
+
+    #vocabulary .word-entry .example-item {
+        transform: translateY(-16px) !important;
+    }
+
+    #vocabulary .word-entry .translation-item {
+        transform: translateY(-16px) !important;
+    }
+
+}
+/* =========================================================
+   MOBILE DIFFICULTY POSITION
+========================================================= */
+
+@media (max-width: 700px) {
+
+    #vocabulary .word-entry .word-level {
+        transform: translateY(-14px) !important;
+    }
+
+}
+/* =========================================================
+   MOBILE FLIP HINT POSITION
+========================================================= */
+
+@media (max-width: 700px) {
+
+    #vocabulary .word-entry .word-flip-hint {
+        position: absolute !important;
+        top: auto !important;
+        bottom: 8px !important;
+        left: auto !important;
+        right: 12px !important;
+        transform: none !important;
+        white-space: nowrap !important;
+    }
+
+}
+/* =========================================================
+   MOBILE BACK BUTTON
+========================================================= */
+
+/* =========================================================
+   MOBILE BACK BUTTON
+========================================================= */
+
+@media (max-width: 700px) {
+
+    #vocabulary #back-collection-button {
+        transform: translateX(10px) !important;
+    }
+
+    #vocabulary #back-collection-button span {
+        display: block;
+    }
+
+}
+@media (max-width: 700px) {
+
+    #vocabulary #back-collection-button {
+        color: rgba(106, 86, 66, 0.9) !important;
+    }
+
+}
