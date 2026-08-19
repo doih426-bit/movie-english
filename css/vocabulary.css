@@ -660,7 +660,7 @@
     #vocabulary {
         padding:
             25px
-            10px;
+            0px;
     }
     #vocabulary .book-heading {
         padding:
@@ -866,4 +866,26 @@
 #vocabulary .word-entry {
     padding-left: 20px !important;
     padding-right: 20px !important;
+}
+/* =========================================================
+   VOCABULARY — REMOVE OUTER SIDE PADDING
+========================================================= */
+
+#vocabulary {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#vocabulary .vocabulary-paper {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+#vocabulary .book-heading,
+#vocabulary .library-progress-wrapper,
+#vocabulary .book-shell {
+    width: 100% !important;
+    max-width: none !important;
 }

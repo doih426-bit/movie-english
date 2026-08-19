@@ -3677,6 +3677,11 @@ function renderPage(
     data-word-index="${start + pageIndex}"
     data-word-id="${id}"
 >
+<span class="word-number">
+
+        ${String(start + pageIndex + 1).padStart(2, "0")}
+
+    </span>
 
     <button
         class="word-flip"
@@ -3858,7 +3863,26 @@ function renderPage(
             )
 
             .join("");
+document.querySelectorAll('#vocabulary .word-entry').forEach(entry => {
 
+    const english =
+        entry.querySelector('.examples');
+
+    const japanese =
+        entry.querySelector('.translations');
+
+    if (!english || !japanese) {
+        return;
+    }
+
+    const diff =
+        english.getBoundingClientRect().top -
+        japanese.getBoundingClientRect().top;
+
+    japanese.style.transform =
+        `translateY(${diff}px)`;
+
+});
 
     if (
         progress
